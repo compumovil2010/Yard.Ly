@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Yardly</string>
+    <string name="nombreUsuario">Nombre De Usuario</string>
+    <string name="contrasena">Contraseña</string>
 </resources>
