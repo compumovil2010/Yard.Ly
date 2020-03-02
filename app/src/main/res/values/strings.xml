@@ -5,4 +5,12 @@
     <string name="nombres">Nombres</string>
     <string name="apellidos">Apellidos</string>
     <string name="email">Email</string>
+    <string name="cncel">
+        <u>cancel</u>
+    </string>
+    <string name="regis">Registro</string>
+    <string name="tyc">Acepto terminos y condiciones</string>
+    <string name="politicprivacy">Acepto politicas de privacidad</string>
+    <string name="login">Log In</string>
+    <string name="fotperfil">seleccion de foto de perfil</string>
 </resources>
