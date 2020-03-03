@@ -3,3 +3,10 @@ Yard.ly es una aplicación móvil basada en Android, inspirada en las problemát
 
 ## ¿Por que Yard.ly?
 Yard.ly facilitara el acceso a productos relevantes para todos aquellos que deseen iniciar o continuar el estilo de vida eco-friendly. Esto resultará en una disminución en la huella ambiental de cada uno de nuestros usuarios y clientes de una manera comoda, sencilla y productiva para ambas partes. 
+
+### Plataforma
+Android (Java)
+
+### IDE
+* Android Studio
+
