@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".editarProductoPlato">
+
+    <TextView
+        android:id="@+id/editProductPlato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar Producto"
+        android:layout_marginTop="20dp"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_below="@id/editProductPlato"/>
+
+    <ImageButton
+        android:id="@+id/imgProductPlato"
+        android:layout_width="133dp"
+        android:layout_height="141dp"
+        android:layout_below="@id/editProductPlato"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/perfi"
+        android:layout_marginStart="105dp"/>
+
+    <Spinner
+        android:id="@+id/platoedi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imgProductPlato"
+        android:layout_above="@id/Npersonas"/>
+
+    <EditText
+        android:id="@+id/Npersonas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgProductPlato"
+        android:paddingHorizontal="30dp"
+        android:ems="10"
+        android:hint="No. personas"
+        android:inputType="textPersonName"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/ingredientesEdit"
+        android:layout_width="match_parent"
+        android:layout_height="226dp"
+        android:layout_below="@id/Npersonas"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="Ingredientes"
+        android:inputType="textPersonName"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="40dp"/>
+    <Button
+        android:id="@+id/guardarEditProductPlato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ingredientesEdit"
+        android:text="@string/Guardar"
+        android:background="@drawable/rounded_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"/>
+
+
+</RelativeLayout>

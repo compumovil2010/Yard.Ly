@@ -1,11 +1,11 @@
 package com.example.yardly;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class logActivity extends AppCompatActivity {
     Button registro;
@@ -27,7 +27,7 @@ public class logActivity extends AppCompatActivity {
         ingreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ingreso = new Intent(getBaseContext(),editarPerfilU.class);
+                Intent ingreso = new Intent(getBaseContext(),HomeActivity.class);
                 startActivity(ingreso);
             }
         });

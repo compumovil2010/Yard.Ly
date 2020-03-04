@@ -2,12 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/home"
-        android:icon="@drawable/hoja"
-        android:title="@string/Home"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/ordenesL"
         android:icon="@drawable/chulito"
         android:title="@string/Home"
@@ -20,6 +14,6 @@
     <item
         android:id="@+id/MiPerfil"
         android:icon="@drawable/usuario"
-        android:title="@string/Home"
+        android:title="Mi Perfil"
         app:showAsAction="always"/>
 </menu>
