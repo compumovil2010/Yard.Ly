@@ -11,22 +11,20 @@
         android:theme="@style/AppTheme">
         <activity android:name=".VerInformacionEstablecimiento"></activity>
         <activity android:name=".infoPedido"></activity>
+        <activity android:name=".editarProducto"></activity>
+        <activity android:name=".CarritoCompras"></activity>
+        <activity android:name=".ActividadBaseE"></activity>
+        <activity android:name=".entregaUsuario" />
         <activity android:name=".dirFrec" />
         <activity android:name=".editarPerfilU" />
-        <activity android:name=".OrdersHistory"/>
         <activity android:name=".infoPerfil" />
         <activity android:name=".Producto" />
         <activity android:name=".RegistroFoto" />
         <activity android:name=".Registro" />
         <activity android:name=".Checkout" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".CarritoCompras"></activity>
-        <activity android:name=".ActividadBaseE"></activity>
-        <activity android:name=".ActividadBaseU" />
-        <activity android:name=".editarPerfilEmpresa" />
-        <activity android:name=".verPerfilEmpresa" />
-        <activity android:name=".DomiciliarioPedido" />
         <activity android:name=".logActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,5 +32,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

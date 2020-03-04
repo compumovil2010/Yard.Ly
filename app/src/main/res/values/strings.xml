@@ -15,6 +15,7 @@
     <string name="login">Log In</string>
     <string name="Guardar">Guardar</string>
     <string name="dirfrec">Ver Direcciones Frecuentes</string>
+    <string name="dirfrec1">Direcciones Frecuentes</string>
     <string name="fotperfil">seleccion de foto de perfil</string>
     <string name="nomproy">Nombre producto</string>
     <string name="descriprod">Descripcion</string>
@@ -23,6 +24,12 @@
     <string name="tot">Total</string>
     <string name="agregCarr">Agregar carrito</string>
     <string name="opini">Opiniones</string>
+<<<<<<< HEAD
+    <string-array name="tipoProducto">
+        <item>Ropa</item>
+        <item>Plato</item>
+    </string-array>
+=======
     <string name="imgproduct">Imagen de producto</string>
     <string name="agregar">Agregar</string>
     <string name="nomEsta">Nombre Establecimiento</string>
@@ -34,4 +41,5 @@
     <string name="CarritoCompras">Carrito de Compras</string>
     <string name="perf">Mi Perfil</string>
 
+>>>>>>> 1e3195fba1d0a11976875ba78a51b6add0e5b529
 </resources>
