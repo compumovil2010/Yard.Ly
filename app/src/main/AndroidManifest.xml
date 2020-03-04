@@ -20,6 +20,7 @@
         <activity android:name=".editarProductoPlato" />
         <activity android:name=".AsignacionDomi"></activity>
         <activity android:name=".ActividadBaseE" />
+        <activity android:name=".omgreen" />
         <activity android:name=".entregaUsuario" />
         <activity android:name=".dirFrec" />
         <activity android:name=".editarPerfilU" />

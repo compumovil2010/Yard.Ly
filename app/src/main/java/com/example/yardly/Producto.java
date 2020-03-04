@@ -1,6 +1,9 @@
 package com.example.yardly;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +17,20 @@ public class Producto extends AppCompatActivity {
     private String nombre;
     private int precio;
     private String Descripcion;
+    Button b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
+        b=findViewById(R.id.aggCarrit);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registro = new Intent(getBaseContext(),CarritoCompras.class);
+                startActivity(registro);
+            }
+        });
+
         mlista=findViewById(R.id.opiniones);
         mProjection.add("Asunto");
         mProjection.add("Opinion");
