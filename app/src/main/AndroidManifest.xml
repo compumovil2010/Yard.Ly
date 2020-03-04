@@ -13,13 +13,14 @@
         <activity android:name=".infoPedido"></activity>
         <activity android:name=".dirFrec" />
         <activity android:name=".editarPerfilU" />
+        <activity android:name=".logActivity"/>
         <activity android:name=".infoPerfil" />
         <activity android:name=".Producto" />
         <activity android:name=".RegistroFoto" />
         <activity android:name=".Registro" />
         <activity android:name=".Checkout" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".logActivity">
+        <activity android:name=".OrdersHistory">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
