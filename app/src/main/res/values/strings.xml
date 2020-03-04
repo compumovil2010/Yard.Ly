@@ -1,3 +1,42 @@
 <resources>
     <string name="app_name">Yardly</string>
+    <string name="nombreUsuario">Nombre De Usuario</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="nombres">Nombres</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="email">Email</string>
+    <string name="direccion">Direccion</string>
+    <string name="cncel">
+        <u>cancelar</u>
+    </string>
+    <string name="regis">Registro</string>
+    <string name="tyc">Acepto terminos y condiciones</string>
+    <string name="politicprivacy">Acepto politicas de privacidad</string>
+    <string name="login">Log In</string>
+    <string name="Guardar">Guardar</string>
+    <string name="dirfrec">Ver Direcciones Frecuentes</string>
+    <string name="dirfrec1">Direcciones Frecuentes</string>
+    <string name="fotperfil">seleccion de foto de perfil</string>
+    <string name="nomproy">Nombre producto</string>
+    <string name="descriprod">Descripcion</string>
+    <string name="precioprodu">Precio</string>
+    <string name="cantidadpro">Cantidad</string>
+    <string name="tot">Total</string>
+    <string name="agregCarr">Agregar carrito</string>
+    <string name="opini">Opiniones</string>
+    <string-array name="tipoProducto">
+        <item>Ropa</item>
+        <item>Plato</item>
+    </string-array>
+    <string name="imgproduct">Imagen de producto</string>
+    <string name="agregar">Agregar</string>
+    <string name="nomEsta">Nombre Establecimiento</string>
+    <string name="products">Productos</string>
+    <string name="NomApp">Yard.ly</string>
+    <string name="Home">Home</string>
+    <string name="BusquedaP">Busqueda de Productos</string>
+    <string name="ordenR">Ordenes Recientes</string>
+    <string name="CarritoCompras">Carrito de Compras</string>
+    <string name="perf">Mi Perfil</string>
+
 </resources>

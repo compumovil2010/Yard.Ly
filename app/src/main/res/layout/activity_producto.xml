@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/imgproduct">
+
+        <ImageView
+            android:id="@+id/imgProd"
+            android:layout_width="176dp"
+            android:layout_height="175dp"
+            android:layout_marginTop="30dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/product"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:id="@+id/nomProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgProd"
+            android:layout_alignStart="@id/imgProd"
+            android:layout_marginTop="6dp"
+            android:padding="5dp"
+            android:text="@string/nomproy" />
+
+        <TextView
+            android:id="@+id/descripProduc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nomProduct"
+            android:layout_alignStart="@id/imgProd"
+            android:layout_marginTop="1dp"
+            android:padding="5dp"
+            android:text="@string/descriprod" />
+
+        <TextView
+            android:id="@+id/precioProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/precioprodu"
+            android:layout_below="@id/descripProduc"
+            android:layout_alignStart="@id/imgProd"/>
+
+        <TextView
+            android:id="@+id/cantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cantidadpro"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="50dp"
+            android:layout_alignStart="@id/imgProd"
+            android:layout_below="@id/precioProduct"/>
+
+        <Button
+            android:id="@+id/menos"
+            android:layout_width="32dp"
+            android:layout_height="34dp"
+            android:layout_below="@id/precioProduct"
+            android:background="@null"
+            android:layout_toEndOf="@id/cantidad"
+            android:text="-" />
+        <TextView
+            android:id="@+id/cantProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:padding="5dp"
+            android:layout_below="@id/precioProduct"
+            android:layout_toEndOf="@id/menos"
+            />
+
+        <Button
+            android:id="@+id/mas"
+            android:layout_width="32dp"
+            android:layout_height="34dp"
+            android:layout_below="@id/precioProduct"
+            android:layout_toEndOf="@id/cantProduct"
+            android:background="@null"
+            android:text="+" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tot"
+            android:padding="5dp"
+            android:layout_below="@id/cantidad"
+            android:layout_alignLeft="@id/imgProd"/>
+
+        <Button
+            android:id="@+id/aggCarrit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/agregCarr"
+            android:layout_below="@id/total"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/opinion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/opini"
+            android:layout_below="@id/aggCarrit"
+            />
+
+        <ListView
+            android:id="@+id/opiniones"
+            android:layout_width="match_parent"
+            android:layout_height="259dp"
+            android:layout_below="@id/opinion"
+            android:padding="15dp"/>
+
+
+
+    </RelativeLayout>
+
+</ScrollView>
