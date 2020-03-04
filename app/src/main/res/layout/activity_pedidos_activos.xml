@@ -1,9 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PedidosActivos">
+    tools:context=".VerInformacionEstablecimiento">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/establec"
+        android:layout_width="212dp"
+        android:layout_height="123dp"
+        android:src="@drawable/estableciejem"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/nomEstable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nomEsta"
+        android:layout_toEndOf="@id/establec"
+        android:padding="20dp"/>
+
+    <TextView
+        android:id="@+id/descripEstable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/descriprod"
+        android:layout_toEndOf="@id/establec"
+        android:layout_below="@id/nomEstable"
+        android:paddingTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="70dp"/>
+    <TextView
+        android:id="@+id/ordenesact"
+        android:text="Ordenes Activas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/establec"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:layout_below="@id/ordenesact"
+        android:background="@android:color/darker_gray"
+        />
+    <ListView
+
+        android:id="@+id/lispedidos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ordenesact">
+    </ListView>
+</RelativeLayout>
