@@ -106,7 +106,8 @@
             android:layout_margin="20sp"
             android:layout_weight="1"
             android:text="Cancelar"
-            android:textColor="@color/verde"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/black"
             android:textColorHint="@color/verde" />
 
         <Button
@@ -115,6 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:layout_weight="1"
+            android:background="@drawable/rounded_button"
             android:text="Registrar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
