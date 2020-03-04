@@ -4,10 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="25dp"
     tools:context=".HomeActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/activity_actividad_baseu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
+        android:padding="25dp"
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +26,7 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
 
     <TextView
@@ -39,12 +48,13 @@
         android:layout_width="141dp"
         android:layout_height="157dp"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="36dp"
         android:src="@drawable/naturaleza"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titulo" />
 
     <TextView
+
         android:id="@+id/total_arboles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,6 +68,8 @@
         app:layout_constraintTop_toBottomOf="@+id/arbol" />
 
     <TextView
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
         android:id="@+id/pregunta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,6 +82,8 @@
         app:layout_constraintTop_toBottomOf="@+id/total_arboles" />
 
     <Button
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
         android:id="@+id/btComida"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,6 +97,8 @@
 
     <Button
         android:id="@+id/btRopa"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
