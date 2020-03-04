@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".Producto">
+
+        <ImageView
+            android:id="@+id/imgProd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/nomProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/nomproy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgProd" />
+
+        <TextView
+            android:id="@+id/descripProduc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/descriprod"
+            app:layout_constraintBottom_toTopOf="@+id/precioProduct"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.293"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nomProduct"
+            app:layout_constraintVertical_bias="0.369" />
+
+        <TextView
+            android:id="@+id/precioProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/precioprodu"
+            app:layout_constraintBottom_toTopOf="@id/cantidad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.264"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descripProduc" />
+
+        <TextView
+            android:id="@+id/cantidad"
+            android:layout_width="82dp"
+            android:layout_height="27dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/cantidadpro"
+            app:layout_constraintBottom_toTopOf="@+id/total"
+            app:layout_constraintEnd_toStartOf="@+id/menos"
+            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/menos"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="24dp"
+            android:text="-"
+            app:layout_constraintBottom_toTopOf="@+id/total"
+            app:layout_constraintEnd_toStartOf="@+id/cantProduct"
+            app:layout_constraintTop_toTopOf="@+id/cantidad"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/mas"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="12dp"
+            android:text="+"
+            app:layout_constraintBottom_toTopOf="@id/total"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cantidad"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="@string/tot"
+            app:layout_constraintBottom_toTopOf="@id/aggCarrit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.257"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/aggCarrit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/agregCarr"
+            app:layout_constraintBottom_toTopOf="@id/opinion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/opinion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/opini"
+            app:layout_constraintBottom_toTopOf="@id/opiniones"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.293"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ListView
+            android:id="@+id/opiniones"
+            android:layout_width="match_parent"
+            android:layout_height="259dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/cantProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:text="0"
+            app:layout_constraintBottom_toTopOf="@+id/total"
+            app:layout_constraintEnd_toStartOf="@+id/mas"
+            app:layout_constraintTop_toBottomOf="@+id/precioProduct"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

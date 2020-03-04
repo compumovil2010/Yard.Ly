@@ -13,4 +13,11 @@
     <string name="politicprivacy">Acepto politicas de privacidad</string>
     <string name="login">Log In</string>
     <string name="fotperfil">seleccion de foto de perfil</string>
+    <string name="nomproy">Nombre producto</string>
+    <string name="descriprod">Descripcion</string>
+    <string name="precioprodu">Precio</string>
+    <string name="cantidadpro">Cantidad</string>
+    <string name="tot">Total</string>
+    <string name="agregCarr">Agregar carrito</string>
+    <string name="opini">Opiniones</string>
 </resources>
