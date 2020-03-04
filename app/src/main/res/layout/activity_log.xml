@@ -22,11 +22,11 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="116dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
@@ -60,17 +60,6 @@
             android:text="Ingresar"
             android:textColor="@color/verde" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="256dp"
-        android:layout_height="184dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
         <Button
             android:id="@+id/botonRegistrar"
             android:layout_width="match_parent"
@@ -80,15 +69,6 @@
             android:text="Registrar"
             android:textColor="@color/verde" />
 
-        <Button
-            android:id="@+id/botonContrasena"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:text="Recuperar Contraseña"
-
-            android:textColor="@color/verde" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

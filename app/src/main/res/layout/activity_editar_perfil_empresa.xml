@@ -6,44 +6,56 @@
     android:layout_height="match_parent"
     android:background="@color/verde"
     tools:context=".RegistroFoto">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include
-            layout="@layout/activity_actividad_baseu"
+
+        <FrameLayout
+            android:id="@+id/fram"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/layl">
 
-        <ImageButton
-            android:id="@+id/selecFotperf"
-            android:layout_width="178dp"
-            android:layout_height="175dp"
-            android:background="@null"
-            android:contentDescription="@string/fotperfil"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-            app:srcCompat="@drawable/perfi" />
+            <ImageButton
+                android:id="@+id/bannerE"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/res"
+                android:contentDescription="@string/fotperfil"
+                android:scaleType="centerInside" />
+
+            <ImageButton
+                android:id="@+id/selecFotperfE"
+                android:layout_width="178dp"
+                android:layout_height="175dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:contentDescription="@string/fotperfil"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/perfi" />
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/layl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selecFotperf">
+            app:layout_constraintTop_toBottomOf="@+id/fram"
+            app:layout_constraintBottom_toTopOf="@+id/linl">
 
             <EditText
                 android:id="@+id/editText3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_margin="10sp"
                 android:ems="10"
                 android:hint="@string/nombres"
                 android:inputType="textPersonName"
@@ -51,12 +63,12 @@
                 android:textColorHint="@color/blanc" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/mail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_margin="10sp"
                 android:ems="10"
-                android:hint="@string/apellidos"
+                android:hint="@string/email"
                 android:inputType="textPersonName"
                 android:textColor="@color/blanc"
                 android:textColorHint="@color/blanc" />
@@ -65,26 +77,38 @@
                 android:id="@+id/editText5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_margin="10sp"
                 android:ems="10"
-                android:hint="@string/email"
+                android:hint="@string/direccion"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/blanc"
                 android:textColorHint="@color/blanc" />
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/dirFrec"
+        <LinearLayout
+            android:id="@+id/linl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:backgroundTint="@color/verdebut"
-            android:text="@string/dirfrec"
-            android:textColor="@color/blanc"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layl" />
+            app:layout_constraintTop_toBottomOf="@+id/layl"
+            app:layout_constraintBottom_toTopOf="@+id/btnGuardarP"
+            >
+
+            <Spinner
+                android:id="@+id/apertura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <Spinner
+                android:id="@+id/cierre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnGuardarP"
@@ -96,7 +120,7 @@
             android:text="@string/Guardar"
             android:textColor="@color/blanc"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dirFrec" />
+            app:layout_constraintTop_toBottomOf="@+id/linl" />
 
         <Button
             android:id="@+id/btnCancP"
@@ -108,7 +132,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btnGuardarP"
             app:layout_constraintHorizontal_bias="0.358"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dirFrec"
+            app:layout_constraintTop_toBottomOf="@+id/linl"
             app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
