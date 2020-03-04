@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DomiciliarioPedido">
+
+    <TextView
+        android:id="@+id/usutit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Usuario"
+        android:paddingTop="20dp"
+        android:paddingStart="15dp"
+        android:paddingBottom="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/usutit"/>
+
+    <ImageView
+        android:id="@+id/fotoUsu"
+        android:layout_width="152dp"
+        android:layout_height="152dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="20dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/perfi"
+        android:layout_below="@id/usutit" />
+
+    <TextView
+        android:id="@+id/nomUsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:layout_below="@id/usutit"
+        android:textSize="20sp"
+        android:layout_toEndOf="@id/fotoUsu"
+        android:paddingStart="60dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telefono"
+        android:textSize="20sp"
+        android:layout_toEndOf="@id/fotoUsu"
+        android:paddingStart="60dp"
+        android:layout_below="@id/nomUsu"
+        android:paddingBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/direc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Direccion"
+        android:textSize="20sp"
+        android:paddingStart="60dp"
+        android:layout_toEndOf="@id/fotoUsu"
+        android:layout_below="@id/tel"
+        android:paddingBottom="15dp"
+        />
+
+    <Button
+        android:id="@+id/finEntre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar Entrega"
+        android:paddingStart="25dp"
+        android:layout_below="@id/fotoUsu"/>
+
+    <Button
+        android:id="@+id/chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/map"
+        android:layout_below="@id/direc"
+        android:layout_toEndOf="@id/direc"
+        android:text="Chat" />
+
+    <ImageView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="484dp"
+        android:layout_below="@id/finEntre"
+        android:scaleType="fitCenter"
+        android:padding="20dp"
+        app:srcCompat="@drawable/mapeje" />
+
+
+</RelativeLayout>

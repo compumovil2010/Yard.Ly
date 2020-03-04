@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".VerInformacionEstablecimiento"></activity>
+        <activity android:name=".infoPedido"></activity>
         <activity android:name=".editarProducto"></activity>
+        <activity android:name=".CarritoCompras"></activity>
+        <activity android:name=".ActividadBaseE"></activity>
         <activity android:name=".entregaUsuario" />
-        <activity android:name=".infoPedido" />
         <activity android:name=".dirFrec" />
         <activity android:name=".editarPerfilU" />
         <activity android:name=".infoPerfil" />
@@ -21,6 +24,7 @@
         <activity android:name=".Checkout" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".logActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,5 +32,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

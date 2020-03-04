@@ -11,7 +11,5 @@ public class RegistroFoto extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_foto);
-        /*   Intent inte = new Intent(this,Producto.class);
-        startActivity(inte);*/
     }
 }

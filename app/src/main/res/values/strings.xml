@@ -5,6 +5,7 @@
     <string name="nombres">Nombres</string>
     <string name="apellidos">Apellidos</string>
     <string name="email">Email</string>
+    <string name="direccion">Direccion</string>
     <string name="cncel">
         <u>cancelar</u>
     </string>
@@ -22,8 +23,22 @@
     <string name="tot">Total</string>
     <string name="agregCarr">Agregar carrito</string>
     <string name="opini">Opiniones</string>
+<<<<<<< HEAD
     <string-array name="tipoProducto">
         <item>Ropa</item>
         <item>Plato</item>
     </string-array>
+=======
+    <string name="imgproduct">Imagen de producto</string>
+    <string name="agregar">Agregar</string>
+    <string name="nomEsta">Nombre Establecimiento</string>
+    <string name="products">Productos</string>
+    <string name="NomApp">Yard.ly</string>
+    <string name="Home">Home</string>
+    <string name="BusquedaP">Busqueda de Productos</string>
+    <string name="ordenR">Ordenes Recientes</string>
+    <string name="CarritoCompras">Carrito de Compras</string>
+    <string name="perf">Mi Perfil</string>
+
+>>>>>>> 1e3195fba1d0a11976875ba78a51b6add0e5b529
 </resources>

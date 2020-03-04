@@ -83,14 +83,6 @@
             android:text="Registrar"
             android:textColor="@color/verde" />
 
-        <Button
-            android:id="@+id/botonContrasena"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:text="Recuperar Contraseña"
-            android:textColor="@color/verde" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

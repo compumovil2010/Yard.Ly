@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/proycarr"
+        android:layout_width="125dp"
+        android:layout_height="138dp"
+        android:layout_margin="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
+        app:srcCompat="@drawable/product" />
+
+    <TextView
+        android:id="@+id/nomprodCarr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre producto:"
+        android:layout_toEndOf="@id/proycarr"
+        android:paddingBottom="5dp"
+        android:paddingTop="30dp"/>
+
+    <TextView
+        android:id="@+id/DescripCarrito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/proycarr"
+        android:layout_below="@id/nomprodCarr"
+        android:paddingBottom="5dp"
+        android:text="Descripcion" />
+
+    <TextView
+        android:id="@+id/precioCarrito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DescripCarrito"
+        android:paddingBottom="5dp"
+        android:layout_toEndOf="@id/proycarr"
+        android:text="precio" />
+    <Button
+        android:id="@+id/menos"
+        android:layout_width="32dp"
+        android:layout_height="34dp"
+        android:background="@null"
+        android:layout_below="@id/precioCarrito"
+        android:layout_toEndOf="@id/proycarr"
+        android:text="-" />
+    <TextView
+        android:id="@+id/cantProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:padding="5dp"
+        android:layout_toEndOf="@id/menos"
+        android:layout_below="@id/precioCarrito"
+        />
+
+    <Button
+        android:id="@+id/mas"
+        android:layout_width="32dp"
+        android:layout_height="34dp"
+        android:background="@null"
+        android:layout_toEndOf="@id/cantProduct"
+        android:layout_below="@id/precioCarrito"
+        android:text="+"
+        android:layout_marginRight="80dp"/>
+
+    <ImageButton
+        android:id="@+id/borrar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/precioCarrito"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@id/mas"
+        app:srcCompat="@drawable/xcarrito" />
+</RelativeLayout>

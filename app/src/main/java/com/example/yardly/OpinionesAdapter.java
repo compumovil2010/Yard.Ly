@@ -33,12 +33,12 @@ public class OpinionesAdapter extends ArrayAdapter<String> {
         String val = getItem(position);
         if (val!=null){
             TextView asunto = vie.findViewById(R.id.asunto);
-            asunto.setText(val);
+            asunto.setText("Asunto");
         }
         String val1 = getItem(position);
         if (val!=null){
             TextView comentario = vie.findViewById(R.id.comentario);
-            comentario.setText(val1);
+            comentario.setText("Comentarios");
         }
         return vie;
     }
