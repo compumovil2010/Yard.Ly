@@ -18,8 +18,8 @@ public class Registro extends AppCompatActivity {
         registroFot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registroFot = new Intent(getBaseContext(),Producto.class);
-                startActivity(registroFot);
+                /*Intent registroFot = new Intent(getBaseContext(),CarritoCompras.class);
+                startActivity(registroFot);*/
             }
         });
     }
