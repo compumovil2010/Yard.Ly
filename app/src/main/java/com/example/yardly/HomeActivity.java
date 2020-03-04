@@ -1,11 +1,11 @@
 package com.example.yardly;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.os.Bundle;
-
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends ActividadBaseU {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
