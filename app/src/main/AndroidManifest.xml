@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".editarPerfilEmpresa"></activity>
+        <activity android:name=".ActividadBaseE"></activity>
+        <activity android:name=".ActividadBaseU" />
+        <activity android:name=".editarPerfilEmpresa" />
         <activity android:name=".verPerfilEmpresa" />
-        <activity android:name=".VerInformacionEstablecimiento"></activity>
-        <activity android:name=".infoPedido"></activity>
+        <activity android:name=".VerInformacionEstablecimiento" />
+        <activity android:name=".infoPedido" />
         <activity android:name=".dirFrec" />
         <activity android:name=".editarPerfilU" />
         <activity android:name=".infoPerfil" />
