@@ -51,6 +51,15 @@
             android:inputType="textPassword"
             android:textColorHint="@color/verde" />
 
+        <Button
+            android:id="@+id/botonIngresar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="30dp"
+            android:layout_weight="1"
+            android:text="Ingresar"
+            android:textColor="@color/verde" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -63,19 +72,10 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/botonIngresar"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:text="Ingresar"
-            android:textColor="@color/verde" />
-
-        <Button
             android:id="@+id/botonRegistrar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_margin="30dp"
             android:layout_weight="1"
             android:text="Registrar"
             android:textColor="@color/verde" />
@@ -84,9 +84,10 @@
             android:id="@+id/botonContrasena"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:layout_weight="1"
             android:text="Recuperar Contraseña"
+
             android:textColor="@color/verde" />
     </LinearLayout>
 
