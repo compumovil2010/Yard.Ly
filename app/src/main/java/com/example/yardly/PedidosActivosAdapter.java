@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class PedidosActivosAdapter extends ArrayAdapter<Producto>{
+public class PedidosActivosAdapter extends ArrayAdapter<Pedido>{
     private int LayoutUso;
     private Context contex;
-    public PedidosActivosAdapter (Context context, int resource, List<Producto> products){
-        super(context,resource,products);
+    public PedidosActivosAdapter (Context context, int resource, List<Pedido> pedids){
+        super(context,resource,pedids);
         this.LayoutUso=resource;
         this.contex=context;
     }
@@ -23,13 +23,13 @@ public class PedidosActivosAdapter extends ArrayAdapter<Producto>{
             vie = LayoutInflater.from(getContex())
                     .inflate(getLayoutUso(), parent, false);
         }
-        Producto pro = getItem(position);
+        Pedido pro = getItem(position);
         if (pro!=null){
             TextView nombre = vie.findViewById(R.id.nompedido);
             TextView Descrip = vie.findViewById(R.id.desPedido);
             TextView precio = vie.findViewById(R.id.fechaPedido);
-            nombre.setText(pro.getNombre());
-            Descrip.setText(pro.getDescripcion());
+            nombre.setText(pro.getNombreProducto());
+            Descrip.setText(pro.getFecha());
             precio.setText(String.valueOf(pro.getPrecio()));
         }
         return  vie;

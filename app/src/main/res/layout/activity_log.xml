@@ -58,7 +58,8 @@
             android:layout_margin="30dp"
             android:layout_weight="1"
             android:text="Ingresar"
-            android:textColor="@color/verde" />
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/botonRegistrar"
@@ -66,8 +67,9 @@
             android:layout_height="0dp"
             android:layout_margin="30dp"
             android:layout_weight="1"
+            android:background="@drawable/rounded_button"
             android:text="Registrar"
-            android:textColor="@color/verde" />
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

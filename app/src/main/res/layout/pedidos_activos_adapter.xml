@@ -25,7 +25,7 @@
         android:id="@+id/desPedido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/descriprod"
+        android:text="Precio"
         android:layout_toEndOf="@id/imgpedidactiv"
         android:paddingBottom="10dp"
         android:paddingStart="20dp"
