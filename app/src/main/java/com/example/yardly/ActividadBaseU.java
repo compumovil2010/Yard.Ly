@@ -31,13 +31,13 @@ public class ActividadBaseU extends AppCompatActivity {
                 startActivity( new Intent(this, HomeActivity.class));
                 return true;
             case R.id.busqueda:
-                startActivity( new Intent(this, dirFrec.class));
+                startActivity( new Intent(this, Busqueda.class));
                 return true;
             case R.id.recientes:
-                startActivity( new Intent(this, infoPedido.class));
+                startActivity( new Intent(this, PedidoHistory.class));
                 return true;
             case R.id.carrito:
-                startActivity( new Intent(this, Registro.class));
+                startActivity( new Intent(this, CarritoCompras.class));
                 return true;
             case R.id.MiPerfil:
                 startActivity( new Intent(this, infoPerfil.class));
