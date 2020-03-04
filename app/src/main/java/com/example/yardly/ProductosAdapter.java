@@ -1,10 +1,12 @@
 package com.example.yardly;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -30,6 +32,15 @@ public class ProductosAdapter extends ArrayAdapter<Producto> {
             TextView nombre = vie.findViewById(R.id.nomProd);
             TextView Descrip = vie.findViewById(R.id.desProd);
             TextView precio = vie.findViewById(R.id.precProd);
+            Button b= vie.findViewById(R.id.agregarProd);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent registro = new Intent(v.getContext(),Producto.class);
+                    v.getContext().startActivity(registro);
+                }
+            });
+
             nombre.setText(pro.getNombre());
             Descrip.setText(pro.getDescripcion());
             precio.setText(String.valueOf(pro.getPrecio()));

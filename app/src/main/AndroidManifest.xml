@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ly"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ly"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".CaltalogoEmpresa"></activity>
@@ -20,6 +20,7 @@
         <activity android:name=".editarProductoPlato" />
         <activity android:name=".AsignacionDomi"></activity>
         <activity android:name=".ActividadBaseE" />
+        <activity android:name=".omgreen" />
         <activity android:name=".entregaUsuario" />
         <activity android:name=".dirFrec" />
         <activity android:name=".editarPerfilU" />
