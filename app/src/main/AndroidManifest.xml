@@ -13,6 +13,7 @@
         <activity android:name=".Producto"></activity>
         <activity android:name=".RegistroFoto" />
         <activity android:name=".Registro" />
+        <activity android:name=".Checkout"/>
         <activity android:name=".HomeActivity" />
         <activity android:name=".logActivity">
             <intent-filter>
