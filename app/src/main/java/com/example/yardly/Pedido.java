@@ -1,5 +1,5 @@
 package com.example.yardly;
-public class Orden {
+public class Pedido {
     private String Fecha;
     private String NombreProducto;
     private float Precio;
