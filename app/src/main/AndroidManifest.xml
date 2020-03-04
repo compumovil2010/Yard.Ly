@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CarritoCompras"></activity>
+        <activity android:name=".DomiciliarioPedido" />
+        <activity android:name=".VerInformacionEstablecimiento" />
+        <activity android:name=".infoPedido" />
         <activity android:name=".ActividadBaseE"></activity>
         <activity android:name=".ActividadBaseU" />
         <activity android:name=".editarPerfilEmpresa" />

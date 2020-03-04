@@ -7,147 +7,125 @@
     android:fillViewport="true"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".Producto"
-        android:background="@color/verde"
         android:contentDescription="@string/imgproduct">
 
         <ImageView
             android:id="@+id/imgProd"
             android:layout_width="176dp"
             android:layout_height="175dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="30dp"
             android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/product" />
+            android:src="@drawable/product"
+            android:layout_centerHorizontal="true"
+            />
 
         <TextView
             android:id="@+id/nomProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/nomproy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.33"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgProd" />
+            android:layout_below="@id/imgProd"
+            android:layout_alignStart="@id/imgProd"
+            android:layout_marginTop="6dp"
+            android:padding="5dp"
+            android:text="@string/nomproy" />
 
         <TextView
             android:id="@+id/descripProduc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/descriprod"
-            app:layout_constraintBottom_toTopOf="@+id/precioProduct"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.293"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nomProduct"
-            app:layout_constraintVertical_bias="0.369" />
+            android:layout_below="@id/nomProduct"
+            android:layout_alignStart="@id/imgProd"
+            android:layout_marginTop="1dp"
+            android:padding="5dp"
+            android:text="@string/descriprod" />
 
         <TextView
             android:id="@+id/precioProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="58dp"
-            android:layout_marginBottom="16dp"
+            android:padding="5dp"
             android:text="@string/precioprodu"
-            app:layout_constraintBottom_toTopOf="@id/cantidad"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.264"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descripProduc" />
+            android:layout_below="@id/descripProduc"
+            android:layout_alignStart="@id/imgProd"/>
 
         <TextView
             android:id="@+id/cantidad"
-            android:layout_width="82dp"
-            android:layout_height="27dp"
-            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/cantidadpro"
-            app:layout_constraintBottom_toTopOf="@+id/total"
-            app:layout_constraintEnd_toStartOf="@+id/menos"
-            app:layout_constraintHorizontal_bias="0.514"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="50dp"
+            android:layout_alignStart="@id/imgProd"
+            android:layout_below="@id/precioProduct"/>
 
         <Button
             android:id="@+id/menos"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_marginEnd="24dp"
-            android:text="-"
-            app:layout_constraintBottom_toTopOf="@+id/total"
-            app:layout_constraintEnd_toStartOf="@+id/cantProduct"
-            app:layout_constraintTop_toTopOf="@+id/cantidad"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_width="32dp"
+            android:layout_height="34dp"
+            android:layout_below="@id/precioProduct"
+            android:background="@null"
+            android:layout_toEndOf="@id/cantidad"
+            android:text="-" />
+        <TextView
+            android:id="@+id/cantProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:padding="5dp"
+            android:layout_below="@id/precioProduct"
+            android:layout_toEndOf="@id/menos"
+            />
 
         <Button
             android:id="@+id/mas"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_marginEnd="12dp"
-            android:text="+"
-            app:layout_constraintBottom_toTopOf="@id/total"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cantidad"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_width="32dp"
+            android:layout_height="34dp"
+            android:layout_below="@id/precioProduct"
+            android:layout_toEndOf="@id/cantProduct"
+            android:background="@null"
+            android:text="+" />
 
         <TextView
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
             android:text="@string/tot"
-            app:layout_constraintBottom_toTopOf="@id/aggCarrit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.257"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:padding="5dp"
+            android:layout_below="@id/cantidad"
+            android:layout_alignLeft="@id/imgProd"/>
 
         <Button
             android:id="@+id/aggCarrit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="32dp"
+            android:padding="5dp"
             android:text="@string/agregCarr"
-            app:layout_constraintBottom_toTopOf="@id/opinion"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.518"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_below="@id/total"
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:id="@+id/opinion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="15dp"
             android:text="@string/opini"
-            app:layout_constraintBottom_toTopOf="@id/opiniones"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.293"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_below="@id/aggCarrit"
+            />
 
         <ListView
             android:id="@+id/opiniones"
             android:layout_width="match_parent"
             android:layout_height="259dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_below="@id/opinion"
+            android:padding="15dp"/>
 
-        <TextView
-            android:id="@+id/cantProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="32dp"
-            android:text="0"
-            app:layout_constraintBottom_toTopOf="@+id/total"
-            app:layout_constraintEnd_toStartOf="@+id/mas"
-            app:layout_constraintTop_toBottomOf="@+id/precioProduct"
-            app:layout_constraintVertical_bias="0.0" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
 
 </ScrollView>
