@@ -15,16 +15,16 @@
     <item
         android:id="@+id/recientes"
         android:icon="@drawable/apoyo"
-        android:title="@string/Home"
+        android:title="Historial de Compras"
         app:showAsAction="always"/>
     <item
         android:id="@+id/carrito"
         android:icon="@drawable/carro"
-        android:title="@string/Home"
+        android:title="@string/CarritoCompras"
         app:showAsAction="always"/>
     <item
         android:id="@+id/MiPerfil"
         android:icon="@drawable/usuario"
-        android:title="@string/Home"
+        android:title="Mi Perfil"
         app:showAsAction="ifRoom"/>
 </menu>

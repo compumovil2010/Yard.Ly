@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Busqueda"></activity>
+        <activity android:name=".Calificar"></activity>
         <activity android:name=".editarProductoRopa" />
         <activity android:name=".editarProductoPlato" />
         <activity android:name=".VerInformacionEstablecimiento"></activity>
@@ -23,6 +24,7 @@
         <activity android:name=".editarPerfilU" />
         <activity android:name=".infoPerfil" />
         <activity android:name=".Producto" />
+        <activity android:name=".PedidoHistory" />
         <activity android:name=".RegistroFoto" />
         <activity android:name=".Registro" />
         <activity android:name=".Checkout" />
