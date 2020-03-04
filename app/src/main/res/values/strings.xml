@@ -5,6 +5,7 @@
     <string name="nombres">Nombres</string>
     <string name="apellidos">Apellidos</string>
     <string name="email">Email</string>
+    <string name="direccion">Direccion</string>
     <string name="cncel">
         <u>cancelar</u>
     </string>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/verde"
+    tools:context=".RegistroFoto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <FrameLayout
+            android:id="@+id/fram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/layl">
+
+            <ImageButton
+                android:id="@+id/bannerE"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/res"
+                android:contentDescription="@string/fotperfil"
+                android:scaleType="centerInside" />
+
+            <ImageButton
+                android:id="@+id/selecFotperfE"
+                android:layout_width="178dp"
+                android:layout_height="175dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:contentDescription="@string/fotperfil"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/perfi" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/layl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fram"
+            app:layout_constraintBottom_toTopOf="@+id/linl">
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:ems="10"
+                android:hint="@string/nombres"
+                android:inputType="textPersonName"
+                android:textColor="@color/blanc"
+                android:textColorHint="@color/blanc" />
+
+            <EditText
+                android:id="@+id/mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textPersonName"
+                android:textColor="@color/blanc"
+                android:textColorHint="@color/blanc" />
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:ems="10"
+                android:hint="@string/direccion"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/blanc"
+                android:textColorHint="@color/blanc" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layl"
+            app:layout_constraintBottom_toTopOf="@+id/btnGuardarP"
+            >
+
+            <Spinner
+                android:id="@+id/apertura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <Spinner
+                android:id="@+id/cierre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnGuardarP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="68dp"
+            android:backgroundTint="@color/verdebut"
+            android:text="@string/Guardar"
+            android:textColor="@color/blanc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linl" />
+
+        <Button
+            android:id="@+id/btnCancP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/verde"
+            android:text="@string/cncel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnGuardarP"
+            app:layout_constraintHorizontal_bias="0.358"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linl"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
