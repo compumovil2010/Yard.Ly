@@ -70,32 +70,38 @@
             android:id="@+id/dirFrec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="60dp"
+            android:layout_marginTop="28dp"
             android:backgroundTint="@color/verdebut"
             android:text="@string/dirfrec"
             android:textColor="@color/blanc"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layl" />
+
         <Button
             android:id="@+id/btnGuardarP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="60dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="68dp"
             android:backgroundTint="@color/verdebut"
             android:text="@string/Guardar"
             android:textColor="@color/blanc"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dirFrec" />
 
         <Button
             android:id="@+id/btnCancP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
             android:backgroundTint="@color/verde"
             android:text="@string/cncel"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/btnGuardarP"
+            app:layout_constraintHorizontal_bias="0.358"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dirFrec"
+            app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
