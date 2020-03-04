@@ -18,7 +18,7 @@ public class logActivity extends AppCompatActivity {
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registro = new Intent(getBaseContext(),HomeActivity.class);
+                Intent registro = new Intent(getBaseContext(),Registro.class);
                 startActivity(registro);
             }
         });
@@ -27,7 +27,7 @@ public class logActivity extends AppCompatActivity {
         ingreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ingreso = new Intent(getBaseContext(),AsignacionDomi.class);
+                Intent ingreso = new Intent(getBaseContext(),HomeActivity.class);
                 startActivity(ingreso);
             }
         });
