@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".infoPedido"></activity>
+        <activity android:name=".logActivity"></activity>
+        <activity android:name=".entregaUsuario" />
+        <activity android:name=".infoPedido" />
         <activity android:name=".dirFrec" />
         <activity android:name=".editarPerfilU" />
         <activity android:name=".infoPerfil" />
@@ -18,7 +20,7 @@
         <activity android:name=".Registro" />
         <activity android:name=".Checkout" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".logActivity">
+        <activity android:name=".editarProducto">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
