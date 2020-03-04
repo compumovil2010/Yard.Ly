@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="25dp"
     tools:context=".infoPerfil">
 
@@ -36,8 +36,9 @@
         <ImageView
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="172dp"
-            app:srcCompat="@color/colorAccent" />
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            app:srcCompat="@drawable/res" />
 
         <ImageView
             android:id="@+id/perfil"
@@ -92,13 +93,12 @@
         android:id="@+id/btEditarPerfilE"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button"
         android:text="Editar Perfil"
         android:textColor="@color/dark_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horario"
         app:layout_constraintVertical_bias="0.0" />
