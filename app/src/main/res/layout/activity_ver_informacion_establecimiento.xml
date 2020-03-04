@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VerInformacionEstablecimiento">
+
+    <ImageView
+        android:id="@+id/establec"
+        android:layout_width="212dp"
+        android:layout_height="123dp"
+        android:src="@drawable/estableciejem"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/nomEstable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nomEsta"
+        android:layout_toEndOf="@id/establec"
+        android:padding="20dp"/>
+
+    <TextView
+        android:id="@+id/descripEstable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/descriprod"
+        android:layout_toEndOf="@id/establec"
+        android:layout_below="@id/nomEstable"
+        android:paddingTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="70dp"/>
+    <TextView
+        android:id="@+id/producs"
+        android:text="@string/products"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/establec"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:layout_below="@id/producs"
+        android:background="@android:color/darker_gray"
+        />
+    <ListView
+
+        android:id="@+id/lisProduc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/producs">
+    </ListView>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="43dp"
+        android:layout_height="42dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:layout_toEndOf="@id/descripEstable"
+        android:layout_above="@id/producs"
+        app:srcCompat="@drawable/estrella1" />
+
+</RelativeLayout>
