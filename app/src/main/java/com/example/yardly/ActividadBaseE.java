@@ -1,21 +1,21 @@
 package com.example.yardly;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class ActividadBaseE extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbare);
+        Toolbar myToolbar = findViewById(R.id.my_toolbare);
         setSupportActionBar(myToolbar);
     }
 
@@ -28,21 +28,13 @@ public class ActividadBaseE extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home:
-                startActivity( new Intent(this, HomeActivity.class));
-                return true;
-
-            case R.id.busqueda:
-                startActivity( new Intent(this, dirFrec.class));
-                return true;
-
-            case R.id.recientes:
+            case R.id.ordenesL:
                 startActivity( new Intent(this, infoPedido.class));
                 return true;
-            case R.id.carrito:
+            case R.id.ordenesA:
                 startActivity( new Intent(this, Registro.class));
                 return true;
-            case R.id.perfil:
+            case R.id.MiPerfil:
                 startActivity( new Intent(this, infoPerfil.class));
                 return true;
 

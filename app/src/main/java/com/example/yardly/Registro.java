@@ -1,12 +1,10 @@
 package com.example.yardly;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Registro extends AppCompatActivity {
     Button registroFot;
@@ -18,7 +16,7 @@ public class Registro extends AppCompatActivity {
         registroFot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent registroFot = new Intent(getBaseContext(),CarritoCompras.class);
+                /*Intent registroFot = new Intent(getBaseContext(),editarProductoPlato.class);
                 startActivity(registroFot);*/
             }
         });

@@ -8,7 +8,7 @@
         android:id="@+id/asunto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Asunto"
         android:paddingTop="10dp"/>
 
     <View
@@ -22,7 +22,7 @@
         android:id="@+id/comentario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Opiniones"
         android:layout_below="@id/asunto"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
