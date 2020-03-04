@@ -6,12 +6,14 @@
     <string name="apellidos">Apellidos</string>
     <string name="email">Email</string>
     <string name="cncel">
-        <u>cancel</u>
+        <u>cancelar</u>
     </string>
     <string name="regis">Registro</string>
     <string name="tyc">Acepto terminos y condiciones</string>
     <string name="politicprivacy">Acepto politicas de privacidad</string>
     <string name="login">Log In</string>
+    <string name="Guardar">Guardar</string>
+    <string name="dirfrec">Ver Direcciones Frecuentes</string>
     <string name="fotperfil">seleccion de foto de perfil</string>
     <string name="nomproy">Nombre producto</string>
     <string name="descriprod">Descripcion</string>
@@ -20,4 +22,8 @@
     <string name="tot">Total</string>
     <string name="agregCarr">Agregar carrito</string>
     <string name="opini">Opiniones</string>
+    <string name="imgproduct">Imagen de producto</string>
+    <string name="agregar">Agregar</string>
+    <string name="nomEsta">Nombre Establecimiento</string>
+    <string name="products">Productos</string>
 </resources>
