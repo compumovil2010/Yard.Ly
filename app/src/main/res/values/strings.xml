@@ -20,4 +20,8 @@
     <string name="tot">Total</string>
     <string name="agregCarr">Agregar carrito</string>
     <string name="opini">Opiniones</string>
+    <string name="imgproduct">Imagen de producto</string>
+    <string name="agregar">Agregar</string>
+    <string name="nomEsta">Nombre Establecimiento</string>
+    <string name="products">Productos</string>
 </resources>

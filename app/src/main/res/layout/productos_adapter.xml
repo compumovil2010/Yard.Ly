@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imgCadProd"
+        android:layout_width="106dp"
+        android:layout_height="122dp"
+        app:srcCompat="@drawable/product" />
+
+    <TextView
+        android:id="@+id/nomProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nomproy"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:layout_toEndOf="@id/imgCadProd"/>
+
+    <TextView
+        android:id="@+id/desProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/descriprod"
+        android:layout_toEndOf="@id/imgCadProd"
+        android:paddingBottom="10dp"
+        android:paddingStart="20dp"
+        android:layout_below="@id/nomProd"/>
+
+    <TextView
+        android:id="@+id/precProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/precioprodu"
+        android:layout_toEndOf="@id/imgCadProd"
+        android:paddingBottom="10dp"
+        android:layout_below="@id/desProd"
+        android:paddingStart="20dp"
+        android:paddingEnd="100dp"/>
+
+    <Button
+        android:id="@+id/agregarProd"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/desProd"
+        android:layout_toEndOf="@id/precProd"
+        android:text="@string/agregar" />
+
+</RelativeLayout>
