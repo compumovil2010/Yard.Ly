@@ -27,7 +27,7 @@ public class logActivity extends AppCompatActivity {
         ingreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ingreso = new Intent(getBaseContext(),infoPerfil.class);
+                Intent ingreso = new Intent(getBaseContext(),editarPerfilU.class);
                 startActivity(ingreso);
             }
         });

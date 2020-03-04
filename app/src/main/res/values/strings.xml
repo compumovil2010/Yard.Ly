@@ -27,4 +27,11 @@
     <string name="agregar">Agregar</string>
     <string name="nomEsta">Nombre Establecimiento</string>
     <string name="products">Productos</string>
+    <string name="NomApp">Yard.ly</string>
+    <string name="Home">Home</string>
+    <string name="BusquedaP">Busqueda de Productos</string>
+    <string name="ordenR">Ordenes Recientes</string>
+    <string name="CarritoCompras">Carrito de Compras</string>
+    <string name="perf">Mi Perfil</string>
+
 </resources>
