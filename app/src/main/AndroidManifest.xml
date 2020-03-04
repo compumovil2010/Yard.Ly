@@ -13,6 +13,8 @@
         <activity android:name=".DomiciliarioPedido" />
         <activity android:name=".VerInformacionEstablecimiento" />
         <activity android:name=".infoPedido" />
+        <activity android:name=".ActividadBaseE"></activity>
+        <activity android:name=".ActividadBaseU" />
         <activity android:name=".editarPerfilEmpresa" />
         <activity android:name=".verPerfilEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
