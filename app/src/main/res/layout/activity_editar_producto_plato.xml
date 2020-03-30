@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ingredientesEdit"
         android:text="@string/Guardar"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/frm_reallyrouded"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"/>
 

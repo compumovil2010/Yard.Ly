@@ -59,7 +59,7 @@
         android:id="@+id/btChat"
         android:layout_width="98dp"
         android:layout_height="38dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/frm_reallyrouded"
         android:text="Chat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />

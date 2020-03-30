@@ -94,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/frm_reallyrouded"
         android:text="Editar Perfil"
         android:textColor="@color/dark_green"
         app:layout_constraintBottom_toBottomOf="parent"

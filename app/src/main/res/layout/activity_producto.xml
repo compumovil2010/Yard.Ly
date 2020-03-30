@@ -104,7 +104,7 @@
             android:text="@string/agregCarr"
             android:layout_below="@id/total"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/rounded_button"/>
+            android:background="@drawable/frm_reallyrouded"/>
 
         <TextView
             android:id="@+id/opinion"

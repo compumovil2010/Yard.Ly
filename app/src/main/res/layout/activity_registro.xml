@@ -106,7 +106,7 @@
             android:layout_margin="20sp"
             android:layout_weight="1"
             android:text="Cancelar"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/frm_reallyrouded"
             android:textColor="@color/black"
             android:textColorHint="@color/verde" />
 
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/frm_reallyrouded"
             android:text="Registrar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -93,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pregunta"
-        android:background="@drawable/rounded_button"/>
+        android:background="@drawable/frm_reallyrouded"/>
 
     <Button
         android:id="@+id/btRopa"
@@ -107,6 +107,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btComida"
-        android:background="@drawable/rounded_button"/>
+        android:background="@drawable/frm_reallyrouded"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

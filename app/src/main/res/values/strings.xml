@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Yard.ly</string>
-    <string name="nombreUsuario">Nombre De Usuario</string>
+    <string name="nombreUsuario">Usuario</string>
     <string name="contrasena">Contraseña</string>
     <string name="nombres">Nombres</string>
     <string name="apellidos">Apellidos</string>
@@ -40,5 +40,8 @@
     <string name="ordenR">Ordenes Recientes</string>
     <string name="CarritoCompras">Carrito de Compras</string>
     <string name="perf">Mi Perfil</string>
+    <string name="log_in">Log In</string>
+    <string name="registrar"><u>SIGN UP</u></string>
+    <string name="forgot_password">FORGOT PASSWORD</string>
 
 </resources>

@@ -3,13 +3,92 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/clr_greenYardly</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
-    <style name="greenRatingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/hoja</item>
 
+
+    <!-- Tipography -->
+
+    <style name="txt_rllyBig">
+        <item name="android:textSize">40sp</item>
+        <item name="android:fontFamily">@font/cg_family</item>
+    </style>
+    <style name="txt_Big">
+        <item name="android:textSize">30sp</item>
+        <item name="android:fontFamily">@font/cg_family</item>
+    </style>
+    <style name="txt_kindaBig">
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">@font/cg_family</item>
+    </style>
+    <style name="txt_normal">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/cg_family</item>
+    </style>
+    <style name="txt_small">
+        <item name="android:textSize">8sp</item>
+        <item name="android:fontFamily">@font/cg_family</item>
+    </style>
+    <style name="yardlyTitle">
+        <item name="android:textSize">70sp</item>
+        <item name="android:fontFamily">@font/cg_family</item>
+    </style>
+
+    <!--Form elements-->
+
+    <style name="frm_reallyRounded">
+        <item name="android:background">@drawable/frm_reallyrouded</item>
+    </style>
+
+    <style name="frm_rounded">
+        <item name="android:background">@drawable/frm_rounded</item>
+    </style>
+
+    <style name="frm_kindaRounded">
+        <item name="android:background">@drawable/frm_kindarounded</item>
+    </style>
+
+    <!--Buttons-->
+
+    <style name="btn_Stl1">
+        <item name="android:background">@drawable/frm_kindarounded</item>
+        <item name="android:backgroundTint">@color/clr_greenYardly</item>
+        <!--button text-->
+        <item name="android:textAppearance">@style/txt_Big</item>
+        <item name="android:textColor">@color/clr_justWhite</item>
+    </style>
+
+    <style name="btn_Stl2">
+        <item name="android:background">@drawable/frm_reallyrouded</item>
+        <item name="android:backgroundTint">@color/clr_greenYardly</item>
+        <!--button text-->
+        <item name="android:textAppearance">@style/txt_normal</item>
+        <item name="android:textColor">@color/clr_justWhite</item>
+    </style>
+
+    <style name="btn_Stl3">
+        <item name="android:background">@drawable/frm_rounded</item>
+        <item name="android:backgroundTint">@color/clr_greenYardly</item>
+        <!--button text-->
+        <item name="android:textAppearance">@style/txt_kindaBig</item>
+        <item name="android:textColor">@color/clr_justWhite</item>
+    </style>
+
+    <style name="btn_Stl4">
+        <item name="android:background">@drawable/frm_kindarounded</item>
+        <item name="android:backgroundTint">@color/clr_kindaGrey</item>
+        <!--button text-->
+        <item name="android:textAppearance">@style/txt_normal</item>
+        <item name="android:textColor">@color/clr_justWhite</item>
+    </style>
+
+    <style name="btn_Stl5">
+        <item name="android:background">@drawable/frm_rounded</item>
+        <item name="android:backgroundTint">@color/clr_kindaGrey</item>
+        <!--button text-->
+        <item name="android:textAppearance">@style/txt_normal</item>
+        <item name="android:textColor">@color/clr_justWhite</item>
     </style>
 
 </resources>
