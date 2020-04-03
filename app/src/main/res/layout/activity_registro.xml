@@ -6,20 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Registro"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:background="@color/clr_justWhite">
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registro"
-        android:textSize="30sp"
+        android:textAppearance="@style/txt_Big"
         android:layout_margin="20dp"
-        android:textColor="@color/verde"
+        android:textColor="@color/clr_greenYardly"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="390dp"
+        android:layout_height="1dp"
+        android:background="@color/clr_greenYardly"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView2"
+        tools:layout_editor_absoluteY="83dp" />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="367dp"
         android:layout_height="433dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
@@ -32,60 +45,96 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <EditText
                 android:id="@+id/editText3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_marginVertical="15dp"
+                android:background="@drawable/frm_rreditt"
+                android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="@string/nombres"
                 android:inputType="textPersonName"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:paddingStart="20dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:textAppearance="@style/txt_kindaBig"
+                android:textColorHint="@color/clr_greenYardly" />
 
             <EditText
                 android:id="@+id/editText4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_marginVertical="15dp"
+                android:background="@drawable/frm_rreditt"
+                android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="@string/apellidos"
                 android:inputType="textPersonName"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:paddingStart="20dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:textAppearance="@style/txt_kindaBig"
+                android:textColorHint="@color/clr_greenYardly" />
 
             <EditText
                 android:id="@+id/editText5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_marginVertical="15dp"
+                android:background="@drawable/frm_rreditt"
+                android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:paddingStart="20dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:textAppearance="@style/txt_kindaBig"
+                android:textColorHint="@color/clr_greenYardly" />
 
             <EditText
                 android:id="@+id/editText6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_marginVertical="15dp"
+                android:background="@drawable/frm_rreditt"
+                android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="@string/contrasena"
                 android:inputType="textPassword"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:paddingStart="20dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:textAppearance="@style/txt_kindaBig"
+                android:textColorHint="@color/clr_greenYardly" />
 
             <EditText
                 android:id="@+id/editText7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_marginVertical="15dp"
+                android:background="@drawable/frm_rreditt"
+                android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="@string/contrasena"
                 android:inputType="textPassword"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:paddingStart="20dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:textAppearance="@style/txt_kindaBig"
+                android:textColorHint="@color/clr_greenYardly" />
         </LinearLayout>
     </ScrollView>
 
@@ -99,24 +148,33 @@
         app:layout_constraintStart_toStartOf="parent">
 
 
-        <Button
+        <TextView
             android:id="@+id/cacelarRegistro"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="20sp"
+            android:layout_gravity="center"
+            android:layout_margin="30dp"
             android:layout_weight="1"
-            android:text="Cancelar"
-            android:background="@drawable/frm_reallyrouded"
-            android:textColor="@color/black"
-            android:textColorHint="@color/verde" />
+            android:clickable="true"
+            android:fontFamily="@font/cg_family"
+            android:padding="5dp"
+            android:text="@string/cncel"
+            android:textColor="@color/clr_greenYardly"
+
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/registrarForm"
-            android:layout_width="wrap_content"
+            style="@style/btn_Stl1"
+            android:textSize="20sp"
             android:layout_height="wrap_content"
-            android:layout_margin="20sp"
+            android:layout_margin="30dp"
+            android:padding="5dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/frm_reallyrouded"
-            android:text="Registrar" />
+            android:textStyle="bold"
+            android:text="@string/continuar"
+            />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

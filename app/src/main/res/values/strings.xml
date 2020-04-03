@@ -7,7 +7,7 @@
     <string name="email">Email</string>
     <string name="direccion">Direccion</string>
     <string name="cncel">
-        <u>cancelar</u>
+        <u>Cancelar</u>
     </string>
     <string name="regis">Registro</string>
     <string name="tyc">Acepto terminos y condiciones</string>
@@ -43,5 +43,6 @@
     <string name="log_in">Log In</string>
     <string name="registrar"><u>SIGN UP</u></string>
     <string name="forgot_password">FORGOT PASSWORD</string>
+    <string name="continuar">Continuar</string>
 
 </resources>
