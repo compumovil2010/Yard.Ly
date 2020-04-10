@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "384502127303",
+    "firebase_url": "https://greengineers-e2e96.firebaseio.com",
+    "project_id": "greengineers-e2e96",
+    "storage_bucket": "greengineers-e2e96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384502127303:android:8bf6f07f3e3ae46cea3ce2",
+        "android_client_info": {
+          "package_name": "com.example.yardly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384502127303-njkqp1jngvtq5h6bpvckealort74j9lg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWQGW529ysOaZwLhVaknFW6myY_0XIVi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384502127303-njkqp1jngvtq5h6bpvckealort74j9lg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
