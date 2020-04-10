@@ -25,7 +25,7 @@
         android:layout_width="370dp"
         android:layout_height="3dp"
         android:layout_marginTop="8dp"
-        android:background="@color/verde"
+        android:background="@color/clr_greenYardly"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"

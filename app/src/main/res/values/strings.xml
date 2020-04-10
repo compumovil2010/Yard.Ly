@@ -26,10 +26,6 @@
     <string name="tot">Total</string>
     <string name="agregCarr">Agregar carrito</string>
     <string name="opini">Opiniones</string>
-    <string-array name="tipoProducto">
-        <item>Ropa</item>
-        <item>Plato</item>
-    </string-array>
     <string name="imgproduct">Imagen de producto</string>
     <string name="agregar">Agregar</string>
     <string name="nomEsta">Nombre Establecimiento</string>
@@ -44,5 +40,12 @@
     <string name="registrar"><u>SIGN UP</u></string>
     <string name="forgot_password">FORGOT PASSWORD</string>
     <string name="continuar">Continuar</string>
+    <string name="title_activity_principal">principal</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string-array name="tipoProducto">
+        <item>Ropa</item>
+        <item>Plato</item>
+    </string-array>
 
 </resources>

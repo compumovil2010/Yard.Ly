@@ -19,7 +19,7 @@
         android:id="@+id/divider1"
         android:layout_width="700dp"
         android:layout_height="3dp"
-        android:background="@color/verde"
+        android:background="@color/clr_greenYardly"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"

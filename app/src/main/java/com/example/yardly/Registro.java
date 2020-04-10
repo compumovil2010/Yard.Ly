@@ -13,7 +13,8 @@ public class Registro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
-        registroFot=findViewById(R.id.registrarForm);
+
+        registroFot = findViewById(R.id.registrarForm);
         registroFot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

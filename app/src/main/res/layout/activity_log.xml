@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".logActivity"
-    android:background="@drawable/Background_li">
+    android:background="@drawable/background_li">
 
     <TextView
         android:id="@+id/textView"
@@ -87,7 +87,7 @@
             android:layout_gravity="center"
             android:textColor="@color/clr_greenYardly"
             android:clickable="true"
-            />
+            android:focusable="true" />
         <TextView
             android:id="@+id/tv_forgotpw"
             android:layout_width="wrap_content"

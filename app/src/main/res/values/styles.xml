@@ -14,22 +14,27 @@
         <item name="android:textSize">40sp</item>
         <item name="android:fontFamily">@font/cg_family</item>
     </style>
+
     <style name="txt_Big">
         <item name="android:textSize">30sp</item>
         <item name="android:fontFamily">@font/cg_family</item>
     </style>
+
     <style name="txt_kindaBig">
         <item name="android:textSize">25sp</item>
         <item name="android:fontFamily">@font/cg_family</item>
     </style>
+
     <style name="txt_normal">
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">@font/cg_family</item>
     </style>
+
     <style name="txt_small">
         <item name="android:textSize">8sp</item>
         <item name="android:fontFamily">@font/cg_family</item>
     </style>
+
     <style name="yardlyTitle">
         <item name="android:textSize">70sp</item>
         <item name="android:fontFamily">@font/cg_family</item>
@@ -90,5 +95,14 @@
         <item name="android:textAppearance">@style/txt_normal</item>
         <item name="android:textColor">@color/clr_justWhite</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

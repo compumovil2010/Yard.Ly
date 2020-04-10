@@ -4,17 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class logActivity extends AppCompatActivity {
-    Button registro;
+    TextView registro;
     Button ingreso;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
-        registro = findViewById(R.id.botonRegistrar);
+        registro = findViewById(R.id.register);
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +28,7 @@ public class logActivity extends AppCompatActivity {
         ingreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ingreso = new Intent(getBaseContext(),HomeActivity.class);
+                Intent ingreso = new Intent(getBaseContext(),Principal.class);
                 startActivity(ingreso);
             }
         });

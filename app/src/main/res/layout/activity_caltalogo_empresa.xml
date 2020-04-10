@@ -21,7 +21,7 @@
         android:id="@+id/divider3"
         android:layout_width="300dp"
         android:layout_height="3dp"
-        android:background="@color/verde"
+        android:background="@color/clr_greenYardly"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15"
