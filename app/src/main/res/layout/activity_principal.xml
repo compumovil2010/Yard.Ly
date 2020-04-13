@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:tabBackground="@color/clr_justWhite"
-        app:tabIndicatorColor="@color/clr_justWhite"
+        app:tabIndicatorColor="@color/clr_greenYardly"
         app:tabSelectedTextColor="@color/clr_greenYardly"
         app:tabTextColor="@color/clr_kindaGrey">
 

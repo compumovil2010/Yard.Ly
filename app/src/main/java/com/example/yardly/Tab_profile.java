@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 public class Tab_profile extends Fragment {
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_profile, container, false);
         return v;
     }

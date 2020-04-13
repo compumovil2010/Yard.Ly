@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/clr_justWhite"
+    tools:context=".Search_results"
+    >
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tb_searchRes"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabBackground="@color/clr_justWhite"
+        app:tabIndicatorColor="@color/clr_justWhite"
+        app:tabSelectedTextColor="@color/clr_greenYardly"
+        app:tabTextColor="@color/clr_kindaGrey" />
+    <EditText
+        android:id="@+id/et_buscador"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15dp"
+        android:background="@drawable/buscador"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="¿Qué estás buscando?"
+        android:inputType="text"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:fontFamily="@font/cg_family"
+        android:textSize="20sp"
+        android:textColorHint="@color/clr_quiteGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/clr_greenYardly"
+        android:src="@drawable/ic_cart"
+        app:fabSize="normal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/tb_searchRes"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_results"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/tb_searchRes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_buscador"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
