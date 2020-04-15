@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -13,19 +14,19 @@
             android:id="@+id/imgProd"
             android:layout_width="176dp"
             android:layout_height="175dp"
-            android:layout_marginTop="30dp"
             android:scaleType="fitCenter"
             android:src="@drawable/product"
             android:layout_centerHorizontal="true"
+            android:layout_below="@id/nomProduct"
             />
 
         <TextView
             android:id="@+id/nomProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgProd"
             android:layout_alignStart="@id/imgProd"
             android:layout_marginTop="6dp"
+            android:textSize="20sp"
             android:padding="5dp"
             android:text="@string/nomproy" />
 
@@ -33,56 +34,103 @@
             android:id="@+id/descripProduc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nomProduct"
-            android:layout_alignStart="@id/imgProd"
+            android:layout_below="@id/imgProd"
             android:layout_marginTop="1dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="15sp"
             android:padding="5dp"
             android:text="@string/descriprod" />
+
+        <ImageView
+            android:id="@+id/rating"
+            android:layout_width="47dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="80dp"
+            android:layout_below="@id/descripProduc"
+            app:srcCompat="@drawable/staricon"/>
+
+        <TextView
+            android:id="@+id/ratingValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:layout_toEndOf="@id/rating"
+            android:layout_below="@id/descripProduc"/>
+        <ImageView
+            android:id="@+id/cash"
+            android:layout_width="47dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="80dp"
+            android:layout_below="@id/ratingValue"
+            app:srcCompat="@drawable/moneyicon" />
 
         <TextView
             android:id="@+id/precioProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="10dp"
+            android:textSize="20sp"
             android:text="@string/precioprodu"
-            android:layout_below="@id/descripProduc"
-            android:layout_alignStart="@id/imgProd"/>
-
+            android:layout_toEndOf="@id/cash"
+            android:layout_below="@id/ratingValue"/>
+        <ImageView
+            android:id="@+id/store"
+            android:layout_width="47dp"
+            android:layout_marginLeft="80dp"
+            android:layout_height="33dp"
+            android:layout_below="@id/precioProduct"
+            app:srcCompat="@drawable/placeicon" />
+        <TextView
+            android:id="@+id/storeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/store"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:layout_below="@id/precioProduct"
+            android:text="TextView" />
         <TextView
             android:id="@+id/cantidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cantidadpro"
+            android:layout_marginLeft="80dp"
             android:paddingStart="5dp"
             android:paddingTop="5dp"
+            android:textSize="20sp"
             android:paddingBottom="5dp"
             android:paddingEnd="50dp"
-            android:layout_alignStart="@id/imgProd"
-            android:layout_below="@id/precioProduct"/>
+            android:layout_below="@id/storeName"/>
 
         <Button
             android:id="@+id/menos"
-            android:layout_width="32dp"
-            android:layout_height="34dp"
-            android:layout_below="@id/precioProduct"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/storeName"
             android:background="@null"
+            android:textSize="40sp"
             android:layout_toEndOf="@id/cantidad"
             android:text="-" />
         <TextView
             android:id="@+id/cantProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="1"
+            android:gravity="center"
+            android:textSize="25sp"
             android:padding="5dp"
-            android:layout_below="@id/precioProduct"
+            android:layout_below="@id/storeName"
             android:layout_toEndOf="@id/menos"
             />
 
         <Button
             android:id="@+id/mas"
-            android:layout_width="32dp"
-            android:layout_height="34dp"
-            android:layout_below="@id/precioProduct"
+            android:layout_width="48dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/storeName"
+            android:textSize="40sp"
             android:layout_toEndOf="@id/cantProduct"
             android:background="@null"
             android:text="+" />
@@ -92,17 +140,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tot"
+            android:layout_marginStart="50dp"
+            android:textSize="20dp"
             android:padding="5dp"
-            android:layout_below="@id/cantidad"
-            android:layout_alignLeft="@id/imgProd"/>
-
+            android:layout_below="@id/mas"
+            android:layout_toEndOf="@id/cash2"/>
+        <ImageView
+            android:id="@+id/cash2"
+            android:layout_width="47dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="80dp"
+            android:layout_below="@id/mas"
+            app:srcCompat="@drawable/moneyicon" />
         <Button
             android:id="@+id/aggCarrit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:padding="5dp"
             android:text="@string/agregCarr"
-            android:layout_below="@id/total"
+            android:layout_below="@id/cash2"
             android:layout_centerHorizontal="true"
             android:background="@drawable/frm_reallyrouded"/>
 
@@ -122,6 +179,7 @@
             android:layout_height="259dp"
             android:layout_below="@id/opinion"
             android:padding="15dp"/>
+
 
 
 
