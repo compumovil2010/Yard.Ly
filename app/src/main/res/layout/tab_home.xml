@@ -97,12 +97,12 @@
             android:fontFamily="@font/cg_family"
             android:textSize="20sp"
             android:layout_marginVertical="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/btComida"
+            app:layout_constraintBottom_toTopOf="@+id/btn_comida"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/btComida"
+            android:id="@+id/btn_comida"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/btn_Stl2"
@@ -110,12 +110,12 @@
             android:textAppearance="@style/txt_kindaBig"
             android:textColor="@color/clr_justWhite"
             android:layout_marginVertical="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/btRopa"
+            app:layout_constraintBottom_toTopOf="@+id/btn_ropa"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/btRopa"
+            android:id="@+id/btn_ropa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/btn_Stl2"
