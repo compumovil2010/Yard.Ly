@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class logActivity extends AppCompatActivity {
-    private FirebaseAuth authentication;
+    private static FirebaseAuth authentication;
     Button registro;
     Button ingreso;
     EditText email;
@@ -101,5 +101,9 @@ public class logActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    public static void singOut()
+    {
+        authentication.signOut();
     }
 }

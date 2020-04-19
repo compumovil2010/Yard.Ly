@@ -33,7 +33,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/nombreUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20sp"
@@ -44,7 +44,7 @@
                 android:textColorHint="@color/verde" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/apellidoUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20sp"
@@ -55,7 +55,7 @@
                 android:textColorHint="@color/verde" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/mailUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20sp"
@@ -66,7 +66,7 @@
                 android:textColorHint="@color/verde" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/passUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20sp"
@@ -110,7 +110,7 @@
             android:textColorHint="@color/verde" />
 
         <Button
-            android:id="@+id/registrarForm"
+            android:id="@+id/nextRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"

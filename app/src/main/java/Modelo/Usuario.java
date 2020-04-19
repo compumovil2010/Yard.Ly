@@ -1,4 +1,56 @@
 package Modelo;
 
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
+
 public class Usuario {
+    public  static  final String PATH_USERS = "users/";
+    public static final String PATH_PORFILE_PHOTO = "users/porfile_photos";
+    private String mail;
+    private String nombre;
+    private String apellido;
+    private Uri fotoPerfil;
+
+    public Usuario() {
+    }
+
+    public Usuario(String mail, String nombre, String apellido, Uri fotoPerfil) {
+        this.mail = mail;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fotoPerfil = fotoPerfil;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public Uri getFotoPerfil() {
+        return fotoPerfil;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setFotoPerfil(Uri fotoPerfil) {
+        this.fotoPerfil = fotoPerfil;
+    }
 }

@@ -27,4 +27,9 @@
         android:icon="@drawable/usuario"
         android:title="Mi Perfil"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/CerrarSesionU"
+        android:icon="@drawable/usuario"
+        android:title="Cerrar Sesión"
+        app:showAsAction="ifRoom"/>
 </menu>

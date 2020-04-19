@@ -52,7 +52,7 @@
             app:layout_constraintBottom_toTopOf="@+id/linl">
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/nombreUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"
@@ -74,7 +74,7 @@
                 android:textColorHint="@color/blanc" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/mailUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"

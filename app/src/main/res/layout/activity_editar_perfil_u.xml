@@ -40,7 +40,7 @@
             app:layout_constraintTop_toBottomOf="@+id/selecFotperf">
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/nombreUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20sp"
@@ -51,7 +51,7 @@
                 android:textColorHint="@color/blanc" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/apellidoUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20sp"
@@ -62,7 +62,7 @@
                 android:textColorHint="@color/blanc" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/mailUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20sp"
