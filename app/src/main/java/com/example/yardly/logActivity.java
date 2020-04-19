@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 public class logActivity extends AppCompatActivity {
     TextView registro;
     Button ingreso;
+
+    @Override
+    public void onBackPressed() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
