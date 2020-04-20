@@ -8,60 +8,87 @@
 
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/calificarProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="97dp"
         android:text="Califica tu producto"
         android:textAlignment="center"
         android:textColor="@color/clr_greenYardly"
-
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/perfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="216dp"
-        android:layout_height="216dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/perfil"
+        android:layout_width="359dp"
+        android:layout_height="319dp"
+        android:layout_marginTop="42dp"
+        android:src="@drawable/naturaleza"
+        app:civ_border_color="@color/clr_greenYardly"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/NombreProductCalificar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/naturaleza" />
+        app:layout_constraintTop_toBottomOf="@id/calificarProducto" />
+
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/NombreProductCalificar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:padding="20dp"
         android:text="Nombre Producto"
         android:textSize="20sp"
-        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/perfil" />
 
     <RatingBar
         android:id="@+id/ratingBar"
+        style="@style/CustomLeafRatingBar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:isIndicator="false"
+        android:layout_height="60dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="33dp"
         android:numStars="5"
+        android:progressDrawable="@drawable/ratingbarleaf"
         android:progressTint="@color/clr_greenYardly"
         android:stepSize="1"
+        app:layout_constraintBottom_toTopOf="@+id/addComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/NombreProductCalificar" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/calificarProductoBoton"
         android:layout_width="159dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/frm_reallyrouded"
         android:shadowColor="#40FFFFFF"
         android:text="Calificar"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addComment" />
+
+    <Button
+        android:id="@+id/addComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/frm_reallyrouded"
+        android:text="@string/addComment"
+        app:layout_constraintBottom_toTopOf="@+id/calificarProductoBoton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
