@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/dirfrec1"
         android:textAlignment="center"
-        android:textColor="@color/verde"
+        android:textColor="@color/clr_greenYardly"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

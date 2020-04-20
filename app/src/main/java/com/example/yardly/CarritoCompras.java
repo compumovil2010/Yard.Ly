@@ -32,7 +32,7 @@ public class CarritoCompras extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registro = new Intent(getBaseContext(),HomeActivity.class);
+                Intent registro = new Intent(getBaseContext(),Principal.class);
                 startActivity(registro);
             }
         });

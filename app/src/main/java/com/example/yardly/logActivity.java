@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,18 +23,23 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class logActivity extends AppCompatActivity {
     private static FirebaseAuth authentication;
-    Button registro;
     Button ingreso;
     EditText email;
     EditText password;
+    TextView registro;
+
+    @Override
+    public void onBackPressed() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
         authentication = FirebaseAuth.getInstance();
-        registro = findViewById(R.id.botonRegistrar);
-        email = findViewById(R.id.usuario);
-        password = findViewById(R.id.password);
+        registro = findViewById(R.id.register);
+        email = findViewById(R.id.et_user);
+        password = findViewById(R.id.et_pword);
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +64,7 @@ public class logActivity extends AppCompatActivity {
     }
     private void actualizarUI(FirebaseUser usuario){
         if(usuario != null){
-            Intent ingreso = new Intent(getBaseContext(),HomeActivity.class);
+            Intent ingreso = new Intent(getBaseContext(),Principal.class);
             ingreso.putExtra("user", usuario.getEmail());
             startActivity(ingreso);
         }else{

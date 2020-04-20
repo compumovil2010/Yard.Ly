@@ -2,6 +2,7 @@ package com.example.yardly;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,9 @@ import android.widget.TextView;
 import java.util.List;
 
 public class ProductosAdapter extends ArrayAdapter<Producto> {
-
     private int LayoutUso;
     private Context contex;
+    private Producto pro;
     public ProductosAdapter (Context context, int resource, List<Producto> products){
         super(context,resource,products);
         this.LayoutUso=resource;
@@ -27,23 +28,25 @@ public class ProductosAdapter extends ArrayAdapter<Producto> {
             vie = LayoutInflater.from(getContex())
                     .inflate(getLayoutUso(), parent, false);
         }
-        Producto pro = getItem(position);
+         pro = getItem(position);
         if (pro!=null){
             TextView nombre = vie.findViewById(R.id.nomProd);
             TextView Descrip = vie.findViewById(R.id.desProd);
             TextView precio = vie.findViewById(R.id.precProd);
             Button b= vie.findViewById(R.id.agregarProd);
+            nombre.setText(pro.getNombre());
+            Descrip.setText(pro.getDescripcion());
+            precio.setText(String.valueOf(pro.getPrecio()));
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent registro = new Intent(v.getContext(),Producto.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("producto",pro);
+                    registro.putExtra("Bproducto",bundle);
                     v.getContext().startActivity(registro);
                 }
             });
-
-            nombre.setText(pro.getNombre());
-            Descrip.setText(pro.getDescripcion());
-            precio.setText(String.valueOf(pro.getPrecio()));
         }
         return  vie;
     }

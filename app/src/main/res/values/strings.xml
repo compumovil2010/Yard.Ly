@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Yard.ly</string>
-    <string name="nombreUsuario">Nombre De Usuario</string>
+    <string name="nombreUsuario">Usuario</string>
     <string name="contrasena">Contraseña</string>
     <string name="nombres">Nombres</string>
     <string name="apellidos">Apellidos</string>
     <string name="email">Email</string>
     <string name="direccion">Direccion</string>
     <string name="cncel">
-        <u>cancelar</u>
+        <u>Cancelar</u>
     </string>
     <string name="regis">Registro</string>
     <string name="tyc">Acepto terminos y condiciones</string>
@@ -26,10 +26,6 @@
     <string name="tot">Total</string>
     <string name="agregCarr">Agregar carrito</string>
     <string name="opini">Opiniones</string>
-    <string-array name="tipoProducto">
-        <item>Ropa</item>
-        <item>Plato</item>
-    </string-array>
     <string name="imgproduct">Imagen de producto</string>
     <string name="agregar">Agregar</string>
     <string name="nomEsta">Nombre Establecimiento</string>
@@ -40,5 +36,16 @@
     <string name="ordenR">Ordenes Recientes</string>
     <string name="CarritoCompras">Carrito de Compras</string>
     <string name="perf">Mi Perfil</string>
+    <string name="log_in">Log In</string>
+    <string name="registrar"><u>SIGN UP</u></string>
+    <string name="forgot_password">FORGOT PASSWORD</string>
+    <string name="continuar">Continuar</string>
+    <string name="title_activity_principal">principal</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string-array name="tipoProducto">
+        <item>Ropa</item>
+        <item>Plato</item>
+    </string-array>
 
 </resources>

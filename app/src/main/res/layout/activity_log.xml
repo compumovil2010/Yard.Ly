@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".logActivity">
+    tools:context=".logActivity"
+    android:background="@drawable/background_li">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Yard.ly"
-        android:textColor="@color/verde"
-        android:textSize="90sp"
+        style="@style/yardlyTitle"
+        android:textColor="@color/clr_greenYardly"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +23,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="60dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,46 +31,76 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/usuario"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
+            android:id="@+id/et_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/frm_rreditt"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/nombreUsuario"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/verde" />
+            android:inputType="textWebEmailAddress"
+            android:paddingStart="20dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:textAppearance="@style/txt_kindaBig"
+            android:textColorHint="@color/clr_greenYardly"
+            android:layout_marginVertical="15dp"/>
+
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/et_pword"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/frm_rreditt"
             android:ems="10"
+            android:textAppearance="@style/txt_kindaBig"
             android:hint="@string/contrasena"
             android:inputType="textPassword"
-            android:textColorHint="@color/verde" />
+            android:paddingStart="20dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:textColorHint="@color/clr_greenYardly"
+            android:layout_marginVertical="15dp"/>
 
         <Button
             android:id="@+id/botonIngresar"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            style="@style/btn_Stl1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
             android:layout_margin="30dp"
+            android:padding="5dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Ingresar"
-            android:background="@drawable/rounded_button"
-            android:textColor="@color/black" />
+            android:textStyle="bold"
+            android:text="@string/log_in" />
 
-        <Button
-            android:id="@+id/botonRegistrar"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="30dp"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_button"
-            android:text="Registrar"
-            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/txt_normal"
+            android:text="@string/registrar"
+            android:layout_gravity="center"
+            android:textColor="@color/clr_greenYardly"
+            android:clickable="true"
+            android:focusable="true" />
+        <TextView
+            android:id="@+id/tv_forgotpw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/txt_normal"
+            android:text="@string/forgot_password"
+            android:layout_gravity="center"
+            android:textColor="@color/clr_greenYardly"
+            android:clickable="true"
+            android:padding="10dp"
+            />
+
+
 
     </LinearLayout>
 

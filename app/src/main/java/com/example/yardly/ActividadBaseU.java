@@ -30,26 +30,20 @@ public class ActividadBaseU extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home:
-                startActivity( new Intent(this, HomeActivity.class));
+            case R.id.editar_perfil:
+                //TODO editar perfil
                 return true;
-            case R.id.busqueda:
-                startActivity( new Intent(this, Busqueda.class));
+            case R.id.report:
+                //TODO Reporte
                 return true;
-            case R.id.recientes:
-                startActivity( new Intent(this, PedidoHistory.class));
+            case R.id.adrs:
+                //TODO direcciones
                 return true;
-            case R.id.carrito:
-                startActivity( new Intent(this, CarritoCompras.class));
-                return true;
-            case R.id.MiPerfil:
-                startActivity( new Intent(this, infoPerfil.class));
-                return true;
-            case R.id.CerrarSesionE:
+            case R.id.salir:
+                //TODO Cerrar Sesión
                 authentication.signOut();
-                Intent inte = new Intent(getApplicationContext(), logActivity.class);
-                //inte.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(inte);
+                Intent int_logout = new Intent( getApplicationContext(), logActivity.class );
+                startActivity( int_logout );
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

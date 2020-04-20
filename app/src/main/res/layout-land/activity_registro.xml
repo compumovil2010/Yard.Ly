@@ -14,7 +14,7 @@
         android:text="Registro"
         android:textSize="30sp"
         android:layout_margin="20dp"
-        android:textColor="@color/verde"
+        android:textColor="@color/clr_greenYardly"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,8 +40,8 @@
                 android:ems="10"
                 android:hint="@string/nombres"
                 android:inputType="textPersonName"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:textColor="@color/clr_greenYardly"
+                android:textColorHint="@color/clr_greenYardly" />
 
             <EditText
                 android:id="@+id/apellidoUsRe"
@@ -51,8 +51,8 @@
                 android:ems="10"
                 android:hint="@string/apellidos"
                 android:inputType="textPersonName"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:textColor="@color/clr_greenYardly"
+                android:textColorHint="@color/clr_greenYardly" />
 
             <EditText
                 android:id="@+id/mailUsRe"
@@ -62,8 +62,8 @@
                 android:ems="10"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:textColor="@color/clr_greenYardly"
+                android:textColorHint="@color/clr_greenYardly" />
 
             <EditText
                 android:id="@+id/passUsRe"
@@ -73,8 +73,8 @@
                 android:ems="10"
                 android:hint="@string/contrasena"
                 android:inputType="textPassword"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:textColor="@color/clr_greenYardly"
+                android:textColorHint="@color/clr_greenYardly" />
 
             <EditText
                 android:id="@+id/editText7"
@@ -84,8 +84,8 @@
                 android:ems="10"
                 android:hint="@string/contrasena"
                 android:inputType="textPassword"
-                android:textColor="@color/verde"
-                android:textColorHint="@color/verde" />
+                android:textColor="@color/clr_greenYardly"
+                android:textColorHint="@color/clr_greenYardly" />
         </LinearLayout>
     </ScrollView>
 
@@ -106,8 +106,8 @@
             android:layout_margin="20sp"
             android:layout_weight="1"
             android:text="Cancelar"
-            android:textColor="@color/verde"
-            android:textColorHint="@color/verde" />
+            android:textColor="@color/clr_greenYardly"
+            android:textColorHint="@color/clr_greenYardly" />
 
         <Button
             android:id="@+id/nextRegister"

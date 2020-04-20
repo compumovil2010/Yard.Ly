@@ -18,11 +18,11 @@ public class Registro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
-        nombreUs = findViewById(R.id.nombreUsRe);
+        nombreUs = findViewById(R.id.et_nombreUsRe);
         apellidoUs = findViewById(R.id.apellidoUsRe);
         email = findViewById(R.id.mailUsRe);
         contrasena = findViewById(R.id.passUsRe);
-        registroFot=findViewById(R.id.nextRegister);
+        registroFot = findViewById(R.id.registrarForm);
         registroFot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

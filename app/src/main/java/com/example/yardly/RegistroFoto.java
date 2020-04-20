@@ -54,6 +54,7 @@ public class RegistroFoto extends AppCompatActivity {
     private StorageReference storage;
     private ImageButton foto ;
     private Usuario newUser;
+    private Bitmap fotoPerfil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,25 +137,26 @@ public class RegistroFoto extends AppCompatActivity {
         }
     }@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != RESULT_CANCELED) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         foto.setImageBitmap(selectedImage);
-                        uploadImageandSaveUri(selectedImage);
+                        fotoPerfil = selectedImage;
                         //newUser.setFotoPerfil(selectedImage);
                     }
 
                     break;
                 case 1:
-                    if(resultCode == RESULT_OK){
+                    if (resultCode == RESULT_OK) {
                         try {
                             Uri imageUri = data.getData();
                             InputStream imageStream = getContentResolver().openInputStream(imageUri);
                             Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                             foto.setImageBitmap(selectedImage);
-                            uploadImageandSaveUri(selectedImage);
+                            fotoPerfil = selectedImage;
                             //newUser.setFotoPerfil(selectedImage);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -194,7 +196,7 @@ public class RegistroFoto extends AppCompatActivity {
                     if(task.isSuccessful()){
                         FirebaseUser user = authentication.getCurrentUser();
                         if(user!=null){ //Update user Info
-
+                            uploadImageandSaveUri(fotoPerfil);
                             reference = database.getReference(Usuario.PATH_USERS+ user.getUid());
                             reference.setValue(newUser);
                             actualizarUI(user);
@@ -209,15 +211,16 @@ public class RegistroFoto extends AppCompatActivity {
 
     }
 
-    private void uploadImageandSaveUri(Bitmap foto){
+    private void uploadImageandSaveUri(Bitmap fotoSubir){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        FirebaseUser user = authentication.getCurrentUser();
         storage = FirebaseStorage.getInstance().getReference()
-                .child(Usuario.PATH_PORFILE_PHOTO).child(authentication.getCurrentUser().getUid()+".png");
-        foto.compress(Bitmap.CompressFormat.PNG,100,baos);
+                .child(Usuario.PATH_PORFILE_PHOTO).child(user.getUid()+".png");
+        fotoSubir.compress(Bitmap.CompressFormat.PNG,100,baos);
         storage.putBytes(baos.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                getDowloadUri( storage);
+                getDowloadUri(storage);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -253,7 +256,7 @@ public class RegistroFoto extends AppCompatActivity {
     }
     private void actualizarUI(FirebaseUser usuario){
         if(usuario != null){
-            Intent ingreso = new Intent(getBaseContext(),HomeActivity.class);
+            Intent ingreso = new Intent(getBaseContext(),Principal.class);
             ingreso.putExtra("user", usuario.getEmail());
             startActivity(ingreso);
         }
