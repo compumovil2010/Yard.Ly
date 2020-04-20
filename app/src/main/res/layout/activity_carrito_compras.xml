@@ -31,7 +31,7 @@
         android:id="@+id/comfiCompra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/frm_reallyrouded"
         android:text="Confirmar compra"
         android:layout_below="@id/subtot"
         android:layout_centerHorizontal="true"/>

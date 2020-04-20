@@ -11,7 +11,7 @@
         android:layout_width="288dp"
         android:layout_height="93dp"
         android:text="Yard.ly"
-        android:textColor="@color/verde"
+        android:textColor="@color/clr_greenYardly"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/usuario"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="20dp"
@@ -41,10 +41,10 @@
                 android:ems="10"
                 android:hint="@string/nombreUsuario"
                 android:inputType="textEmailAddress"
-                android:textColorHint="@color/verde" />
+                android:textColorHint="@color/clr_greenYardly" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="20dp"
@@ -52,7 +52,7 @@
                 android:ems="10"
                 android:hint="@string/contrasena"
                 android:inputType="textPassword"
-                android:textColorHint="@color/verde" />
+                android:textColorHint="@color/clr_greenYardly" />
         </LinearLayout>
     </ScrollView>
 
@@ -72,7 +72,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Ingresar"
-            android:textColor="@color/verde" />
+            android:textColor="@color/clr_greenYardly" />
 
         <Button
             android:id="@+id/botonRegistrar"
@@ -81,7 +81,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Registrar"
-            android:textColor="@color/verde" />
+            android:textColor="@color/clr_greenYardly" />
 
     </LinearLayout>
 

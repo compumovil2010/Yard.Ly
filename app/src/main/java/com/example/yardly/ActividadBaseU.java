@@ -9,13 +9,16 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class ActividadBaseU extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
 
+public class ActividadBaseU extends AppCompatActivity {
+    private static FirebaseAuth authentication;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        authentication = FirebaseAuth.getInstance();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -27,22 +30,21 @@ public class ActividadBaseU extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home:
-                startActivity( new Intent(this, HomeActivity.class));
+            case R.id.editar_perfil:
+                //TODO editar perfil
                 return true;
-            case R.id.busqueda:
-                startActivity( new Intent(this, Busqueda.class));
+            case R.id.report:
+                //TODO Reporte
                 return true;
-            case R.id.recientes:
-                startActivity( new Intent(this, PedidoHistory.class));
+            case R.id.adrs:
+                //TODO direcciones
                 return true;
-            case R.id.carrito:
-                startActivity( new Intent(this, CarritoCompras.class));
+            case R.id.salir:
+                //TODO Cerrar Sesión
+                authentication.signOut();
+                Intent int_logout = new Intent( getApplicationContext(), logActivity.class );
+                startActivity( int_logout );
                 return true;
-            case R.id.MiPerfil:
-                startActivity( new Intent(this, infoPerfil.class));
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
 

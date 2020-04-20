@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yardly">
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ly"
@@ -9,16 +10,18 @@
         android:roundIcon="@mipmap/ly"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CaltalogoEmpresa"></activity>
+        <activity android:name=".Search_results"></activity>
+        <activity android:name=".Principal" />
+        <activity android:name=".CaltalogoEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
         <activity android:name=".infoPedido" />
         <activity android:name=".editarProducto" />
         <activity android:name=".CarritoCompras" />
-        <activity android:name=".Busqueda"></activity>
-        <activity android:name=".Calificar"></activity>
+        <activity android:name=".Busqueda" />
+        <activity android:name=".Calificar" />
         <activity android:name=".editarProductoRopa" />
         <activity android:name=".editarProductoPlato" />
-        <activity android:name=".AsignacionDomi"></activity>
+        <activity android:name=".AsignacionDomi" />
         <activity android:name=".ActividadBaseE" />
         <activity android:name=".omgreen" />
         <activity android:name=".entregaUsuario" />

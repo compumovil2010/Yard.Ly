@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/verde"
+    android:background="@color/clr_greenYardly"
     tools:context=".RegistroFoto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,15 +52,15 @@
             app:layout_constraintBottom_toTopOf="@+id/linl">
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/nombreUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"
                 android:ems="10"
                 android:hint="@string/nombres"
                 android:inputType="textPersonName"
-                android:textColor="@color/blanc"
-                android:textColorHint="@color/blanc" />
+                android:textColor="@color/clr_justWhite"
+                android:textColorHint="@color/clr_justWhite" />
 
             <EditText
                 android:id="@+id/mail"
@@ -70,19 +70,19 @@
                 android:ems="10"
                 android:hint="@string/email"
                 android:inputType="textPersonName"
-                android:textColor="@color/blanc"
-                android:textColorHint="@color/blanc" />
+                android:textColor="@color/clr_justWhite"
+                android:textColorHint="@color/clr_justWhite" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/mailUsRe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"
                 android:ems="10"
                 android:hint="@string/direccion"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/blanc"
-                android:textColorHint="@color/blanc" />
+                android:textColor="@color/clr_justWhite"
+                android:textColorHint="@color/clr_justWhite" />
 
         </LinearLayout>
 
@@ -114,21 +114,21 @@
             android:id="@+id/btnGuardarP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/frm_reallyrouded"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="68dp"
-            android:backgroundTint="@color/verdebut"
+            android:backgroundTint="@color/clr_greenYardly"
             android:text="@string/Guardar"
-            android:textColor="@color/blanc"
+            android:textColor="@color/clr_justWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linl" />
 
         <Button
             android:id="@+id/btnCancP"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/frm_reallyrouded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/verde"
+            android:backgroundTint="@color/clr_greenYardly"
             android:text="@string/cncel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnGuardarP"

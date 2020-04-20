@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="verde">#4CAF50</color>
-    <color name="SelecFotoPerfil">#9BC286</color>
-    <color name="blanc">#2B2B2B</color>
-    <color name="verdebut">#186D19</color>
-    <color name="dark_green">#2D572F</color>
-    <color name="black">#020101</color>
+    <color name="clr_greenYardly">#409700</color>
+    <color name="clr_darkGreen">#2C6700</color>
+    <color name="clr_kindaGrey">#C1C1C1</color>
+    <color name="clr_quiteGrey">#7B7B7B</color>
+    <color name="clr_veryGrey">#2D2D2D</color>
+    <color name="clr_justWhite">#FFFFFF</color>
+    <color name="clr_justBlack">#000000</color>
+
 </resources>

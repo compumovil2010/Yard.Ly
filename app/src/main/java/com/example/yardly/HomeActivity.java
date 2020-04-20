@@ -8,8 +8,12 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class HomeActivity extends ActividadBaseU {
 
+    FirebaseUser user ;
     Button b1;
     Button b2;
     @Override
@@ -17,6 +21,12 @@ public class HomeActivity extends ActividadBaseU {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null){
+            Intent inte = new Intent(this, logActivity.class);
+            inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(inte);
+        }
         setSupportActionBar(myToolbar);
         b1=findViewById(R.id.btComida);
         b2=findViewById(R.id.btRopa);
