@@ -15,7 +15,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,8 +47,6 @@ import java.io.InputStream;
 import Modelo.Usuario;
 
 public class RegistroFoto extends AppCompatActivity {
-    public static final int MY_PERMISSION_READ_STROAGE = 32;
-    public static final int MY_PERMISSION_CAMERA = 33;
     private Button signup;
     private static FirebaseAuth authentication;
     private static FirebaseDatabase database;
@@ -54,7 +54,9 @@ public class RegistroFoto extends AppCompatActivity {
     private StorageReference storage;
     private ImageButton foto ;
     private Usuario newUser;
+    private TextView cancelar;
     private Bitmap fotoPerfil;
+    private CheckBox tyc, pp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +64,21 @@ public class RegistroFoto extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance().getReference();
         setContentView(R.layout.activity_registro_foto);
+        cancelar=findViewById(R.id.botonCancelar);
         signup=findViewById(R.id.botonRegistrarFoto);
         foto = findViewById(R.id.selecFotperf);
+        tyc=findViewById(R.id.checkBox);
+        pp=findViewById(R.id.checkBox2);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pedirPermiso(Manifest.permission.READ_EXTERNAL_STORAGE, "Es necesario para seleccionar la foto");
+                permisos.pedirPermisos(RegistroFoto.this,Manifest.permission.READ_EXTERNAL_STORAGE, "Es necesario para seleccionar la foto",permisos.PERMISSION_STORAGE_ID.ordinal());
             }
         });
         final Bundle datosUs = this.getIntent().getBundleExtra("datosUs");
@@ -93,7 +104,7 @@ public class RegistroFoto extends AppCompatActivity {
 
                 if (options[item].equals("Tomar Foto")) {
 
-                    pedirPermiso(Manifest.permission.CAMERA, "Es necesario para tomar la foto");
+                    permisos.pedirPermisos(RegistroFoto.this,Manifest.permission.CAMERA, "Es necesario para tomar la foto",permisos.PERMISSION_CAMERA_ID.ordinal());
 
                 } else if (options[item].equals("Escoger de la galería")) {
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -111,8 +122,8 @@ public class RegistroFoto extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
-        switch (requestCode){
-            case MY_PERMISSION_READ_STROAGE:{
+
+        if(requestCode==permisos.PERMISSION_STORAGE_ID.ordinal()){
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     selectImage(this);
                 }
@@ -120,9 +131,8 @@ public class RegistroFoto extends AppCompatActivity {
                     Toast t = Toast.makeText(this, "No es posible acceder a las fotos", Toast.LENGTH_LONG);
                     t.show();
                 }
-                return;
             }
-            case MY_PERMISSION_CAMERA:{
+            if(requestCode==permisos.PERMISSION_CAMERA_ID.ordinal()){
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
@@ -131,11 +141,10 @@ public class RegistroFoto extends AppCompatActivity {
                     Toast t = Toast.makeText(this, "No es posible acceder a las fotos", Toast.LENGTH_LONG);
                     t.show();
                 }
-                return;
             }
+    }
 
-        }
-    }@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_CANCELED) {
@@ -166,36 +175,26 @@ public class RegistroFoto extends AppCompatActivity {
         }
     }
 
-    public void pedirPermiso(String permiso, String justificacion)
-    {
-        if(ContextCompat.checkSelfPermission(this, permiso) != PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, permiso)){
-                Toast ration = Toast.makeText(this, justificacion, Toast.LENGTH_LONG);
-                ration.show();
-            }
-            switch (permiso){
-                case Manifest.permission.READ_EXTERNAL_STORAGE:{
-                    ActivityCompat.requestPermissions(this, new String[]{permiso}, MY_PERMISSION_READ_STROAGE);
-                    return;
-                }
-                case Manifest.permission.CAMERA:{
-                    ActivityCompat.requestPermissions(this, new String[]{permiso}, MY_PERMISSION_CAMERA);
-                    return;
-                }
-            }
-        }
-        else{
-            selectImage(this);
-        }
-    }
-
     private void registerUser(Bundle datosUs){
+        String s= null;
+        if(!tyc.isChecked()&& !pp.isChecked())
+            s="Acepte los terminos y condiciones, y las politicas de privacidad";
+        else if (!tyc.isChecked())
+            s="Acepte los terminos y condiciones";
+        else if (!pp.isChecked())
+            s="Acepte las politicas de privacidad";
+        if(s!=null)
+        {
+            Toast.makeText(this,s,Toast.LENGTH_LONG).show();
+            return;
+        }
             authentication.createUserWithEmailAndPassword(datosUs.getString("mail"), datosUs.getString("contrasena")).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         FirebaseUser user = authentication.getCurrentUser();
                         if(user!=null){ //Update user Info
+                            if(fotoPerfil!=null)
                             uploadImageandSaveUri(fotoPerfil);
                             reference = database.getReference(Usuario.PATH_USERS+ user.getUid());
                             reference.setValue(newUser);
@@ -257,6 +256,7 @@ public class RegistroFoto extends AppCompatActivity {
     private void actualizarUI(FirebaseUser usuario){
         if(usuario != null){
             Intent ingreso = new Intent(getBaseContext(),Principal.class);
+            ingreso.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             ingreso.putExtra("user", usuario.getEmail());
             startActivity(ingreso);
         }
