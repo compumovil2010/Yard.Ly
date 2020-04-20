@@ -37,6 +37,12 @@ public class ActividadBaseE extends AppCompatActivity {
             case R.id.MiPerfil:
                 startActivity( new Intent(this, infoPerfil.class));
                 return true;
+            case R.id.CerrarSesionE:
+                logActivity.singOut();
+                Intent inte = new Intent(this, logActivity.class);
+                inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inte);
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
