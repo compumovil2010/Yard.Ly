@@ -11,8 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/dark_green"
-        android:backgroundTint="@color/verde"
+        android:background="@color/clr_darkGreen"
+        android:backgroundTint="@color/clr_greenYardly"
         android:orientation="horizontal"
         android:layout_weight="1">
 
@@ -62,7 +62,7 @@
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/frm_reallyrouded"
             android:layout_weight="1"
             android:text="Button" />
 

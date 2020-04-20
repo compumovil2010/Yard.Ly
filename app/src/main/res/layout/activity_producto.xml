@@ -47,7 +47,7 @@
             android:layout_height="33dp"
             android:layout_marginLeft="80dp"
             android:layout_below="@id/descripProduc"
-            app:srcCompat="@drawable/staricon"/>
+            app:srcCompat="@drawable/star_icon"/>
 
         <TextView
             android:id="@+id/ratingValue"
@@ -64,7 +64,7 @@
             android:layout_height="33dp"
             android:layout_marginLeft="80dp"
             android:layout_below="@id/ratingValue"
-            app:srcCompat="@drawable/moneyicon" />
+            app:srcCompat="@drawable/money_icon" />
 
         <TextView
             android:id="@+id/precioProduct"
@@ -81,7 +81,7 @@
             android:layout_marginLeft="80dp"
             android:layout_height="33dp"
             android:layout_below="@id/precioProduct"
-            app:srcCompat="@drawable/placeicon" />
+            app:srcCompat="@drawable/place_icon" />
         <TextView
             android:id="@+id/storeName"
             android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
             android:layout_height="33dp"
             android:layout_marginLeft="80dp"
             android:layout_below="@id/mas"
-            app:srcCompat="@drawable/moneyicon" />
+            app:srcCompat="@drawable/money_icon" />
         <Button
             android:id="@+id/aggCarrit"
             android:layout_width="wrap_content"
@@ -161,7 +161,7 @@
             android:text="@string/agregCarr"
             android:layout_below="@id/cash2"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/rounded_button"/>
+            android:background="@drawable/frm_reallyrouded"/>
 
         <TextView
             android:id="@+id/opinion"

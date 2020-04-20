@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finalizar Entrega"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/frm_reallyrouded"
         android:paddingStart="25dp"
         android:layout_below="@id/fotoUsu"/>
 
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/map"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/frm_reallyrouded"
         android:layout_below="@id/direc"
         android:layout_toEndOf="@id/direc"
         android:text="Chat" />
