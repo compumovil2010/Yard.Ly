@@ -48,6 +48,7 @@
     <string name="add">Add</string>
     <string name="cancel">cancel</string>
     <string name="CommentarioHint">Escriba aca su comentario</string>
+    <string name="findUs">find Us</string>
     <string-array name="tipoProducto">
         <item>Ropa</item>
         <item>Plato</item>
