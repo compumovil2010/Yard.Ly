@@ -36,7 +36,7 @@
             android:label="@string/title_activity_usuario_entrega"></activity>
         <activity android:name=".Search_results" />
         <activity android:name=".Principal" />
-        <activity android:name=".CaltalogoEmpresa" />
+        <activity android:name=".CatalogoEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
         <activity android:name=".infoPedido" />
         <activity android:name=".editarProducto" />
