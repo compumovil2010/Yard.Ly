@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,13 @@ public class RegistroFoto extends AppCompatActivity {
     private ImageButton foto ;
     private Usuario newUser;
     private Bitmap fotoPerfil;
+    private TextView cancelar;
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +72,16 @@ public class RegistroFoto extends AppCompatActivity {
         setContentView(R.layout.activity_registro_foto);
         signup=findViewById(R.id.botonRegistrarFoto);
         foto = findViewById(R.id.selecFotperf);
+
+        cancelar = findViewById( R.id.botonCancelar );
+
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent( getApplicationContext(), logActivity.class ) );
+            }
+        });
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

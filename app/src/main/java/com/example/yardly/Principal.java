@@ -18,7 +18,14 @@ public class Principal extends ActividadBaseU {
     private TabLayout tab_navhome;
     private ViewPager vp_home;
     private Toolbar tb_opciones;
+
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
