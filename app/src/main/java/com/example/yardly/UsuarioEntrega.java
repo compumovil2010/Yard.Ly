@@ -43,6 +43,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.List;
@@ -60,8 +61,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private FusedLocationProviderClient mfusedLoc;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
-    private Location current;
     private Marker marker;
+    private FirebaseUser user;
 
 
     @Override
