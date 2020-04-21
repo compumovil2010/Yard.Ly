@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ly"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Search_results"></activity>
         <activity android:name=".RestaurantProfile"></activity>
         <activity android:name=".CalificarOpinion" />
+        <activity android:name=".Search_results" />
         <activity android:name=".CatalogoEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
         <activity android:name=".infoPedido" />
