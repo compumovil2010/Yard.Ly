@@ -68,6 +68,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_entrega);
+        manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
         geo = new Geocoder(getBaseContext());
         inicializarLoc();
