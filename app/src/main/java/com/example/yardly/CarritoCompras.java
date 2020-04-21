@@ -32,8 +32,8 @@ public class CarritoCompras extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registro = new Intent(getBaseContext(),Principal.class);
-                startActivity(registro);
+                Intent registro = new Intent(v.getContext(),Calificar.class);
+                v.getContext().startActivity(registro);
             }
         });
         ProductosCarritoAdapter caAdapter = new ProductosCarritoAdapter(this, R.layout.carrito_adapter,mProjection);
