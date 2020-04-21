@@ -35,9 +35,8 @@
             android:name=".UsuarioEntrega"
             android:label="@string/title_activity_usuario_entrega"></activity>
         <activity android:name=".Search_results" />
-        <activity android:name=".Search_results" >
+        <activity android:name=".Checkout" />
 
-        </activity>
         <activity android:name=".Principal" />
         <activity android:name=".CatalogoEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
@@ -59,7 +58,7 @@
         <activity android:name=".Registro" />
         <activity android:name=".logActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".Checkout">
+        <activity android:name=".Principal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,5 +66,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
