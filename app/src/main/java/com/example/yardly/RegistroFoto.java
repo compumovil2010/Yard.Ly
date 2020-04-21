@@ -166,7 +166,7 @@ public class RegistroFoto extends AppCompatActivity {
         }
     }
 
-    public void pedirPermiso(String permiso, String justificacion)
+    public  void pedirPermiso(String permiso, String justificacion)
     {
         if(ContextCompat.checkSelfPermission(this, permiso) != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this, permiso)){
