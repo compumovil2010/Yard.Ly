@@ -67,8 +67,8 @@ public class RegistroFoto extends AppCompatActivity {
         cancelar=findViewById(R.id.botonCancelar);
         signup=findViewById(R.id.botonRegistrarFoto);
         foto = findViewById(R.id.selecFotperf);
-        tyc=findViewById(R.id.checkBox);
-        pp=findViewById(R.id.checkBox2);
+        tyc=findViewById(R.id.terminos);
+        pp=findViewById(R.id.politica);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,12 +88,8 @@ public class RegistroFoto extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(politica.isChecked() && terminos.isChecked()){
                     registerUser(datosUs);
-                }
-                else{
-                    Toast.makeText(getBaseContext(),"Es necesario que aceptes las condiciones y politicas", Toast.LENGTH_LONG).show();
-                }
+
             }
         });
     }
