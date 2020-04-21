@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalificarOpinion">
+
+    <TextView
+        android:id="@+id/CommentHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Comment"
+        android:textAppearance="@style/txt_kindaBig"
+        android:textColor="@color/clr_greenYardly"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"/>
+
+    <EditText
+        android:id="@+id/ComentarioText"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/CommentHeader"
+        android:ems="10"
+
+        android:gravity="start|top"
+        android:hint="@string/CommentarioHint"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/addCommentFinal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        android:background="@drawable/frm_rounded"
+        android:layout_below="@id/ComentarioText" />
+    <Button
+        android:id="@+id/cancelComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:background="@drawable/frm_rounded"
+        android:layout_below="@id/addCommentFinal"/>
+</RelativeLayout>
