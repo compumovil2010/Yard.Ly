@@ -27,19 +27,16 @@ import androidx.fragment.app.Fragment;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class Tab_shop extends Fragment {
-    public static final String PATH_RESTS = "restaurants/";
+
 
 
     EditText et_buscador;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
-
     private List < Restaurant > restRes;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_shop, container, false);
-        database = FirebaseDatabase.getInstance();
+
         et_buscador = v.findViewById( R.id.et_buscador );
 
 

@@ -8,7 +8,6 @@ public class Restaurant {
 
     private String nombreR;
     private String descripR;
-    private List < Pair< Double, Double>> sedesR;
 
     public Restaurant()
     {
@@ -19,7 +18,6 @@ public class Restaurant {
     {
         this.nombreR = pnombreR;
         this.descripR = pdescripR;
-        this.sedesR = psedesR;
     }
 
 
@@ -39,11 +37,5 @@ public class Restaurant {
         this.descripR = descripR;
     }
 
-    public List<Pair< Double, Double>> getSedesR() {
-        return sedesR;
-    }
 
-    public void setSedesR(List<Pair< Double, Double>> sedesR) {
-        this.sedesR = sedesR;
-    }
 }

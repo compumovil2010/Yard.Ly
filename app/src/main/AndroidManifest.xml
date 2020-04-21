@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ly"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Search_results"></activity>
+        <activity android:name=".Search_results" >
+
+        </activity>
         <activity android:name=".Principal" />
         <activity android:name=".CaltalogoEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
