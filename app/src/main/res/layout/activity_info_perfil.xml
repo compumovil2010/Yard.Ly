@@ -114,31 +114,5 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btEditarPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/frm_reallyrouded"
-        android:text="Editar Perfil"
-        android:textColor="@color/clr_greenYardly"
-        app:layout_constraintBottom_toTopOf="@+id/btEliminarPerfil"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layinfo"
-        app:layout_constraintVertical_bias="0.746" />
-
-    <Button
-        android:id="@+id/btEliminarPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/frm_reallyrouded"
-        android:text="Eliminar Perfil"
-        android:textColor="@color/clr_greenYardly"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

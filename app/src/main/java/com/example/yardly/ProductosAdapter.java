@@ -28,7 +28,7 @@ public class ProductosAdapter extends ArrayAdapter<Producto> {
             vie = LayoutInflater.from(getContex())
                     .inflate(getLayoutUso(), parent, false);
         }
-         pro = getItem(position);
+        pro = getItem(position);
         if (pro!=null){
             TextView nombre = vie.findViewById(R.id.nomProd);
             TextView Descrip = vie.findViewById(R.id.desProd);
