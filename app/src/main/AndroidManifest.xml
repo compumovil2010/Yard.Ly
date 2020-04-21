@@ -32,8 +32,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".mapaComida"
+            android:label="@string/title_activity_mapa_comida"></activity>
+        <activity
             android:name=".UsuarioEntrega"
-            android:label="@string/title_activity_usuario_entrega"></activity>
+            android:label="@string/title_activity_usuario_entrega" />
         <activity android:name=".Search_results" />
         <activity android:name=".Checkout" />
         <activity android:name=".CatalogoEmpresa" />
@@ -64,4 +67,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
