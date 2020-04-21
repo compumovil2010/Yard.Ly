@@ -48,16 +48,15 @@
         <activity android:name=".AsignacionDomi" />
         <activity android:name=".ActividadBaseE" />
         <activity android:name=".omgreen" />
-        <activity android:name=".entregaUsuario" />
         <activity android:name=".dirFrec" />
         <activity android:name=".editarPerfilU" />
         <activity android:name=".Producto" />
         <activity android:name=".PedidoHistory" />
         <activity android:name=".RegistroFoto" />
         <activity android:name=".Registro" />
-        <activity android:name=".Checkout" />
+        <activity android:name=".logActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".logActivity">
+        <activity android:name=".Checkout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,5 +64,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

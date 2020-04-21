@@ -17,9 +17,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -50,7 +47,6 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.List;
 
-import Modelo.Usuario;
 
 public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallback {
 
@@ -72,8 +68,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_entrega);
-        luz =manager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        geo= new Geocoder(getBaseContext());
+        luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        geo = new Geocoder(getBaseContext());
         inicializarLoc();
 
         list= new SensorEventListener() {
@@ -143,7 +139,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
