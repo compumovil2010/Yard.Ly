@@ -108,7 +108,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                 Location location = locationResult.getLastLocation();
                 if (location != null) {
                     current=location;
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
                     mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
                 }
@@ -250,14 +250,10 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_ACCESS_FINE_LOCATION);
             }
         }
-
     }
 
     private void startLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            mMap.getUiSettings().setZoomControlsEnabled(true);
             mfusedLoc.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
         }
     }
