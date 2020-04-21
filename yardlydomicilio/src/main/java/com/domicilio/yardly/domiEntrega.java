@@ -1,4 +1,4 @@
-package com.example.yardly;
+package com.domicilio.yardly;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -48,8 +48,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.io.IOException;
 import java.util.List;
 
-
-public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallback {
+public class domiEntrega extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private SensorManager manager;
@@ -61,14 +60,22 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private FusedLocationProviderClient mfusedLoc;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
-    private Marker marker;
+    private Marker mipos=null;
+    private Marker usupedido;
     private FirebaseUser user;
+    private static final String PATH_PEDIDOS="pedido/";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usuario_entrega);
+        setContentView(R.layout.activity_domi_entrega);
+        if(user == null){
+            Intent inte = new Intent(this, logActivity.class);
+            inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(inte);
+        }
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
         geo = new Geocoder(getBaseContext());
@@ -80,9 +87,9 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                 if(mMap!=null && luz!=null)
                 {
                     if(event.values[0]<300)
-                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(UsuarioEntrega.this, R.raw.dark_style_map));
+                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(domiEntrega.this, R.raw.dark_style_map));
                     else
-                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(UsuarioEntrega.this, R.raw.light_style_map));
+                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(domiEntrega.this, R.raw.light_style_map));
 
                 }
             }
@@ -92,12 +99,12 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
 
             }
         };
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+
 
     private void inicializarLoc() {
         mfusedLoc= LocationServices.getFusedLocationProviderClient(this);
@@ -107,7 +114,10 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
             public void onLocationResult(LocationResult locationResult) {
                 Location location = locationResult.getLastLocation();
                 if (location != null) {
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    if(mipos!=null)
+                        mipos.remove();
+                    //actualizarRefEnBD
+                    mipos=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
                     mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
                 }
@@ -126,6 +136,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        //Aqui va acceso a BD con usuarios
         LatLng myLoc = new LatLng(4.65, -74.05);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
@@ -133,10 +144,10 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
 
             @Override
             public void onMapLongClick(LatLng latLng) {
-                if(marker!=null)
-                    marker.remove();
+                if(usupedido!=null)
+                    usupedido.remove();
                 try {
-                    marker=mMap.addMarker( new MarkerOptions().position(latLng).title(getNombre(latLng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                    usupedido=mMap.addMarker( new MarkerOptions().position(latLng).title(getNombre(latLng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -182,7 +193,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                     case CommonStatusCodes.RESOLUTION_REQUIRED:
                         try {
                             ResolvableApiException resolvable = (ResolvableApiException) e;
-                            resolvable.startResolutionForResult(UsuarioEntrega.this,
+                            resolvable.startResolutionForResult(domiEntrega.this,
                                     REQUEST_CHECK_SETTINGS);
                         } catch (IntentSender.SendIntentException sendEx) {
                         } break;
@@ -230,7 +241,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                         case CommonStatusCodes.RESOLUTION_REQUIRED:
                             try {
                                 ResolvableApiException resolvable = (ResolvableApiException) e;
-                                resolvable.startResolutionForResult(UsuarioEntrega.this,
+                                resolvable.startResolutionForResult(domiEntrega.this,
                                         REQUEST_CHECK_SETTINGS);
                             } catch (IntentSender.SendIntentException sendEx) {
                             } break;
@@ -260,5 +271,4 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private void stopLocationS() {
         mfusedLoc.removeLocationUpdates(mLocationCallback);
     }
-
 }
