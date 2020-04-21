@@ -141,6 +141,9 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         //Aqui va acceso a BD con usuarios
+        /*
+
+         */
         LatLng myLoc = new LatLng(4.65, -74.05);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
