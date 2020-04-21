@@ -27,18 +27,15 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".domiEntrega"
-            android:label="@string/title_activity_domi_entrega" />
-        <activity
-            android:name=".logActivity"/>
-        <activity android:name=".pantallaPrincipal">
+        <activity android:name=".domiEntrega">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".logActivity"/>
     </application>
 
 </manifest>

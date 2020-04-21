@@ -43,6 +43,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
@@ -70,6 +71,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_domi_entrega);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null){
             Intent inte = new Intent(this, logActivity.class);
             inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -107,6 +109,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
 
 
     private void inicializarLoc() {
+        Toast.makeText(this, "IniLOC", Toast.LENGTH_SHORT).show();
         mfusedLoc= LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
         mLocationCallback = new LocationCallback() {
@@ -126,6 +129,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     }
 
     private LocationRequest createLocationRequest() {
+        Toast.makeText(this, "LocReq", Toast.LENGTH_SHORT).show();
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000); //tasa de refresco en milisegundos
         mLocationRequest.setFastestInterval(5000); //máxima tasa de refresco
@@ -163,6 +167,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     @Override
     protected void onResume() {
         super.onResume();
+        Toast.makeText(this, "OnResume", Toast.LENGTH_SHORT).show();
         startSetLocation();
         manager.registerListener(list, luz,SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -222,7 +227,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     }
 
     private void startSetLocation() {
-
+        Toast.makeText(this, "setLoc", Toast.LENGTH_SHORT).show();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
             SettingsClient client = LocationServices.getSettingsClient(this);
