@@ -88,7 +88,12 @@ public class RegistroFoto extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser(datosUs);
+                if(politica.isChecked() && terminos.isChecked()){
+                    registerUser(datosUs);
+                }
+                else{
+                    Toast.makeText(getBaseContext(),"Es necesario que aceptes las condiciones y politicas", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -194,8 +199,8 @@ public class RegistroFoto extends AppCompatActivity {
                     if(task.isSuccessful()){
                         FirebaseUser user = authentication.getCurrentUser();
                         if(user!=null){ //Update user Info
-                            if(fotoPerfil!=null)
-                            uploadImageandSaveUri(fotoPerfil);
+                            if(fotoPerfil != null)
+                                uploadImageandSaveUri(fotoPerfil);
                             reference = database.getReference(Usuario.PATH_USERS+ user.getUid());
                             reference.setValue(newUser);
                             actualizarUI(user);
