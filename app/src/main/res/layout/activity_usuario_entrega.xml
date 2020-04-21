@@ -33,10 +33,9 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:layout_editor_absoluteX="34dp">
+        tools:layout_editor_absoluteX="31dp">
 
         <ImageView
             android:id="@+id/fotoD"
@@ -76,19 +75,16 @@
         app:layout_constraintTop_toBottomOf="@+id/btChat" />
 
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="258dp"
-        android:layout_height="256dp"
-        android:layout_marginTop="28dp"
-        tools:context=".UsuarioEntrega"
+        android:layout_width="395dp"
+        android:layout_height="425dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2"/>
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        tools:context=".UsuarioEntrega" />
 
     <TextView
         android:id="@+id/tiempo"
@@ -97,9 +93,10 @@
         android:text="Tiempo estimado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map"
-        app:layout_constraintVertical_bias="0.259" />
+        app:layout_constraintVertical_bias="0.518" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
