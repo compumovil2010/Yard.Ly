@@ -78,7 +78,7 @@ public class RegistroFoto extends AppCompatActivity {
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                permisos.pedirPermisos(RegistroFoto.this,Manifest.permission.READ_EXTERNAL_STORAGE, "Es necesario para seleccionar la foto",permisos.PERMISSION_STORAGE_ID.ordinal());
+                selectImage(v.getContext());
             }
         });
         final Bundle datosUs = this.getIntent().getBundleExtra("datosUs");
@@ -95,28 +95,34 @@ public class RegistroFoto extends AppCompatActivity {
     }
 
     private void selectImage(Context context) {
-        final CharSequence[] options = { "Tomar Foto", "Escoger de la galería","Cancelar" };
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Escoge tu foto de perfil");
-        builder.setItems(options, new DialogInterface.OnClickListener() {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            permisos.pedirPermisos(RegistroFoto.this,Manifest.permission.READ_EXTERNAL_STORAGE, "Es necesario para seleccionar la foto",permisos.PERMISSION_STORAGE_ID.ordinal());
+        else
+        {
+            final CharSequence[] options = { "Tomar Foto", "Escoger de la galería","Cancelar" };
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Escoge tu foto de perfil");
+            builder.setItems(options, new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
 
-                if (options[item].equals("Tomar Foto")) {
+                    if (options[item].equals("Tomar Foto")) {
 
-                    permisos.pedirPermisos(RegistroFoto.this,Manifest.permission.CAMERA, "Es necesario para tomar la foto",permisos.PERMISSION_CAMERA_ID.ordinal());
+                        permisos.pedirPermisos(RegistroFoto.this,Manifest.permission.CAMERA, "Es necesario para tomar la foto",permisos.PERMISSION_CAMERA_ID.ordinal());
 
-                } else if (options[item].equals("Escoger de la galería")) {
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
+                    } else if (options[item].equals("Escoger de la galería")) {
+                        Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(pickPhoto , 1);
 
-                } else if (options[item].equals("Cancelar")) {
-                    dialog.dismiss();
+                    } else if (options[item].equals("Cancelar")) {
+                        dialog.dismiss();
+                    }
                 }
-            }
-        });
-        builder.show();
+            });
+            builder.show();
+        }
+
     }
 
 
@@ -124,16 +130,17 @@ public class RegistroFoto extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
 
+        Toast.makeText(this, "Entra", Toast.LENGTH_LONG).show();
         if(requestCode==permisos.PERMISSION_STORAGE_ID.ordinal()){
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     selectImage(this);
                 }
                 else {
-                    Toast t = Toast.makeText(this, "No es posible acceder a las fotos", Toast.LENGTH_LONG);
-                    t.show();
+                        Toast.makeText(this, "No es posible acceder a las fotos", Toast.LENGTH_LONG).show();
                 }
+                return;
             }
-            if(requestCode==permisos.PERMISSION_CAMERA_ID.ordinal()){
+             if(requestCode==permisos.PERMISSION_CAMERA_ID.ordinal()){
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
@@ -142,7 +149,9 @@ public class RegistroFoto extends AppCompatActivity {
                     Toast t = Toast.makeText(this, "No es posible acceder a las fotos", Toast.LENGTH_LONG);
                     t.show();
                 }
+                return;
             }
+        selectImage(this);
     }
 
     @Override
