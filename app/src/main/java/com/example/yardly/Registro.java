@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class Registro extends AppCompatActivity {
     EditText email;
     EditText contrasena;
     EditText cContrasena;
+    TextView cancelar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,14 @@ public class Registro extends AppCompatActivity {
         contrasena = findViewById(R.id.passUsRe);
         cContrasena = findViewById(R.id.cContrasena);
         registroFot = findViewById(R.id.registrarForm);
+        cancelar = findViewById(R.id.cacelarRegistro);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inte = new Intent(getBaseContext(), logActivity.class);
+                startActivity(inte);
+            }
+        });
         registroFot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,10 +64,13 @@ public class Registro extends AppCompatActivity {
         }
         if(!contrasena.getText().toString().equals(cContrasena.getText().toString()) || contrasena.getText().toString().isEmpty()){
             Toast.makeText(this, "Las contraseñas no corresponden",Toast.LENGTH_SHORT).show();
+            contrasena.setText("");
+            cContrasena.setText("");
             pasa = false;
         }
         if(TextUtils.isEmpty(mail) || !mail.contains("@") || !mail.contains(".") || mail.length() < 5){
-            Toast.makeText(this, "No ingresaste in email válido",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No ingresaste un email válido",Toast.LENGTH_SHORT).show();
+            email.setText("");
             pasa = false;
         }
         return  pasa;

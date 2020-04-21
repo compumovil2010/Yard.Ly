@@ -15,7 +15,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -54,7 +56,10 @@ public class RegistroFoto extends AppCompatActivity {
     private StorageReference storage;
     private ImageButton foto ;
     private Usuario newUser;
+    private TextView cancelar;
     private Bitmap fotoPerfil;
+    private CheckBox terminos;
+    private CheckBox politica;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +69,16 @@ public class RegistroFoto extends AppCompatActivity {
         setContentView(R.layout.activity_registro_foto);
         signup=findViewById(R.id.botonRegistrarFoto);
         foto = findViewById(R.id.selecFotperf);
+        cancelar = findViewById(R.id.botonCancelar);
+        terminos = findViewById(R.id.terminos);
+        politica = findViewById(R.id.politica);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inte = new Intent(getBaseContext(), logActivity.class);
+                startActivity(inte);
+            }
+        });
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +92,12 @@ public class RegistroFoto extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser(datosUs);
+                if(politica.isChecked() && terminos.isChecked()){
+                    registerUser(datosUs);
+                }
+                else{
+                    Toast.makeText(getBaseContext(),"Es necesario que aceptes las condiciones y politicas", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -196,7 +216,8 @@ public class RegistroFoto extends AppCompatActivity {
                     if(task.isSuccessful()){
                         FirebaseUser user = authentication.getCurrentUser();
                         if(user!=null){ //Update user Info
-                            uploadImageandSaveUri(fotoPerfil);
+                            if(fotoPerfil != null)
+                                uploadImageandSaveUri(fotoPerfil);
                             reference = database.getReference(Usuario.PATH_USERS+ user.getUid());
                             reference.setValue(newUser);
                             actualizarUI(user);
