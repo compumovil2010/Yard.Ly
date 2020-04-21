@@ -39,7 +39,7 @@
 
         </activity>
         <activity android:name=".Principal" />
-        <activity android:name=".CaltalogoEmpresa" />
+        <activity android:name=".CatalogoEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
         <activity android:name=".infoPedido" />
         <activity android:name=".editarProducto" />

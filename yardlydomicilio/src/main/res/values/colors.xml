@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="clr_greenYardly">#409700</color>
+    <color name="clr_darkGreen">#2C6700</color>
+    <color name="clr_kindaGrey">#C1C1C1</color>
+    <color name="clr_quiteGrey">#7B7B7B</color>
+    <color name="clr_veryGrey">#2D2D2D</color>
+    <color name="clr_justWhite">#FFFFFF</color>
+    <color name="clr_justBlack">#000000</color>
+
+</resources>

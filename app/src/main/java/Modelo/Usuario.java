@@ -4,12 +4,15 @@ import android.graphics.Bitmap;
 import android.media.Image;
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 public class Usuario {
     public  static  final String PATH_USERS = "users/";
     public static final String PATH_PORFILE_PHOTO = "users/porfile_photos";
     private String mail;
     private String nombre;
     private String apellido;
+    private ArrayList<String > CarritoCompras;
     private Uri fotoPerfil;
     private float kmRecorridos;
 
@@ -62,5 +65,13 @@ public class Usuario {
 
     public void setKmRecorridos(float kmRecorridos) {
         this.kmRecorridos = kmRecorridos;
+    }
+
+    public ArrayList<String> getCarritoCompras() {
+        return CarritoCompras;
+    }
+
+    public void setCarritoCompras(ArrayList<String> carritoCompras) {
+        CarritoCompras = carritoCompras;
     }
 }
