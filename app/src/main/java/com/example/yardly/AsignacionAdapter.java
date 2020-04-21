@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class AsginacionAdapter extends ArrayAdapter {
+public class AsignacionAdapter extends ArrayAdapter {
     private int LayoutUso;
     private Context context;
     private List<Pedido> ordenes;
-    public AsginacionAdapter(Context context, int resource, List<Pedido> ordenes)
+    public AsignacionAdapter(Context context, int resource, List<Pedido> ordenes)
     {
         super(context,resource,ordenes);
         this.LayoutUso=resource;

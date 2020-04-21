@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RestaurantProfile">
+
+    <TextView
+        android:id="@+id/NombreRestaurantePerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:text="Nom restaurant" />
+
+    <ImageView
+        android:id="@+id/LogoRestaurante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/estableciejem"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/NombreRestaurantePerfil"/>
+
+    <TextView
+        android:id="@+id/DescripcionRestaurantHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/descriprod"
+        android:layout_margin="10dp"
+        android:layout_below="@id/LogoRestaurante"/>
+
+    <TextView
+        android:id="@+id/DescripcionRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@id/DescripcionRestaurantHeader"
+        android:text="DescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcion" />
+
+    <Button
+        android:id="@+id/ProductsxRestaurante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/products"
+        android:background="@drawable/frm_rounded"
+        android:layout_below="@id/DescripcionRestaurant"/>
+
+    <Button
+        android:id="@+id/FindUs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/findUs"
+        android:background="@drawable/frm_rounded"
+        android:layout_below="@id/ProductsxRestaurante"/>
+</RelativeLayout>

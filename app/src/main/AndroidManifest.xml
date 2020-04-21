@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yardly">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ly"
@@ -12,6 +14,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Search_results"></activity>
         <activity android:name=".CaltalogoEmpresa" />
+        <activity android:name=".RestaurantProfile"></activity>
+        <activity android:name=".CalificarOpinion" />
+        <activity android:name=".Search_results" />
+        <activity android:name=".Principal" />
+        <activity android:name=".CatalogoEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
         <activity android:name=".infoPedido" />
         <activity android:name=".editarProducto" />
