@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "384502127303-ubcmtn8r05ub6o54j4lkr44jkb0tjc3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yardly",
+            "certificate_hash": "d599c0fe64e0a2e77bf1fa56c1e0bff7f20dd36a"
+          }
+        },
+        {
           "client_id": "384502127303-vp1llropce3h5kts57jvir387v9895jj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

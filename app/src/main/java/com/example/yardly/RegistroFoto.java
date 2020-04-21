@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +56,7 @@ public class RegistroFoto extends AppCompatActivity {
     private StorageReference storage;
     private ImageButton foto ;
     private Usuario newUser;
+    private TextView cancelar;
     private Bitmap fotoPerfil;
     private TextView cancelar;
 
@@ -63,6 +65,7 @@ public class RegistroFoto extends AppCompatActivity {
 
     }
 
+    private CheckBox tyc, pp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +73,17 @@ public class RegistroFoto extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance().getReference();
         setContentView(R.layout.activity_registro_foto);
+        cancelar=findViewById(R.id.botonCancelar);
         signup=findViewById(R.id.botonRegistrarFoto);
         foto = findViewById(R.id.selecFotperf);
+        tyc=findViewById(R.id.terminos);
+        pp=findViewById(R.id.politica);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         cancelar = findViewById( R.id.botonCancelar );
 
@@ -85,7 +97,7 @@ public class RegistroFoto extends AppCompatActivity {
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pedirPermiso(Manifest.permission.READ_EXTERNAL_STORAGE, "Es necesario para seleccionar la foto");
+                selectImage(v.getContext());
             }
         });
         final Bundle datosUs = this.getIntent().getBundleExtra("datosUs");
@@ -95,7 +107,8 @@ public class RegistroFoto extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser(datosUs);
+                    registerUser(datosUs);
+
             }
         });
     }

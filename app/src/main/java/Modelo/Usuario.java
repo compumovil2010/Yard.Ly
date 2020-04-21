@@ -11,6 +11,7 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private Uri fotoPerfil;
+    private float kmRecorridos;
 
     public Usuario() {
     }
@@ -20,6 +21,7 @@ public class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fotoPerfil = fotoPerfil;
+        kmRecorridos=0;
     }
 
     public String getMail() {
@@ -52,5 +54,13 @@ public class Usuario {
 
     public void setFotoPerfil(Uri fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
+    }
+
+    public float getKmRecorridos() {
+        return kmRecorridos;
+    }
+
+    public void setKmRecorridos(float kmRecorridos) {
+        this.kmRecorridos = kmRecorridos;
     }
 }

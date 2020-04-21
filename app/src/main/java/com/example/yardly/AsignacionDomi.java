@@ -1,6 +1,5 @@
 package com.example.yardly;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
@@ -24,7 +23,7 @@ public class AsignacionDomi extends ActividadBaseE {
         mProjection.add(p);
         mProjection.add(p);
         mProjection.add(p);
-        AsginacionAdapter adAdapter = new AsginacionAdapter(this, R.layout.asignacionadap,mProjection);
+        AsignacionAdapter adAdapter = new AsignacionAdapter(this, R.layout.asignacionadap,mProjection);
         mlista.setAdapter(adAdapter);
     }
 }
