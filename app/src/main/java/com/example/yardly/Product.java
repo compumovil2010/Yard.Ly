@@ -7,6 +7,11 @@ public class Product {
     private String descripcion;
     private String nomEstab;
 
+    public Product()
+    {
+
+    }
+
     public Product(String pnomProducto, String pprecio, String pdescripcion, String pnomEstab)
     {
         this.nomProducto = pnomProducto;

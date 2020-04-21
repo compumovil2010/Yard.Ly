@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +18,17 @@ public class Registro extends AppCompatActivity {
     EditText apellidoUs;
     EditText email;
     EditText contrasena;
+    TextView cancelar;
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
     EditText cContrasena;
     TextView cancelar;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
@@ -29,6 +38,15 @@ public class Registro extends AppCompatActivity {
         contrasena = findViewById(R.id.passUsRe);
         cContrasena = findViewById(R.id.cContrasena);
         registroFot = findViewById(R.id.registrarForm);
+        cancelar = findViewById( R.id.cancelarRegistro );
+
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent( getApplicationContext(), logActivity.class ) );
+            }
+        });
         cancelar = findViewById(R.id.cacelarRegistro);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
