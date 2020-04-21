@@ -106,8 +106,6 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         mapFragment.getMapAsync(this);
     }
 
-
-
     private void inicializarLoc() {
         Toast.makeText(this, "IniLOC", Toast.LENGTH_SHORT).show();
         mfusedLoc= LocationServices.getFusedLocationProviderClient(this);
