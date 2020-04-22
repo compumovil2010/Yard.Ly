@@ -17,6 +17,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -77,11 +78,11 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     FirebaseDatabase database;
     DatabaseReference lat,lo;
     private static final String PATH_PEDIDOS="pedido/";
-    private Domiciliario d;
     private String s;
     private String direccion;
     private String r;
     private Restaurante direccionR;
+    private Domiciliario domi;
 
 
     @Override
@@ -89,7 +90,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         database= FirebaseDatabase.getInstance();
         setContentView(R.layout.activity_domi_entrega);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null){
             Intent inte = new Intent(this, logActivity.class);
             inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -125,7 +126,6 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     }
 
     private void inicializarLoc() {
-        Toast.makeText(this, "IniLOC", Toast.LENGTH_SHORT).show();
         mfusedLoc= LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
         mLocationCallback = new LocationCallback() {
@@ -149,7 +149,6 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     }
 
     private LocationRequest createLocationRequest() {
-        Toast.makeText(this, "LocReq", Toast.LENGTH_SHORT).show();
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000); //tasa de refresco en milisegundos
         mLocationRequest.setFastestInterval(5000); //máxima tasa de refresco
@@ -161,22 +160,25 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         //Aqui va acceso a BD con usuario
+        user = FirebaseAuth.getInstance().getCurrentUser();
         obtenerDirCasa();
+    }
 
-        LatLng position;
+    private void getDomi() {
+        DatabaseReference myRef = database.getReference(Domiciliario.PATH_DOM+user.getUid());
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        String addressString = direccionR.getDireccion();
-        position=obtenerLatLongR(addressString);
-        if(position==null)
-        {
-            Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
-        }
+                domi=dataSnapshot.getValue(Domiciliario.class);
+               llenarMapa();
 
-        position=obtenerLatLong(direccion);
-        if(position==null)
-        {
-            Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
-        }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 
     private LatLng obtenerLatLongR(String addressString) {
@@ -226,39 +228,81 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     }
 
     public void obtenerDirCasa() {
+        if(user == null){
+            Intent inte = new Intent(this, logActivity.class);
+            inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(inte);
+        }
+
+        if(database==null)
+            database=FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Domiciliario.PATH_DOM + user.getUid());
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataSnapshot= dataSnapshot.child("pedidoActual");
                s= dataSnapshot.getValue(String.class);
+               obtenerDirCasa2();
 
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+    }
+    private void obtenerDirCasa2()
+    {
         DatabaseReference myRef2 = database.getReference(Pedido.PATH_PEDIDO + s);
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 direccion= dataSnapshot.child("DirUsu").getValue(String.class);
                 r=dataSnapshot.child("Empresa").getValue(String.class);
+                obtenerDirCasa3();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    private void obtenerDirCasa3()
+    {
         DatabaseReference myRef3 = database.getReference(Restaurante.PATH_REST+r);
         myRef3.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 direccionR= dataSnapshot.getValue(Restaurante.class);
+                getDomi();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+    private void llenarMapa(){
+        LatLng position;
+
+        Log.i("AAAAA"," "+domi);
+        if(domi.getPedidoActual()!=null){
+            String addressString = direccionR.getDireccion();
+            position=obtenerLatLongR(addressString);
+            if(position==null)
+            {
+                Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
+            }
+
+            position=obtenerLatLong(direccion);
+            if(position==null)
+            {
+                Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
+            }}
+        else
+        {
+            Toast.makeText(this,"No tiene domicilios",Toast.LENGTH_LONG).show();
+
+        }
     }
     private String getNombre(LatLng latLng) throws IOException {
         List<Address> ad = geo.getFromLocation(latLng.latitude,latLng.longitude,1);
@@ -268,7 +312,6 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "OnResume", Toast.LENGTH_SHORT).show();
         startSetLocation();
         manager.registerListener(list, luz,SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -328,7 +371,6 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     }
 
     private void startSetLocation() {
-        Toast.makeText(this, "setLoc", Toast.LENGTH_SHORT).show();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
             SettingsClient client = LocationServices.getSettingsClient(this);

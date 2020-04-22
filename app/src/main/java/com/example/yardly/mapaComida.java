@@ -124,7 +124,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
                     LatLng myLoc = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
                     mMap.clear();
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    marker =mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     loadRest();
                 }
             }
@@ -140,8 +140,9 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    Restaurant r = singleSnapshot.getValue(Restaurant.class);
-                    if(distance(current.getLatitude(),current.getLongitude(),0,0)>0)
+                    Restaurante r = singleSnapshot.getValue(Restaurante.class);
+
+                    if(true || (distance(current.getLatitude(),current.getLongitude(),0,0)>0))
                     {
                         String addressString=r.getDireccion();
                         List<Address> addresses = null;
@@ -161,7 +162,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
                                     myMarkerOptions.title(r.getNombreR());
                                     myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
                                     mMap.addMarker(myMarkerOptions);
-                                    relacion.put(r.getNombreR(),r);
+                                    Log.i("TAM"," "+relacion.size());
                                 }
                         }
 
@@ -169,6 +170,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
                 }
             }
            }
+
          }
 
 
@@ -207,14 +209,37 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.zoomTo(13));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
         {
-
             @Override
-            public boolean onMarkerClick(Marker arg0) {
+            public boolean onMarkerClick(final Marker arg0) {
+                if(!arg0.equals(marker))
+                {
+                    Query myRef = FirebaseDatabase.getInstance().getReference(Restaurante.PATH_REST);
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                                Restaurante r = singleSnapshot.getValue(Restaurante.class);
 
-                    Intent i= new Intent(getBaseContext(),RestaurantProfile.class);
-                    i.putExtra("restaurante",relacion.get(arg0.getTitle()));
-                    startActivity(i);
+                                if(r.getNombreR().equalsIgnoreCase(arg0.getTitle()))
+                                {
+                                    Intent i= new Intent(getBaseContext(),RestaurantProfile.class);
+                                    Log.i("Pille", r.getNombreR());
+                                    i.putExtra("restaurante",r);
+                                    startActivity(i);
+                                }
+                            }
 
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+
+                    });
+
+                }
                 return true;
             }
 
