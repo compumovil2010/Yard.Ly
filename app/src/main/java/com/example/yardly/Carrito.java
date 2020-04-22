@@ -48,7 +48,7 @@ public class Carrito extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
         pro = (Product) getIntent().getSerializableExtra("producto");
-
+        btn_next = findViewById(R.id.btn_gocheckout);
         database = FirebaseDatabase.getInstance();
 
         products = new ArrayList<>();
@@ -60,17 +60,6 @@ public class Carrito extends AppCompatActivity {
         LinearLayoutManager ll = new LinearLayoutManager( getApplicationContext() );//Si no funciona, quitar el v.
         rv.setLayoutManager( ll );
 
-        btn_next = findViewById( R.id.btn_gocheckout );
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent inte = new Intent (v.getContext(),Calificar.class);
-                if(pro != null){
-                    inte.putExtra("producto",pro);
-                    startActivity(inte);
-                }
-            }
-        });
         tb_top = findViewById( R.id.toolbar );
         setSupportActionBar( tb_top );
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -213,7 +202,11 @@ public class Carrito extends AppCompatActivity {
                 myRef.child( k ).setValue(p);
 
                 int_cho.putExtra("pid", k);
-                startActivity( int_cho );
+                //if(pro != null) {
+                //    int_cho.putExtra("producto", pro);
+                //    startActivity(int_cho);
+                //}
+                startActivity(int_cho);
             }
         });
     }
