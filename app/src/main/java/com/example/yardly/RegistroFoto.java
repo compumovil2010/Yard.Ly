@@ -110,7 +110,7 @@ public class RegistroFoto extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    registerUser(datosUs);
+                registerUser(datosUs);
 
             }
         });
@@ -224,26 +224,26 @@ public class RegistroFoto extends AppCompatActivity {
     }
 
     private void registerUser(Bundle datosUs){
-            authentication.createUserWithEmailAndPassword(datosUs.getString("mail"), datosUs.getString("contrasena")).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        FirebaseUser user = authentication.getCurrentUser();
-                        if(user!=null){ //Update user Info
-                            if(fotoPerfil!=null){
-                                uploadImageandSaveUri(fotoPerfil);
-                            }
-                            reference = database.getReference(Usuario.PATH_USERS+ user.getUid());
-                            reference.setValue(newUser);
-                            actualizarUI(user);
+        authentication.createUserWithEmailAndPassword(datosUs.getString("mail"), datosUs.getString("contrasena")).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    FirebaseUser user = authentication.getCurrentUser();
+                    if(user!=null){ //Update user Info
+                        if(fotoPerfil!=null){
+                            uploadImageandSaveUri(fotoPerfil);
                         }
-                    }
-                    if (!task.isSuccessful()) {
-                        Toast.makeText(RegistroFoto.this, "Authenticación falló"+ task.getException().toString(),
-                                Toast.LENGTH_SHORT).show();
+                        reference = database.getReference(Usuario.PATH_USERS+ user.getUid());
+                        reference.setValue(newUser);
+                        actualizarUI(user);
                     }
                 }
-            });
+                if (!task.isSuccessful()) {
+                    Toast.makeText(RegistroFoto.this, "Authenticación falló"+ task.getException().toString(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -297,6 +297,8 @@ public class RegistroFoto extends AppCompatActivity {
             List < Integer > cantp = new ArrayList<>();
             FirebaseUser currentUsr = authentication.getInstance().getCurrentUser();
             String uid = currentUsr.getUid();
+            prods.add("vacio");
+            cantp.add(-1);
 
             Modelo.CarritoCompras ccmp = new CarritoCompras( (ArrayList)prods ,(ArrayList)cantp, uid);
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("carritos");
