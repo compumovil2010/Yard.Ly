@@ -2,7 +2,9 @@ package Modelo;
 
 import android.net.Uri;
 
-public class Restaurante {
+import java.io.Serializable;
+
+public class Restaurante implements Serializable {
 
     public  static  final String PATH_REST = "rest/";
     private String nombre,direccion;
@@ -10,7 +12,6 @@ public class Restaurante {
     private String horaclausura;
     private Uri foto;
     public Restaurante(){
-
     }
 
     public String getNombre() {

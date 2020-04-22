@@ -129,19 +129,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         LatLng myLoc = new LatLng(4.65, -74.05);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                if(marker!=null)
-                    marker.remove();
-                try {
-                    marker=mMap.addMarker( new MarkerOptions().position(latLng).title(getNombre(latLng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     private String getNombre(LatLng latLng) throws IOException {

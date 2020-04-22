@@ -32,15 +32,12 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".mapaComida"
-            android:label="@string/title_activity_mapa_comida"></activity>
+            android:name=".mapaComida"/>
         <activity
             android:name=".UsuarioEntrega"
             android:label="@string/title_activity_usuario_entrega" />
         <activity android:name=".Search_results" />
         <activity android:name=".Checkout" />
-
-        <activity android:name=".Principal" />
         <activity android:name=".CatalogoEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
         <activity android:name=".infoPedido" />

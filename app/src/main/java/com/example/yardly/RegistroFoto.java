@@ -58,7 +58,7 @@ public class RegistroFoto extends AppCompatActivity {
     private Usuario newUser;
     private TextView cancelar;
     private Bitmap fotoPerfil;
-    private TextView cancelar;
+
 
     @Override
     public void onBackPressed() {

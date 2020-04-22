@@ -18,6 +18,7 @@ public class Registro extends AppCompatActivity {
     EditText apellidoUs;
     EditText email;
     EditText contrasena;
+    EditText cContrasena;
     TextView cancelar;
 
     @Override
@@ -25,8 +26,6 @@ public class Registro extends AppCompatActivity {
 
     }
 
-    EditText cContrasena;
-    TextView cancelar;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class Registro extends AppCompatActivity {
         contrasena = findViewById(R.id.passUsRe);
         cContrasena = findViewById(R.id.cContrasena);
         registroFot = findViewById(R.id.registrarForm);
-        cancelar = findViewById( R.id.cancelarRegistro );
+        cancelar = findViewById( R.id.cacelarRegistro );
 
 
         cancelar.setOnClickListener(new View.OnClickListener() {
