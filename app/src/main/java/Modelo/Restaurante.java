@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Restaurante implements Serializable {
 
-    public  static  final String PATH_REST = "rest/";
+    public  static  final String PATH_REST = "restaurants/";
     private String nombre,direccion;
     private String horaapertura;
     private String horaclausura;
