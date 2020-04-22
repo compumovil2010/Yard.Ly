@@ -25,6 +25,7 @@ public class Registro extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {

@@ -60,7 +60,7 @@ public class RegistroFoto extends AppCompatActivity {
     private ImageButton foto ;
     private Usuario newUser;
     private Bitmap fotoPerfil;
-    Button cancelar;
+    private TextView cancelar;
 
 
     @Override

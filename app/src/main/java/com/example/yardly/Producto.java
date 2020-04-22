@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +28,7 @@ public class Producto extends AppCompatActivity {
     private String Descripcion;
     private boolean habilitado;
     //tipo resena
-    private List<Resena> resenas;
+    private List<String> calificaciones;
     private List<String> tags;
     private int cantidadNum;
     private TextView nombreTextView, descripcionTextView, precioTextView, cantidad, total, storeName, ratingValue;
@@ -35,6 +36,7 @@ public class Producto extends AppCompatActivity {
     private FirebaseDatabase database;
     public static final String PATH_RESENA = "resena/";
     private DatabaseReference myRef;
+    String fin;
     Product pro;
     Button b;
     @Override
@@ -42,7 +44,6 @@ public class Producto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
         database = FirebaseDatabase.getInstance();
-
         pro = (Product) Objects.requireNonNull(getIntent().getSerializableExtra("producto"));
         nombreTextView = findViewById(R.id.nomProduct);
         descripcionTextView = findViewById(R.id.descripProduc);
@@ -52,6 +53,7 @@ public class Producto extends AppCompatActivity {
         total = findViewById(R.id.total);
         ratingValue = findViewById(R.id.ratingValue);
         mas = findViewById(R.id.mas);
+        calificaciones = new ArrayList<>();
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +94,6 @@ public class Producto extends AppCompatActivity {
             precioTextView.setText(String.valueOf(pro.getPrecio()));
             storeName.setText(pro.getNomEstab());
             buscar();
-            ratingValue.setText("4");
         }
         b=findViewById(R.id.aggCarrit);
         b.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +108,22 @@ public class Producto extends AppCompatActivity {
         int cant = Integer.parseInt(cantidad.getText().toString());
         total.setText(String.valueOf(precio*cant));
     }
+    private String sacarPuntaje() {
+        DecimalFormat value = new DecimalFormat("#.#");
+        float aux =0;
+        if(calificaciones.size()>0){
+            for (String s:calificaciones){
+                aux = aux + Float.parseFloat(s);
+            }
+            aux = aux / calificaciones.size();
+            fin = String.valueOf(value.format(aux));
+        }
+        else{
+            fin = "no hay calificaciones aun";
+        }
+        return fin;
+    }
+
     private void buscar() {
         myRef = database.getReference( PATH_RESENA );
         myRef.addValueEventListener(new ValueEventListener() {
@@ -122,20 +139,20 @@ public class Producto extends AppCompatActivity {
                             if(re != null){
                                 if(re.getNomProduct().equalsIgnoreCase(pro.getNomProducto()) )
                                 {
-                                    resenas.add(re);
+                                    calificaciones.add(re.getPuntaje());
                                 }
                             }
                         }
 
                     }
                 }
+                fin = sacarPuntaje();
+                ratingValue.setText(fin);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
     }
 }

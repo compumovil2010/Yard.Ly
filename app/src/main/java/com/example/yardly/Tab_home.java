@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,8 +31,7 @@ public class Tab_home extends Fragment {
         btn_ropa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ropa = new Intent( v.getContext(),omgreen.class );
-                startActivity(ropa);
+                Toast.makeText(v.getContext(),"EN DESARROLLO...",Toast.LENGTH_LONG).show();
             }
         });
 
