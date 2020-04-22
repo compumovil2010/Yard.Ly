@@ -42,7 +42,7 @@ Product producto = null ;
     }
     private void buscar() {
         myRef = database.getReference( PATH_RESENA );
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if( dataSnapshot.exists() )

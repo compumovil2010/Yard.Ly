@@ -37,6 +37,7 @@ public class Carrito extends AppCompatActivity {
     List<Integer> cantp;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    Product pro;
     public  static  final String PATH_PEDIDO = "pedido/";
     public static final String PATH_PRODUCTS = "products/";
     public static final String PATH_CARRITO = "carritos/";
@@ -46,6 +47,7 @@ public class Carrito extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
+        pro = (Product) getIntent().getSerializableExtra("producto");
 
         database = FirebaseDatabase.getInstance();
 
@@ -59,6 +61,16 @@ public class Carrito extends AppCompatActivity {
         rv.setLayoutManager( ll );
 
         btn_next = findViewById( R.id.btn_gocheckout );
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inte = new Intent (v.getContext(),Calificar.class);
+                if(pro != null){
+                    inte.putExtra("producto",pro);
+                    startActivity(inte);
+                }
+            }
+        });
         tb_top = findViewById( R.id.toolbar );
         setSupportActionBar( tb_top );
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -140,6 +152,9 @@ public class Carrito extends AppCompatActivity {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(c.getProductos()== null){
+                    c.setProductos(new ArrayList<String>());
+                }
                 for(int i = 0 ; i < c.getProductos().size() ; i++)
                 {
                     for(DataSnapshot snap : dataSnapshot.getChildren())
@@ -174,7 +189,7 @@ public class Carrito extends AppCompatActivity {
         CartAdapter cAdapter = new CartAdapter( products, c.getCantprod() );
         rv.setAdapter( cAdapter );
         final CartAdapter ca = (CartAdapter) rv.getAdapter();
-        Log.i("CARTADAPTER CANTIDAD", String.valueOf(ca.getCantP().size()) + String.valueOf(ca.getCantP().get(2)) );
+        //Log.i("CARTADAPTER CANTIDAD", String.valueOf(ca.getCantP().size()) + String.valueOf(ca.getCantP().get(2)) );
         iniButton();
 
     }
