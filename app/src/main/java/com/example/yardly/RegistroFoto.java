@@ -230,7 +230,9 @@ public class RegistroFoto extends AppCompatActivity {
                     if(task.isSuccessful()){
                         FirebaseUser user = authentication.getCurrentUser();
                         if(user!=null){ //Update user Info
-                            uploadImageandSaveUri(fotoPerfil);
+                            if(fotoPerfil!=null){
+                                uploadImageandSaveUri(fotoPerfil);
+                            }
                             reference = database.getReference(Usuario.PATH_USERS+ user.getUid());
                             reference.setValue(newUser);
                             actualizarUI(user);

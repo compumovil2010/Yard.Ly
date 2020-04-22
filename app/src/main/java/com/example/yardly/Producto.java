@@ -2,6 +2,7 @@ package com.example.yardly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -114,19 +115,8 @@ public class Producto extends AppCompatActivity {
             public void onClick(View v) {
                 Intent registro = new Intent(getBaseContext(),Carrito.class);
                 registro.putExtra("producto",pro);
-                FirebaseUser currentUsr = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = currentUsr.getUid();
                 buscarCarrito();
-                buscarProducto();
-                productos = ccmp.getProductos();
-                cantprod = ccmp.getCantprod();
-                productos.add(llaveProd);
-                cantprod.add(Integer.parseInt(cantidad.getText().toString()));
-                ccmp.setCantprod(cantprod);
-                ccmp.setProductos(productos);
-                ccmp.setUsrId(ccmp.getUsrId());
-                myRef = database.getReference(PATH_CARRITO);
-                myRef.child(uid).setValue( ccmp );
+
                 startActivity(registro);
             }
         });
@@ -197,12 +187,17 @@ public class Producto extends AppCompatActivity {
                             if(ca != null){
                                 if(ca.getUsrId().equalsIgnoreCase(user.getUid()) )
                                 {
-                                    ccmp  =ca;
+                                    Log.i("sapoooo","entroooooo");
+                                    ccmp  = ca;
                                 }
                             }
                         }
 
                     }
+                    productos = ccmp.getProductos();
+                    cantprod = ccmp.getCantprod();
+                    Toast.makeText(getBaseContext(),productos.size(),Toast.LENGTH_LONG).show();
+                    buscarProducto();
                 }
             }
             @Override
@@ -212,7 +207,7 @@ public class Producto extends AppCompatActivity {
         });
     }
     private void buscarProducto() {
-        myRef = database.getReference( PATH_CARRITO );
+        myRef = database.getReference( PATH_PRODUCTS );
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -223,7 +218,7 @@ public class Producto extends AppCompatActivity {
                         if( singleSnap.exists() )
                         {
                             Product p = singleSnap.getValue( Product.class );
-                            if(p != null){
+                            if(p != null && pro!=null){
                                 if(p.getNomProducto().equalsIgnoreCase(pro.getNomProducto()) )
                                 {
                                     llaveProd = singleSnap.getKey();
@@ -232,6 +227,18 @@ public class Producto extends AppCompatActivity {
                         }
 
                     }
+                    if (llaveProd != null){
+                        productos.add(llaveProd);
+                        cantprod.add(Integer.parseInt(cantidad.getText().toString()));
+                        ccmp.setCantprod(cantprod);
+                        ccmp.setProductos(productos);
+                        ccmp.setUsrId(ccmp.getUsrId());
+                        myRef = database.getReference(PATH_CARRITO);
+                        FirebaseUser currentUsr = FirebaseAuth.getInstance().getCurrentUser();
+                        String uid = currentUsr.getUid();
+                        myRef.child(uid).setValue( ccmp );
+                    }
+
                 }
             }
             @Override

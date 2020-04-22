@@ -37,16 +37,7 @@ public class Registro extends AppCompatActivity {
         contrasena = findViewById(R.id.passUsRe);
         cContrasena = findViewById(R.id.cContrasena);
         registroFot = findViewById(R.id.registrarForm);
-        cancelar = findViewById( R.id.cacelarRegistro );
-
-
-        cancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity( new Intent( getApplicationContext(), logActivity.class ) );
-            }
-        });
-        cancelar = findViewById(R.id.cacelarRegistro);
+        cancelar = findViewById(R.id.cancelarRegistro);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
