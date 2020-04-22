@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:text="Nom restaurant" />
+        android:textSize="40sp"
+        style = "@style/yardlyTitle"
+        android:text="Restaurant" />
 
     <ImageView
         android:id="@+id/LogoRestaurante"
@@ -26,23 +28,30 @@
         android:id="@+id/DescripcionRestaurantHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/descriprod"
-        android:layout_margin="10dp"
-        android:layout_below="@id/LogoRestaurante"/>
+        android:layout_below="@id/LogoRestaurante"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/descriprod" />
 
     <TextView
         android:id="@+id/DescripcionRestaurant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_below="@id/DescripcionRestaurantHeader"
-        android:text="DescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcion" />
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/DescripcionRestaurantHeader" />
 
     <Button
         android:id="@+id/ProductsxRestaurante"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        style="@style/btn_Stl2"
+        android:layout_marginTop="25dp"
+        android:textAppearance="@style/txt_kindaBig"
+        android:textColor="@color/clr_justWhite"
         android:text="@string/products"
         android:background="@drawable/frm_rounded"
         android:layout_below="@id/DescripcionRestaurant"/>
@@ -51,7 +60,9 @@
         android:id="@+id/FindUs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
         android:text="@string/findUs"
         android:background="@drawable/frm_rounded"
         android:layout_below="@id/ProductsxRestaurante"/>

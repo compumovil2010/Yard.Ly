@@ -7,45 +7,59 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Producto extends AppCompatActivity implements Serializable {
+public class Producto extends AppCompatActivity {
     private String nombre;
-    private int precio;
+    private int precio =0;
     private String Descripcion;
     private boolean habilitado;
     //tipo resena
-    private List<String> resenas;
+    private List<Resena> resenas;
     private List<String> tags;
-
-    List<String> mProjection= new ArrayList<>();
-    ListView mlista;
     private int cantidadNum;
-    private TextView nombreTextView, descripcionTextView, precioTextView, cantidad, total;
-    private Button mas, menos;
+    private TextView nombreTextView, descripcionTextView, precioTextView, cantidad, total, storeName, ratingValue;
+    private Button mas, menos, comentarios;
+    private FirebaseDatabase database;
+    public static final String PATH_RESENA = "resena/";
+    private DatabaseReference myRef;
+    Product pro;
     Button b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
-        Producto pro = (Producto) Objects.requireNonNull(getIntent().getBundleExtra("Bproducto")).getSerializable("producto");
+        database = FirebaseDatabase.getInstance();
+
+        pro = (Product) Objects.requireNonNull(getIntent().getSerializableExtra("producto"));
         nombreTextView = findViewById(R.id.nomProduct);
         descripcionTextView = findViewById(R.id.descripProduc);
         precioTextView = findViewById(R.id.precioProduct);
+        storeName = findViewById(R.id.storeName);
         cantidad = findViewById(R.id.cantProduct);
         total = findViewById(R.id.total);
+        ratingValue = findViewById(R.id.ratingValue);
         mas = findViewById(R.id.mas);
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cantidadNum = Integer.parseInt(cantidad.getText().toString());
                 cantidadNum = cantidadNum + 1;
+                precio  = Integer.parseInt(precioTextView.getText().toString());
                 cantidad.setText(String.valueOf(cantidadNum));
+                total.setText(String.valueOf(precio*cantidadNum));
             }
         });
         menos = findViewById(R.id.menos);
@@ -54,59 +68,74 @@ public class Producto extends AppCompatActivity implements Serializable {
             public void onClick(View v) {
                 cantidadNum = Integer.parseInt(cantidad.getText().toString());
                 if(cantidadNum>1){
+                    precio  = Integer.parseInt(precioTextView.getText().toString());
                     cantidadNum = cantidadNum - 1;
                     cantidad.setText(String.valueOf(cantidadNum));
+                    total.setText(String.valueOf(precio*cantidadNum));
                 }
             }
         });
+        comentarios = findViewById(R.id.comentariosProd);
+        comentarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(),Comentarios.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("producto", pro);
+                intent.putExtra("productoBundle",bundle);
+                startActivity(intent);
+            }
+        });
         if (pro!=null){
-            nombreTextView.setText(pro.getNombre());
+            nombreTextView.setText(pro.getNomProducto());
             descripcionTextView.setText(pro.getDescripcion());
-            //precioTextView.setText(pro.getPrecio());
+            precioTextView.setText(String.valueOf(pro.getPrecio()));
+            storeName.setText(pro.getNomEstab());
+            buscar();
+            ratingValue.setText("4");
         }
         b=findViewById(R.id.aggCarrit);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registro = new Intent(getBaseContext(),CarritoCompras.class);
+                registro.putExtra("producto",pro);
                 startActivity(registro);
             }
         });
-        //total.setText(Integer.parseInt(precioTextView.getText().toString())*Integer.parseInt(cantidad.getText().toString()));
-        mlista=findViewById(R.id.opiniones);
-        mProjection.add("Asunto");
-        mProjection.add("Opinion");
-        mProjection.add("Asunto");
-        mProjection.add("Opinion");
-        mProjection.add("Asunto");
-        mProjection.add("Opinion");
-        mProjection.add("Asunto");
-        mProjection.add("Opinion");
-        OpinionesAdapter opAdapter = new OpinionesAdapter(this, R.layout.opiniones,mProjection);
-        mlista.setAdapter(opAdapter);
+        precio  = Integer.parseInt(precioTextView.getText().toString());
+        int cant = Integer.parseInt(cantidad.getText().toString());
+        total.setText(String.valueOf(precio*cant));
     }
-    public String getNombre() {
-        return nombre;
-    }
+    private void buscar() {
+        myRef = database.getReference( PATH_RESENA );
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if( dataSnapshot.exists() )
+                {
+                    for( DataSnapshot singleSnap : dataSnapshot.getChildren() )
+                    {
+                        if( singleSnap.exists() )
+                        {
+                            Resena re = singleSnap.getValue( Resena.class );
+                            if(re != null){
+                                if(re.getNomProduct().equalsIgnoreCase(pro.getNomProducto()) )
+                                {
+                                    resenas.add(re);
+                                }
+                            }
+                        }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+                    }
+                }
+            }
 
-    public int getPrecio() {
-        return precio;
-    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
+            }
+        });
 
-    public String getDescripcion() {
-        return Descripcion;
     }
-
-    public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
-    }
-
 }

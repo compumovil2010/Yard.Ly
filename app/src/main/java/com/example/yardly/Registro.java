@@ -18,7 +18,8 @@ public class Registro extends AppCompatActivity {
     EditText apellidoUs;
     EditText email;
     EditText contrasena;
-
+    EditText cContrasena;
+    TextView cancelar;
 
     @Override
     public void onBackPressed() {
@@ -38,7 +39,7 @@ public class Registro extends AppCompatActivity {
         contrasena = findViewById(R.id.passUsRe);
         cContrasena = findViewById(R.id.cContrasena);
         registroFot = findViewById(R.id.registrarForm);
-        cancelar = findViewById( R.id.cancelarRegistro );
+        cancelar = findViewById( R.id.cacelarRegistro );
 
 
         cancelar.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +48,14 @@ public class Registro extends AppCompatActivity {
                 startActivity( new Intent( getApplicationContext(), logActivity.class ) );
             }
         });
-
+        cancelar = findViewById(R.id.cacelarRegistro);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inte = new Intent(getBaseContext(), logActivity.class);
+                startActivity(inte);
+            }
+        });
         registroFot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

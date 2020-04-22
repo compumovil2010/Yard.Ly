@@ -30,6 +30,7 @@
     <string name="agregar">Agregar</string>
     <string name="nomEsta">Nombre Establecimiento</string>
     <string name="products">Productos</string>
+    <string name="products2">Productos:</string>
     <string name="NomApp">Yard.ly</string>
     <string name="Home">Home</string>
     <string name="BusquedaP">Busqueda de Productos</string>
@@ -49,10 +50,27 @@
     <string name="cancel">cancel</string>
     <string name="CommentarioHint">Escriba aca su comentario</string>
     <string name="findUs">find Us</string>
+    <string name="ComentariosProduct">Comentarios</string>
+    <string name ="Comentarios">
+        <u>Cancelar</u>
+    </string>
+    <string name="Calificar">Calificar</string>
     <string-array name="tipoProducto">
         <item>Ropa</item>
         <item>Plato</item>
     </string-array>
+    <string name="title_activity_porductosx_restaurante">PorductosxRestaurante</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_productxrestaurant">productxrestaurant</string>
     <string name="title_activity_usuario_entrega">Map</string>
+    <string name="title_activity_mapa_comida">Comida Cercana</string>
+    <string name="Calificacion">Calificacion:</string>
+    <string name="Opinion">Comentario:</string>
 
 </resources>

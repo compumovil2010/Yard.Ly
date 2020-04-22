@@ -33,6 +33,9 @@
         android:layout_height="wrap_content"
         android:text="@string/add"
         android:background="@drawable/frm_rounded"
+        android:textAppearance="@style/txt_kindaBig"
+        android:textColor="@color/clr_justWhite"
+        style="@style/btn_Stl2"
         android:layout_below="@id/ComentarioText" />
     <Button
         android:id="@+id/cancelComment"

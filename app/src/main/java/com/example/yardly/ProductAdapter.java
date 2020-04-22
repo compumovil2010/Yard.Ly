@@ -1,9 +1,11 @@
 package com.example.yardly;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -11,6 +13,7 @@ import java.util.List;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     List< Product > products;
@@ -52,8 +55,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.btn_agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: actividad agregar al carrito
-
+                Intent intent = new Intent(v.getContext(),Producto.class);
+                intent.putExtra("producto",products.get(position));
+                v.getContext().startActivity(intent);
             }
         });
 

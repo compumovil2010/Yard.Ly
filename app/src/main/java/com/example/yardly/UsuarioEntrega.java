@@ -19,6 +19,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -82,17 +84,21 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
     private Location current;
+    private TextView nombreD;
+    private ImageView imageD;
     ArrayList<LatLng> listPoints;
     private Marker marker;
     Pedido pedido;
     DatabaseReference mRootReference;
     String domi;
-
+    String keyDomi;
+    Domiciliario domiciliario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_entrega);
+        nombreD = findViewById(R.id.nombreD);
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
         geo = new Geocoder(getBaseContext());
@@ -126,16 +132,16 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     }
 
     private void buscarInfo(Pedido pedido) {
-        final String idDomi = pedido.getDomi();
+        domi = pedido.getDomi();
 
         mRootReference = FirebaseDatabase.getInstance().getReference();
         mRootReference.child(Pedido.PATH_PEDIDO).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Pedido p = snapshot.getValue(Pedido.class);
-                    if (idDomi.equals(p.getDomi())) {
-                        domi = p.getDomi();
+                    String key = snapshot.getKey();
+                    if (domi.equals(key)) {
+                        keyDomi = key;
                     }
                 }
             }
@@ -150,8 +156,13 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Domiciliario d = snapshot.getValue(Domiciliario.class);
+                    String key = snapshot.getKey();
+                    if (keyDomi.equals(key)) {
+                        domiciliario = snapshot.getValue(Domiciliario.class);
+                    }
                 }
+                nombreD.setText(domiciliario.getNombre() + " " + domiciliario.getApellido());
+                imageD.setImageURI(domiciliario.getFotoPerfil());
             }
 
             @Override
@@ -192,7 +203,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         mMap = googleMap;
         LatLng myLoc = new LatLng(4.65, -74.05);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override

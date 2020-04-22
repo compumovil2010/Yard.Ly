@@ -12,28 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarritoCompras extends AppCompatActivity {
-    List<Producto> mProjection= new ArrayList<>();
+    List<Product> mProjection= new ArrayList<>();
     ListView mlista;
     Button b1;
+    Product p;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito_compras);
         mlista=findViewById(R.id.liscarrito);
         b1=findViewById(R.id.comfiCompra);
-        Producto p = new Producto();
-        p.setNombre("Nombre producto");
-        p.setDescripcion("Descripcion");
-        p.setPrecio(123456);
-        mProjection.add(p);
-        mProjection.add(p);
-        mProjection.add(p);
+        p = (Product) getIntent().getSerializableExtra("producto");
         mProjection.add(p);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registro = new Intent(v.getContext(),Calificar.class);
-                v.getContext().startActivity(registro);
+                registro.putExtra("producto",p);
+                startActivity(registro);
             }
         });
         ProductosCarritoAdapter caAdapter = new ProductosCarritoAdapter(this, R.layout.carrito_adapter,mProjection);

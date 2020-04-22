@@ -1,6 +1,9 @@
 package com.example.yardly;
 
-public class Product {
+import java.io.Serializable;
+import java.security.SecureRandom;
+
+public class Product implements Serializable {
 
     private String nomProducto;
     private String precio;
