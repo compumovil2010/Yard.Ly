@@ -148,7 +148,6 @@
             app:srcCompat="@drawable/money_icon" />
         <Button
             android:id="@+id/aggCarrit"
-            style="@style/btn_Stl2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/txt_kindaBig"
