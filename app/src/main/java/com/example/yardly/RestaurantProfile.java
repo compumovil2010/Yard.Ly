@@ -28,8 +28,10 @@ public class RestaurantProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent inte = new Intent(v.getContext(),ProductoxRestaurante.class);
-                inte.putExtra("nombreR",restaurant.getNombreR());
-                startActivity(inte);
+                if (restaurant != null){
+                    inte.putExtra("nombreR",restaurant.getNombreR());
+                    startActivity(inte);
+                }
             }
         });
     }

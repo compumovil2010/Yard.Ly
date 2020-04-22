@@ -70,5 +70,7 @@
     <string name="title_activity_productxrestaurant">productxrestaurant</string>
     <string name="title_activity_usuario_entrega">Map</string>
     <string name="title_activity_mapa_comida">Comida Cercana</string>
+    <string name="Calificacion">Calificacion:</string>
+    <string name="Opinion">Comentario:</string>
 
 </resources>

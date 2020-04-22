@@ -7,7 +7,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,19 +27,23 @@ public class Producto extends AppCompatActivity {
     private String Descripcion;
     private boolean habilitado;
     //tipo resena
-    private List<String> resenas;
+    private List<Resena> resenas;
     private List<String> tags;
     private int cantidadNum;
     private TextView nombreTextView, descripcionTextView, precioTextView, cantidad, total, storeName, ratingValue;
     private Button mas, menos, comentarios;
+    private FirebaseDatabase database;
+    public static final String PATH_RESENA = "resena/";
+    private DatabaseReference myRef;
     Product pro;
     Button b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
-        pro = (Product) Objects.requireNonNull(getIntent().getBundleExtra("Bproducto")).getSerializable("producto");
-        pro = new Product("Pizza de vegetales",String.valueOf(10000),"esta es la ldescripcioooooooooooooooon","Sitio vegetariano");
+        database = FirebaseDatabase.getInstance();
+
+        pro = (Product) Objects.requireNonNull(getIntent().getSerializableExtra("producto"));
         nombreTextView = findViewById(R.id.nomProduct);
         descripcionTextView = findViewById(R.id.descripProduc);
         precioTextView = findViewById(R.id.precioProduct);
@@ -80,6 +91,7 @@ public class Producto extends AppCompatActivity {
             descripcionTextView.setText(pro.getDescripcion());
             precioTextView.setText(String.valueOf(pro.getPrecio()));
             storeName.setText(pro.getNomEstab());
+            buscar();
             ratingValue.setText("4");
         }
         b=findViewById(R.id.aggCarrit);
@@ -87,6 +99,7 @@ public class Producto extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent registro = new Intent(getBaseContext(),CarritoCompras.class);
+                registro.putExtra("producto",pro);
                 startActivity(registro);
             }
         });
@@ -94,5 +107,35 @@ public class Producto extends AppCompatActivity {
         int cant = Integer.parseInt(cantidad.getText().toString());
         total.setText(String.valueOf(precio*cant));
     }
+    private void buscar() {
+        myRef = database.getReference( PATH_RESENA );
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if( dataSnapshot.exists() )
+                {
+                    for( DataSnapshot singleSnap : dataSnapshot.getChildren() )
+                    {
+                        if( singleSnap.exists() )
+                        {
+                            Resena re = singleSnap.getValue( Resena.class );
+                            if(re != null){
+                                if(re.getNomProduct().equalsIgnoreCase(pro.getNomProducto()) )
+                                {
+                                    resenas.add(re);
+                                }
+                            }
+                        }
 
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 }
