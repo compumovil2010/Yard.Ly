@@ -60,7 +60,7 @@ public class Calificar extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resena.setPuntaje(String.valueOf(ratingBar.getRating()));
-                if(resena.getOpinion().trim().equals("")){
+                if(resena==null || resena.getOpinion()==null || resena.getOpinion().trim().equals("")){
                     resena.setOpinion(" ");
                 }
                 String key = myRef.push().getKey();

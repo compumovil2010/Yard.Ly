@@ -57,8 +57,7 @@ import java.io.IOException;
 import java.util.List;
 
 import Modelo.Domiciliario;
-import Modelo.Pedido;
-import Modelo.Restaurante;
+
 
 public class domiEntrega extends FragmentActivity implements OnMapReadyCallback {
 
@@ -81,7 +80,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private String s;
     private String direccion;
     private String r;
-    private Restaurante direccionR;
+    private Restaurant direccionR;
     private Domiciliario domi;
 
 
@@ -269,11 +268,11 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
 
     private void obtenerDirCasa3()
     {
-        DatabaseReference myRef3 = database.getReference(Restaurante.PATH_REST+r);
+        DatabaseReference myRef3 = database.getReference(Restaurant.PATH_REST+r);
         myRef3.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                direccionR= dataSnapshot.getValue(Restaurante.class);
+                direccionR= dataSnapshot.getValue(Restaurant.class);
                 getDomi();
             }
             @Override

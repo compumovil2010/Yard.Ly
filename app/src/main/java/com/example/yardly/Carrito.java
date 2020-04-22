@@ -102,8 +102,8 @@ public class Carrito extends AppCompatActivity {
                 FirebaseUser currentUsr = FirebaseAuth.getInstance().getCurrentUser();
                 String uid = currentUsr.getUid();
 
-                CarritoCompras ccmp = new CarritoCompras(prods,cantp,uid);
-                myRef.child(uid).setValue( ccmp );
+                    CarritoCompras ccmp = new CarritoCompras(prods,cantp,uid);
+                    myRef.child(uid).setValue( ccmp );
 
             }
 
