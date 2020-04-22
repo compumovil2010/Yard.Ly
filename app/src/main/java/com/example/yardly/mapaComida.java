@@ -17,6 +17,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -44,11 +45,17 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
 import Modelo.Restaurante;
 
@@ -120,13 +127,68 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
                     mMap.clear();
                     mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                    //Sacar restaurantescercanos y llenar map
-
+                    loadRest();
                 }
             }
         };
     }
 
+    private void loadRest()
+    {
+        relacion.clear();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        Query myRef = database.getReference(Restaurante.PATH_REST);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    Restaurante r = singleSnapshot.getValue(Restaurante.class);
+
+                    if(distance(current.getLatitude(),current.getLongitude(),0,0)>10)
+                    {
+                        String addressString=r.getDireccion();
+                        List<Address> addresses = null;
+                        try {
+                            addresses = geo.getFromLocationName(addressString, 2);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if (addresses != null && !addresses.isEmpty()) {
+                            Address addressResult = addresses.get(0);
+                            LatLng position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
+                            if (mMap != null) {
+                                MarkerOptions myMarkerOptions = new MarkerOptions();
+                                myMarkerOptions.position(position);
+                                myMarkerOptions.title(r.getNombre());
+                                myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                                relacion.put(mMap.addMarker(myMarkerOptions),r);
+                    }
+
+                }
+            }
+           }
+         }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+    }
+
+    public double distance(double lat1, double long1, double lat2, double long2) {
+        double latDistance = Math.toRadians(lat1 - lat2);
+        double lngDistance = Math.toRadians(long1 - long2);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double result = RADIUS_OF_EARTH_KM * c;
+        return Math.round(result*100.0)/100.0;
+    }
     private LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(600000); //tasa de refresco en milisegundos
