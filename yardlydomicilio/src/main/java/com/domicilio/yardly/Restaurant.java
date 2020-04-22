@@ -1,10 +1,10 @@
-package Modelo;
+package com.domicilio.yardly;
 
 import android.net.Uri;
 
 import java.io.Serializable;
 
-public class Restaurante implements Serializable {
+public class Restaurant implements Serializable {
 
     public  static  final String PATH_REST = "restaurants/";
     private String nombreR,direccion;
@@ -12,25 +12,16 @@ public class Restaurante implements Serializable {
     private String horaclausura;
     private String descripR;
     private Uri foto;
-    public Restaurante(){
+    public Restaurant()
+    {
+
     }
 
-    public String getNombreR() {
-        return nombreR;
+    public Restaurant(String pnombreR, String pdescripR )
+    {
+        this.nombreR = pnombreR;
+        this.descripR = pdescripR;
     }
-
-    public void setNombreR(String nombreR) {
-        this.nombreR = nombreR;
-    }
-
-    public String getDescripR() {
-        return descripR;
-    }
-
-    public void setDescripR(String descripR) {
-        this.descripR = descripR;
-    }
-
     public String getDireccion() {
         return direccion;
     }
@@ -62,4 +53,27 @@ public class Restaurante implements Serializable {
     public void setFoto(Uri foto) {
         this.foto = foto;
     }
+
+
+
+    public static String getPathRest() {
+        return PATH_REST;
+    }
+    public String getNombreR() {
+        return nombreR;
+    }
+
+    public void setNombreR(String nombreR) {
+        this.nombreR = nombreR;
+    }
+
+    public String getDescripR() {
+        return descripR;
+    }
+
+    public void setDescripR(String descripR) {
+        this.descripR = descripR;
+    }
+
+
 }
