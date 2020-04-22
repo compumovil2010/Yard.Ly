@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import Modelo.CarritoCompras;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -43,6 +44,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import Modelo.Usuario;
 
@@ -57,6 +60,7 @@ public class RegistroFoto extends AppCompatActivity {
     private ImageButton foto ;
     private Usuario newUser;
     private Bitmap fotoPerfil;
+    Button cancelar;
 
 
     @Override
@@ -286,6 +290,16 @@ public class RegistroFoto extends AppCompatActivity {
     }
     private void actualizarUI(FirebaseUser usuario){
         if(usuario != null){
+
+            List < String > prods = new ArrayList<>();
+            List < Integer > cantp = new ArrayList<>();
+            FirebaseUser currentUsr = authentication.getInstance().getCurrentUser();
+            String uid = currentUsr.getUid();
+
+            Modelo.CarritoCompras ccmp = new CarritoCompras( (ArrayList)prods ,(ArrayList)cantp, uid);
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("carritos");
+            myRef.child(uid).setValue( ccmp );
+
             Intent ingreso = new Intent(getBaseContext(),Principal.class);
             ingreso.putExtra("user", usuario.getEmail());
             startActivity(ingreso);

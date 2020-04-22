@@ -25,9 +25,6 @@ public class Registro extends AppCompatActivity {
     public void onBackPressed() {
 
     }
-
-    EditText cContrasena;
-    TextView cancelar;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
