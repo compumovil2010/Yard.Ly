@@ -62,7 +62,6 @@ Product producto = null ;
 
                     }
                 }
-
                 initializeAdapter();
             }
 
