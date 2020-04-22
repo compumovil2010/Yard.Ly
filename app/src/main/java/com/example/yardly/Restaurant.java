@@ -14,7 +14,7 @@ public class Restaurant {
 
     }
 
-    public Restaurant(String pnombreR, String pdescripR, List< Pair < Double, Double > > psedesR )
+    public Restaurant(String pnombreR, String pdescripR )
     {
         this.nombreR = pnombreR;
         this.descripR = pdescripR;

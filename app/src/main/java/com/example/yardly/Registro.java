@@ -18,7 +18,7 @@ public class Registro extends AppCompatActivity {
     EditText apellidoUs;
     EditText email;
     EditText contrasena;
-    TextView cancelar;
+
 
     @Override
     public void onBackPressed() {
@@ -47,14 +47,7 @@ public class Registro extends AppCompatActivity {
                 startActivity( new Intent( getApplicationContext(), logActivity.class ) );
             }
         });
-        cancelar = findViewById(R.id.cacelarRegistro);
-        cancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent inte = new Intent(getBaseContext(), logActivity.class);
-                startActivity(inte);
-            }
-        });
+
         registroFot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

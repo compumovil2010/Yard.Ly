@@ -56,7 +56,6 @@ public class RegistroFoto extends AppCompatActivity {
     private StorageReference storage;
     private ImageButton foto ;
     private Usuario newUser;
-    private TextView cancelar;
     private Bitmap fotoPerfil;
     private TextView cancelar;
 

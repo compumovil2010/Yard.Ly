@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class Tab_shop extends Fragment {
 
 
     EditText et_buscador;
+    FloatingActionButton fbtn_carrito;
     private List < Restaurant > restRes;
 
     @Override
@@ -39,6 +41,7 @@ public class Tab_shop extends Fragment {
 
         et_buscador = v.findViewById( R.id.et_buscador );
 
+        fbtn_carrito = v.findViewById( R.id.fbtn_cart );
 
         et_buscador.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -66,6 +69,14 @@ public class Tab_shop extends Fragment {
                 }
 
                 return false;
+            }
+        });
+
+        fbtn_carrito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent int_carrito = new Intent( v.getContext(), Carrito.class );
+                startActivity( int_carrito );
             }
         });
 
