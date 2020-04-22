@@ -60,7 +60,7 @@ public class ProductoxRestaurante extends AppCompatActivity {
         carrito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent inte = new Intent(v.getContext(), CarritoCompras.class);
+                Intent inte = new Intent(v.getContext(), Carrito.class);
                 startActivity(inte);
             }
         });
