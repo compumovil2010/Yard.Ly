@@ -27,7 +27,7 @@ public class logActivity extends AppCompatActivity {
     EditText email;
     EditText password;
     TextView registro;
-
+    TextView forgotPassword;
     @Override
     public void onBackPressed() {
     }
@@ -40,6 +40,14 @@ public class logActivity extends AppCompatActivity {
         registro = findViewById(R.id.register);
         email = findViewById(R.id.et_user);
         password = findViewById(R.id.et_pword);
+        forgotPassword = findViewById(R.id.tv_forgotpw);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registro = new Intent(getBaseContext(),forgotPass.class);
+                startActivity(registro);
+            }
+        });
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
