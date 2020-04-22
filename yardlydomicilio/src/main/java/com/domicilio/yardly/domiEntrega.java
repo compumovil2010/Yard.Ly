@@ -282,7 +282,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                         position=obtenerLatLong(direccione);
                         if(position==null)
                         {
-                            Toast.makeText(getBaseContext(),"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(),"Direccion de Usuario no Disp.",Toast.LENGTH_SHORT).show();
                         }
                         break;
                     }
