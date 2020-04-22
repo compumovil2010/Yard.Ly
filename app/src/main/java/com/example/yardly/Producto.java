@@ -26,26 +26,23 @@ import java.util.List;
 import java.util.Objects;
 
 public class Producto extends AppCompatActivity {
-    private String nombre;
+
+    public static final String PATH_RESENA = "resena/";
+    public static final String PATH_CARRITO = "carritos/";
+    public static final String PATH_PRODUCTS = "products/";
     private int precio =0;
-    private String Descripcion;
-    private boolean habilitado;
     //tipo resena
     private List<String> calificaciones;
-    private List<String> tags;
     private List<String> productos;
     private List<Integer> cantprod;
     private int cantidadNum;
     private TextView nombreTextView, descripcionTextView, precioTextView, cantidad, total, storeName, ratingValue;
     private Button mas, menos, comentarios;
     private FirebaseDatabase database;
-    public static final String PATH_RESENA = "resena/";
-    public static final String PATH_CARRITO = "carritos/";
-    public static final String PATH_PRODUCTS = "products/";
+
     private DatabaseReference myRef;
     private FirebaseUser user;
     private FirebaseAuth mAuth;
-    boolean existe = false;
     CarritoCompras ccmp;
     String llaveProd;
     String fin;
@@ -109,20 +106,99 @@ public class Producto extends AppCompatActivity {
             storeName.setText(pro.getNomEstab());
             buscar();
         }
+        precio  = Integer.parseInt(precioTextView.getText().toString());
+        int cant = Integer.parseInt(cantidad.getText().toString());
+        total.setText(String.valueOf(precio*cant));
+
         b=findViewById(R.id.aggCarrit);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registro = new Intent(getBaseContext(),Carrito.class);
-                registro.putExtra("producto",pro);
-                buscarCarrito();
-                startActivity(registro);
+
+                buscarCarroCompras();
+
             }
         });
-        precio  = Integer.parseInt(precioTextView.getText().toString());
-        int cant = Integer.parseInt(cantidad.getText().toString());
-        total.setText(String.valueOf(precio*cant));
+
     }
+
+    private void buscarCarroCompras()
+    {
+        myRef = database.getReference(PATH_CARRITO);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+                for(DataSnapshot snap :  dataSnapshot.getChildren())
+                {
+                    if(snap.exists() && (snap.getKey().equals( u.getUid() )))
+                    {
+                        CarritoCompras carrito = snap.getValue( CarritoCompras.class );
+                        agregarProducto( carrito );
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void agregarProducto(final CarritoCompras carrito) {
+        myRef = database.getReference(PATH_PRODUCTS);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> prods = new ArrayList<>();
+                List<Integer> cantp = new ArrayList<>();
+                for(DataSnapshot snap : dataSnapshot.getChildren() )
+                {
+                    if(snap.exists())
+                    {
+                        Product p = snap.getValue( Product.class );
+                        if( p.getNomProducto().equals(pro.getNomProducto() ) )
+                        {
+                            FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+                            if(carrito.getProductos().get(0).equals("vacio"))
+                            {
+                                prods.add(snap.getKey());
+                                cantp.add(Integer.parseInt(cantidad.getText().toString()));
+                                carrito.setCantprod( cantp );
+                                carrito.setProductos( prods );
+                                DatabaseReference mr2 = database.getReference(PATH_CARRITO);
+                                mr2.child( u.getUid() ).setValue(carrito);
+                                mandarIntent();
+                            }
+                            else
+                            {
+                                prods = carrito.getProductos();
+                                cantp = carrito.getCantprod();
+                                prods.add(snap.getKey());
+                                cantp.add(Integer.parseInt(cantidad.getText().toString()));
+                                carrito.setCantprod( cantp );
+                                carrito.setProductos( prods );
+                                DatabaseReference mr2 = database.getReference(PATH_CARRITO);
+                                mr2.child( u.getUid() ).setValue(carrito);
+                                mandarIntent();
+
+                            }
+
+
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private String sacarPuntaje() {
         DecimalFormat value = new DecimalFormat("#.#");
         float aux =0;
@@ -141,7 +217,7 @@ public class Producto extends AppCompatActivity {
 
     private void buscar() {
         myRef = database.getReference( PATH_RESENA );
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if( dataSnapshot.exists() )
@@ -163,6 +239,7 @@ public class Producto extends AppCompatActivity {
                 }
                 fin = sacarPuntaje();
                 ratingValue.setText(fin);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -171,89 +248,10 @@ public class Producto extends AppCompatActivity {
         });
     }
 
-    private void buscarCarrito() {
-        myRef = database.getReference( PATH_CARRITO );
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if( dataSnapshot.exists() )
-                {
-                    for( DataSnapshot singleSnap : dataSnapshot.getChildren() )
-                    {
-                        if( singleSnap.exists() )
-                        {
-                            CarritoCompras ca = singleSnap.getValue( CarritoCompras.class );
-                            if(ca != null){
-                                Log.i("taaaaaaaaaaaaaaaam",ca.getUsrId());
-                                Log.i("taaaaaaaaaaaaaaaamUSU",user.getUid());
-                                if(ca.getUsrId().equalsIgnoreCase(user.getUid()) )
-                                {
-                                    ccmp  = ca;
-                                    break;
-                                }
-                            }
-                        }
 
-                    }
-                    productos = ccmp.getProductos();
-                    cantprod = ccmp.getCantprod();
-                    if(productos == null || cantprod == null){
-                        productos = new ArrayList<>();
-                        cantprod = new ArrayList<>();
-                    }
-                    Log.i("taaaaaaaaaaaaaaaam",ccmp.getUsrId());
-                    Log.i("taaaaaaaaaaaaaaaam",String.valueOf(productos.size()));
-                    Log.i("taaaaaaaaaaaaaaaam",String.valueOf(productos.size()));
-                    buscarProducto();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-    private void buscarProducto() {
-        myRef = database.getReference( PATH_PRODUCTS );
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if( dataSnapshot.exists() )
-                {
-                    for( DataSnapshot singleSnap : dataSnapshot.getChildren() )
-                    {
-                        if( singleSnap.exists() )
-                        {
-                            Product p = singleSnap.getValue( Product.class );
-                            if(p != null && pro!=null){
-                                if(p.getNomProducto().equalsIgnoreCase(pro.getNomProducto()) )
-                                {
-                                    llaveProd = singleSnap.getKey();
-                                }
-                            }
-                        }
-
-                    }
-                    if (llaveProd != null){
-                        productos.add(llaveProd);
-                        cantprod.add(Integer.parseInt(cantidad.getText().toString()));
-                        if(productos.size()>0 || cantprod.size()>0){
-                            Log.i("oooooooooooooooooo",ccmp.getUsrId());
-                        }
-                        ccmp.setCantprod(cantprod);
-                        ccmp.setProductos(productos);
-                        ccmp.setUsrId(ccmp.getUsrId());
-                        myRef = database.getReference(PATH_CARRITO + ccmp.getUsrId());
-                        myRef.setValue(ccmp);
-                        return;
-                    }
-
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+    private void mandarIntent() {
+        Intent registro = new Intent(getBaseContext(),Carrito.class);
+        registro.putExtra("producto",pro);
+        startActivity(registro);
     }
 }
