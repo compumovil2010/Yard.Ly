@@ -152,6 +152,9 @@ public class Carrito extends AppCompatActivity {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(c.getProductos()== null){
+                    c.setProductos(new ArrayList<String>());
+                }
                 for(int i = 0 ; i < c.getProductos().size() ; i++)
                 {
                     for(DataSnapshot snap : dataSnapshot.getChildren())
@@ -186,7 +189,7 @@ public class Carrito extends AppCompatActivity {
         CartAdapter cAdapter = new CartAdapter( products, c.getCantprod() );
         rv.setAdapter( cAdapter );
         final CartAdapter ca = (CartAdapter) rv.getAdapter();
-        Log.i("CARTADAPTER CANTIDAD", String.valueOf(ca.getCantP().size()) + String.valueOf(ca.getCantP().get(2)) );
+        //Log.i("CARTADAPTER CANTIDAD", String.valueOf(ca.getCantP().size()) + String.valueOf(ca.getCantP().get(2)) );
         iniButton();
 
     }

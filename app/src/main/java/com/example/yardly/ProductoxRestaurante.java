@@ -68,7 +68,7 @@ public class ProductoxRestaurante extends AppCompatActivity {
     }
     private void buscar() {
         myRef = database.getReference( PATH_PRODUCTS );
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if( dataSnapshot.exists() )

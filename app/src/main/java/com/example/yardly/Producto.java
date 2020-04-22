@@ -116,7 +116,6 @@ public class Producto extends AppCompatActivity {
                 Intent registro = new Intent(getBaseContext(),Carrito.class);
                 registro.putExtra("producto",pro);
                 buscarCarrito();
-
                 startActivity(registro);
             }
         });
@@ -142,7 +141,7 @@ public class Producto extends AppCompatActivity {
 
     private void buscar() {
         myRef = database.getReference( PATH_RESENA );
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if( dataSnapshot.exists() )
@@ -174,7 +173,7 @@ public class Producto extends AppCompatActivity {
 
     private void buscarCarrito() {
         myRef = database.getReference( PATH_CARRITO );
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if( dataSnapshot.exists() )
@@ -185,10 +184,12 @@ public class Producto extends AppCompatActivity {
                         {
                             CarritoCompras ca = singleSnap.getValue( CarritoCompras.class );
                             if(ca != null){
+                                Log.i("taaaaaaaaaaaaaaaam",ca.getUsrId());
+                                Log.i("taaaaaaaaaaaaaaaamUSU",user.getUid());
                                 if(ca.getUsrId().equalsIgnoreCase(user.getUid()) )
                                 {
-                                    Log.i("sapoooo","entroooooo");
                                     ccmp  = ca;
+                                    break;
                                 }
                             }
                         }
@@ -196,7 +197,13 @@ public class Producto extends AppCompatActivity {
                     }
                     productos = ccmp.getProductos();
                     cantprod = ccmp.getCantprod();
-                    Toast.makeText(getBaseContext(),productos.size(),Toast.LENGTH_LONG).show();
+                    if(productos == null || cantprod == null){
+                        productos = new ArrayList<>();
+                        cantprod = new ArrayList<>();
+                    }
+                    Log.i("taaaaaaaaaaaaaaaam",ccmp.getUsrId());
+                    Log.i("taaaaaaaaaaaaaaaam",String.valueOf(productos.size()));
+                    Log.i("taaaaaaaaaaaaaaaam",String.valueOf(productos.size()));
                     buscarProducto();
                 }
             }
@@ -208,7 +215,7 @@ public class Producto extends AppCompatActivity {
     }
     private void buscarProducto() {
         myRef = database.getReference( PATH_PRODUCTS );
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if( dataSnapshot.exists() )
@@ -230,13 +237,15 @@ public class Producto extends AppCompatActivity {
                     if (llaveProd != null){
                         productos.add(llaveProd);
                         cantprod.add(Integer.parseInt(cantidad.getText().toString()));
+                        if(productos.size()>0 || cantprod.size()>0){
+                            Log.i("oooooooooooooooooo",ccmp.getUsrId());
+                        }
                         ccmp.setCantprod(cantprod);
                         ccmp.setProductos(productos);
                         ccmp.setUsrId(ccmp.getUsrId());
-                        myRef = database.getReference(PATH_CARRITO);
-                        FirebaseUser currentUsr = FirebaseAuth.getInstance().getCurrentUser();
-                        String uid = currentUsr.getUid();
-                        myRef.child(uid).setValue( ccmp );
+                        myRef = database.getReference(PATH_CARRITO + ccmp.getUsrId());
+                        myRef.setValue(ccmp);
+                        return;
                     }
 
                 }
