@@ -56,6 +56,8 @@ import java.io.IOException;
 import java.util.List;
 
 import Modelo.Domiciliario;
+import Modelo.Pedido;
+import Modelo.Restaurante;
 
 public class domiEntrega extends FragmentActivity implements OnMapReadyCallback {
 
@@ -75,6 +77,11 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     FirebaseDatabase database;
     DatabaseReference lat,lo;
     private static final String PATH_PEDIDOS="pedido/";
+    private Domiciliario d;
+    private String s;
+    private String direccion;
+    private String r;
+    private Restaurante direccionR;
 
 
     @Override
@@ -153,38 +160,100 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //Aqui va acceso a BD con usuarios
-        /*
+        //Aqui va acceso a BD con usuario
+        obtenerDirCasa();
 
-         */
-        LatLng myLoc = new LatLng(4.65, -74.05);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        LatLng position;
 
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                if(usupedido!=null)
-                    usupedido.remove();
-                try {
-                    usupedido=mMap.addMarker( new MarkerOptions().position(latLng).title(getNombre(latLng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        String addressString = direccionR.getDireccion();
+        position=obtenerLatLongR(addressString);
+        if(position==null)
+        {
+            Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
+        }
+
+        position=obtenerLatLong(direccion);
+        if(position==null)
+        {
+            Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void obtenerPedido() {
+    private LatLng obtenerLatLongR(String addressString) {
+        LatLng position = null;
+        List<Address> addresses = null;
+        if (addressString != null) {
+            try {
+                addresses = geo.getFromLocationName(addressString, 2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (addresses != null && !addresses.isEmpty()) {
+                Address addressResult = addresses.get(0);
+                position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
+                if (mMap != null) {
+                    MarkerOptions myMarkerOptions = new MarkerOptions();
+                    myMarkerOptions.position(position);
+                    myMarkerOptions.title(direccionR.getNombreR());
+                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                }
+            }
+        }
+        return  position;
+    }
+
+    private LatLng obtenerLatLong(String addressString) {
+        LatLng position = null;
+        List<Address> addresses = null;
+        if (addressString != null) {
+            try {
+                addresses = geo.getFromLocationName(addressString, 2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (addresses != null && !addresses.isEmpty()) {
+                Address addressResult = addresses.get(0);
+                position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
+                if (mMap != null) {
+                    MarkerOptions myMarkerOptions = new MarkerOptions();
+                    myMarkerOptions.position(position);
+                    myMarkerOptions.title("Delivery");
+                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                }
+            }
+        }
+        return  position;
+    }
+
+    public void obtenerDirCasa() {
         DatabaseReference myRef = database.getReference(Domiciliario.PATH_DOM + user.getUid());
-        myRef.
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    MyUser myUser = singleSnapshot.getValue(MyUser.class);
+                dataSnapshot= dataSnapshot.child("pedidoActual");
+               s= dataSnapshot.getValue(String.class);
 
-                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        DatabaseReference myRef2 = database.getReference(Pedido.PATH_PEDIDO + s);
+        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                direccion= dataSnapshot.child("DirUsu").getValue(String.class);
+                r=dataSnapshot.child("Empresa").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        DatabaseReference myRef3 = database.getReference(Restaurante.PATH_REST+r);
+        myRef3.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                direccionR= dataSnapshot.getValue(Restaurante.class);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

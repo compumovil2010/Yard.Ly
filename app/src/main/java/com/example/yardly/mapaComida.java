@@ -74,7 +74,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
     private LocationCallback mLocationCallback;
     private Marker marker;
     private FirebaseUser user;
-    private Map<Marker, Restaurante> relacion;
+    private Map<String, Restaurante> relacion;
     private Location current;
 
 
@@ -144,7 +144,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     Restaurante r = singleSnapshot.getValue(Restaurante.class);
 
-                    if(distance(current.getLatitude(),current.getLongitude(),0,0)>10)
+                    if(distance(current.getLatitude(),current.getLongitude(),0,0)>0)
                     {
                         String addressString=r.getDireccion();
                         List<Address> addresses = null;
@@ -163,7 +163,8 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
                                     myMarkerOptions.position(position);
                                     myMarkerOptions.title(r.getNombreR());
                                     myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-                                    relacion.put(mMap.addMarker(myMarkerOptions),r);
+                                    mMap.addMarker(myMarkerOptions);
+                                    relacion.put(r.getNombreR(),r);
                                 }
                         }
 
@@ -214,7 +215,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
             public boolean onMarkerClick(Marker arg0) {
 
                     Intent i= new Intent(getBaseContext(),RestaurantProfile.class);
-                    i.putExtra("restaurante",relacion.get(arg0));
+                    i.putExtra("restaurante",relacion.get(arg0.getTitle()));
                     startActivity(i);
 
                 return true;
