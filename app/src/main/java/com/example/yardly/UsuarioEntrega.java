@@ -46,6 +46,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +64,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import Modelo.Domiciliario;
 
 
 public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallback {
@@ -77,6 +84,9 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private Location current;
     ArrayList<LatLng> listPoints;
     private Marker marker;
+    Pedido pedido;
+    DatabaseReference mRootReference;
+    String domi;
 
 
     @Override
@@ -88,6 +98,9 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         geo = new Geocoder(getBaseContext());
         listPoints = new ArrayList<>();
         inicializarLoc();
+
+        pedido = (Pedido) getIntent().getSerializableExtra("Pedido");
+        buscarInfo(pedido);
 
         list = new SensorEventListener() {
             @Override
@@ -110,6 +123,42 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    private void buscarInfo(Pedido pedido) {
+        final String idDomi = pedido.getDomi();
+
+        mRootReference = FirebaseDatabase.getInstance().getReference();
+        mRootReference.child(Pedido.PATH_PEDIDO).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Pedido p = snapshot.getValue(Pedido.class);
+                    if (idDomi.equals(p.getDomi())) {
+                        domi = p.getDomi();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mRootReference.child(Domiciliario.PATH_USERS).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Domiciliario d = snapshot.getValue(Domiciliario.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void inicializarLoc() {
