@@ -140,7 +140,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    Restaurante r = singleSnapshot.getValue(Restaurante.class);
+                    Restaurant r = singleSnapshot.getValue(Restaurant.class);
 
                     if(true || (distance(current.getLatitude(),current.getLongitude(),0,0)>0))
                     {
@@ -213,12 +213,12 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
             public boolean onMarkerClick(final Marker arg0) {
                 if(!arg0.equals(marker))
                 {
-                    Query myRef = FirebaseDatabase.getInstance().getReference(Restaurante.PATH_REST);
+                    Query myRef = FirebaseDatabase.getInstance().getReference(Restaurant.PATH_REST);
                     myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                                Restaurante r = singleSnapshot.getValue(Restaurante.class);
+                                Restaurant r = singleSnapshot.getValue(Restaurant.class);
 
                                 if(r.getNombreR().equalsIgnoreCase(arg0.getTitle()))
                                 {

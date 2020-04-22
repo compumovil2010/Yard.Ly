@@ -26,8 +26,6 @@ public class Registro extends AppCompatActivity {
 
     }
 
-    EditText cContrasena;
-    TextView cancelar;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
