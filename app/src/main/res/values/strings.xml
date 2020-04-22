@@ -54,5 +54,6 @@
         <item>Plato</item>
     </string-array>
     <string name="title_activity_usuario_entrega">Map</string>
+    <string name="title_activity_mapa_comida">Comida Cercana</string>
 
 </resources>

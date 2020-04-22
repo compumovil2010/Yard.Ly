@@ -1,5 +1,8 @@
 package com.example.yardly;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +15,17 @@ public class TabViewPagerAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitles = new ArrayList<>();
+    private Bundle myBundle;
 
+    public TabViewPagerAdapter( FragmentManager fm, Bundle b) {
+        super(fm);
+        myBundle = b;
 
+    }
     public TabViewPagerAdapter( FragmentManager fm) {
         super(fm);
+        myBundle = null;
+
     }
 
     @Override
@@ -30,6 +40,11 @@ public class TabViewPagerAdapter extends FragmentPagerAdapter {
 
     public void  addFragment( Fragment frag, String title)
     {
+        if( myBundle != null )
+        {
+            Log.i("Creando el argument", myBundle.getString("searchKey"));
+            frag.setArguments( myBundle );
+        }
         mFragmentList.add( frag );
         mFragmentTitles.add( title );
     }

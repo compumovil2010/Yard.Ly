@@ -23,7 +23,7 @@ public class Tab_home extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent registro = new Intent( v.getContext(),omgreen.class );
+                Intent registro = new Intent( v.getContext(),mapaComida.class );
                 startActivity( registro );
 
             }
@@ -32,7 +32,7 @@ public class Tab_home extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent registro = new Intent( v.getContext(),omgreen.class );
+                Intent registro = new Intent( v.getContext(),mapaComida.class );
                 startActivity( registro );
 
             }
