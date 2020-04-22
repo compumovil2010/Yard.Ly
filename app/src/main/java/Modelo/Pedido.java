@@ -15,6 +15,7 @@ public class Pedido {
     private String Empresa;
     private String Comentarios;
     private boolean Finalizado;
+
     public Pedido()
     {
 

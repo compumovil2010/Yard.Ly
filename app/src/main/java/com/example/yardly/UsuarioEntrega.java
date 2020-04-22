@@ -19,6 +19,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -46,6 +48,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +66,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import Modelo.Domiciliario;
 
 
 public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallback {
@@ -75,19 +84,29 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
     private Location current;
+    private TextView nombreD;
+    private ImageView imageD;
     ArrayList<LatLng> listPoints;
     private Marker marker;
-
+    Pedido pedido;
+    DatabaseReference mRootReference;
+    String domi;
+    String keyDomi;
+    Domiciliario domiciliario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_entrega);
+        nombreD = findViewById(R.id.nombreD);
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
         geo = new Geocoder(getBaseContext());
         listPoints = new ArrayList<>();
         inicializarLoc();
+
+        pedido = (Pedido) getIntent().getSerializableExtra("Pedido");
+        buscarInfo(pedido);
 
         list = new SensorEventListener() {
             @Override
@@ -110,6 +129,47 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    private void buscarInfo(Pedido pedido) {
+        domi = pedido.getDomi();
+
+        mRootReference = FirebaseDatabase.getInstance().getReference();
+        mRootReference.child(Pedido.PATH_PEDIDO).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String key = snapshot.getKey();
+                    if (domi.equals(key)) {
+                        keyDomi = key;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mRootReference.child(Domiciliario.PATH_USERS).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String key = snapshot.getKey();
+                    if (keyDomi.equals(key)) {
+                        domiciliario = snapshot.getValue(Domiciliario.class);
+                    }
+                }
+                nombreD.setText(domiciliario.getNombre() + " " + domiciliario.getApellido());
+                imageD.setImageURI(domiciliario.getFotoPerfil());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void inicializarLoc() {
