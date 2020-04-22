@@ -10,12 +10,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import Modelo.CarritoCompras;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -30,12 +32,21 @@ public class Producto extends AppCompatActivity {
     //tipo resena
     private List<String> calificaciones;
     private List<String> tags;
+    private List<String> productos;
+    private List<Integer> cantprod;
     private int cantidadNum;
     private TextView nombreTextView, descripcionTextView, precioTextView, cantidad, total, storeName, ratingValue;
     private Button mas, menos, comentarios;
     private FirebaseDatabase database;
     public static final String PATH_RESENA = "resena/";
+    public static final String PATH_CARRITO = "carritos/";
+    public static final String PATH_PRODUCTS = "products/";
     private DatabaseReference myRef;
+    private FirebaseUser user;
+    private FirebaseAuth mAuth;
+    boolean existe = false;
+    CarritoCompras ccmp;
+    String llaveProd;
     String fin;
     Product pro;
     Button b;
@@ -44,6 +55,8 @@ public class Producto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
         database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         pro = (Product) Objects.requireNonNull(getIntent().getSerializableExtra("producto"));
         nombreTextView = findViewById(R.id.nomProduct);
         descripcionTextView = findViewById(R.id.descripProduc);
@@ -99,8 +112,21 @@ public class Producto extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registro = new Intent(getBaseContext(),CarritoCompras.class);
+                Intent registro = new Intent(getBaseContext(),Carrito.class);
                 registro.putExtra("producto",pro);
+                FirebaseUser currentUsr = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = currentUsr.getUid();
+                buscarCarrito();
+                buscarProducto();
+                productos = ccmp.getProductos();
+                cantprod = ccmp.getCantprod();
+                productos.add(llaveProd);
+                cantprod.add(Integer.parseInt(cantidad.getText().toString()));
+                ccmp.setCantprod(cantprod);
+                ccmp.setProductos(productos);
+                ccmp.setUsrId(ccmp.getUsrId());
+                myRef = database.getReference(PATH_CARRITO);
+                myRef.child(uid).setValue( ccmp );
                 startActivity(registro);
             }
         });
@@ -148,6 +174,65 @@ public class Producto extends AppCompatActivity {
                 }
                 fin = sacarPuntaje();
                 ratingValue.setText(fin);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void buscarCarrito() {
+        myRef = database.getReference( PATH_CARRITO );
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if( dataSnapshot.exists() )
+                {
+                    for( DataSnapshot singleSnap : dataSnapshot.getChildren() )
+                    {
+                        if( singleSnap.exists() )
+                        {
+                            CarritoCompras ca = singleSnap.getValue( CarritoCompras.class );
+                            if(ca != null){
+                                if(ca.getUsrId().equalsIgnoreCase(user.getUid()) )
+                                {
+                                    ccmp  =ca;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void buscarProducto() {
+        myRef = database.getReference( PATH_CARRITO );
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if( dataSnapshot.exists() )
+                {
+                    for( DataSnapshot singleSnap : dataSnapshot.getChildren() )
+                    {
+                        if( singleSnap.exists() )
+                        {
+                            Product p = singleSnap.getValue( Product.class );
+                            if(p != null){
+                                if(p.getNomProducto().equalsIgnoreCase(pro.getNomProducto()) )
+                                {
+                                    llaveProd = singleSnap.getKey();
+                                }
+                            }
+                        }
+
+                    }
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
