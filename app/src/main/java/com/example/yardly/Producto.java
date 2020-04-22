@@ -23,7 +23,7 @@ public class Producto extends AppCompatActivity {
     private List<String> resenas;
     private List<String> tags;
     private int cantidadNum;
-    private TextView nombreTextView, descripcionTextView, precioTextView, cantidad, total, storeName;
+    private TextView nombreTextView, descripcionTextView, precioTextView, cantidad, total, storeName, ratingValue;
     private Button mas, menos, comentarios;
     Product pro;
     Button b;
@@ -39,6 +39,7 @@ public class Producto extends AppCompatActivity {
         storeName = findViewById(R.id.storeName);
         cantidad = findViewById(R.id.cantProduct);
         total = findViewById(R.id.total);
+        ratingValue = findViewById(R.id.ratingValue);
         mas = findViewById(R.id.mas);
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +80,7 @@ public class Producto extends AppCompatActivity {
             descripcionTextView.setText(pro.getDescripcion());
             precioTextView.setText(String.valueOf(pro.getPrecio()));
             storeName.setText(pro.getNomEstab());
+            ratingValue.setText("4");
         }
         b=findViewById(R.id.aggCarrit);
         b.setOnClickListener(new View.OnClickListener() {

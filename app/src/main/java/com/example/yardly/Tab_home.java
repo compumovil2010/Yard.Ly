@@ -30,7 +30,7 @@ public class Tab_home extends Fragment {
         btn_ropa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ropa = new Intent( v.getContext(),RestaurantProfile.class );
+                Intent ropa = new Intent( v.getContext(),omgreen.class );
                 startActivity(ropa);
             }
         });

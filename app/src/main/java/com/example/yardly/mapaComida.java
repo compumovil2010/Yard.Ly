@@ -143,7 +143,6 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     Restaurante r = singleSnapshot.getValue(Restaurante.class);
-
                     if(distance(current.getLatitude(),current.getLongitude(),0,0)>10)
                     {
                         String addressString=r.getDireccion();
