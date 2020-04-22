@@ -53,6 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             @Override
             public void onClick(View v) {
                 //TODO: actividad agregar al carrito
+
             }
         });
 

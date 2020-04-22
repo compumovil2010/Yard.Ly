@@ -2,7 +2,6 @@ package com.example.yardly;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Pedido implements Serializable {
     public  static  final String PATH_PEDIDO = "pedido/";
@@ -21,6 +20,45 @@ public class Pedido implements Serializable {
     {
 
     }
+    public Pedido(String fecha, String nomprod, float precio, ArrayList<String> pproductos, ArrayList<Integer> cantp, String usup, String dom, String dirusr, String emp, String coments)
+    {
+        this.Fecha = fecha;
+        this.NombreProducto = nomprod;
+        this.Precio = precio;
+        this.productos = pproductos;
+        this.cantprod = cantp;
+        this.UsuPedido = usup;
+        this.domi = dom;
+        this.DirUsu = dirusr;
+        this.Empresa = emp;
+        this.Comentarios = coments;
+
+    }
+
+
+    public String getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(String fecha) {
+        Fecha = fecha;
+    }
+
+    public String getNombreProducto() {
+        return NombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        NombreProducto = nombreProducto;
+    }
+
+    public float getPrecio() {
+        return Precio;
+    }
+
+    public void setPrecio(float precio) {
+        Precio = precio;
+    }
 
     public ArrayList<String> getProductos() {
         return productos;
@@ -30,14 +68,20 @@ public class Pedido implements Serializable {
         this.productos = productos;
     }
 
-    public ArrayList<Integer> getCantprod() { return cantprod;}
-
     public String getUsuPedido() {
         return UsuPedido;
     }
 
     public void setUsuPedido(String usuPedido) {
         UsuPedido = usuPedido;
+    }
+
+    public ArrayList<Integer> getCantprod() {
+        return cantprod;
+    }
+
+    public void setCantprod(ArrayList<Integer> cantprod) {
+        this.cantprod = cantprod;
     }
 
     public String getDomi() {
@@ -56,14 +100,6 @@ public class Pedido implements Serializable {
         DirUsu = dirUsu;
     }
 
-    public String getEmpresa() {
-        return Empresa;
-    }
-
-    public void setEmpresa(String empresa) {
-        Empresa = empresa;
-    }
-
     public String getComentarios() {
         return Comentarios;
     }
@@ -72,28 +108,12 @@ public class Pedido implements Serializable {
         Comentarios = comentarios;
     }
 
-    public float getPrecio() {
-        return Precio;
+    public String getEmpresa() {
+        return Empresa;
     }
 
-    public void setPrecio(float precio) {
-        Precio = precio;
-    }
-
-    public String getNombreProducto() {
-        return NombreProducto;
-    }
-
-    public void setNombreProducto(String nombreProducto) {
-        NombreProducto = nombreProducto;
-    }
-
-    public String getFecha() {
-        return Fecha;
-    }
-
-    public void setFecha(String fecha) {
-        Fecha = fecha;
+    public void setEmpresa(String empresa) {
+        Empresa = empresa;
     }
 }
 

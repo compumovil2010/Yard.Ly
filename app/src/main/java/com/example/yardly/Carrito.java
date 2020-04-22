@@ -4,7 +4,6 @@ import Modelo.CarritoCompras;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.solver.widgets.Snapshot;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,9 +33,11 @@ public class Carrito extends AppCompatActivity {
     Button btn_next;
     Toolbar tb_top;
     List<Product> products;
+    List<String> pids;
     List<Integer> cantp;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    public  static  final String PATH_PEDIDO = "pedido/";
     public static final String PATH_PRODUCTS = "products/";
     public static final String PATH_CARRITO = "carritos/";
 
@@ -50,6 +51,7 @@ public class Carrito extends AppCompatActivity {
 
         products = new ArrayList<>();
         cantp = new ArrayList<>();
+        pids = new ArrayList<>();
 
         rv = findViewById( R.id.recyclerCarrito );
         rv.setHasFixedSize( true );
@@ -144,6 +146,7 @@ public class Carrito extends AppCompatActivity {
                     {
                         if( snap.getKey().equals(c.getProductos().get(i)) )
                         {
+                            pids.add( snap.getKey() );
                             Product p = snap.getValue(Product.class);
                             products.add( p );
                         }
@@ -181,6 +184,20 @@ public class Carrito extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent int_cho = new Intent( v.getContext(), Checkout.class );
+                FirebaseUser currentUsr = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = currentUsr.getUid();
+                float price = 0;
+                for( int i = 0 ; i < products.size(); i++)
+                {
+                    price = price + ( Float.parseFloat(products.get(i).getPrecio()) * cantp.get(i) );
+                }
+                Pedido p = new Pedido( "22/04/2020","Pedido 1", price, (ArrayList)pids, (ArrayList)cantp, uid, "", "Cra 4 # 8-27", "TopWay", "");
+                myRef = database.getReference(PATH_PEDIDO);
+                String k = myRef.push().getKey();
+
+                myRef.child( k ).setValue(p);
+
+                int_cho.putExtra("pid", k);
                 startActivity( int_cho );
             }
         });
