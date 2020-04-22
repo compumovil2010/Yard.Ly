@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarritoCompras extends AppCompatActivity {
-    List<Producto> mProjection= new ArrayList<>();
+    List<Product> mProjection= new ArrayList<>();
     ListView mlista;
     Button b1;
     @Override
@@ -21,10 +21,7 @@ public class CarritoCompras extends AppCompatActivity {
         setContentView(R.layout.activity_carrito_compras);
         mlista=findViewById(R.id.liscarrito);
         b1=findViewById(R.id.comfiCompra);
-        Producto p = new Producto();
-        p.setNombre("Nombre producto");
-        p.setDescripcion("Descripcion");
-        p.setPrecio(123456);
+        Product p = new Product("Nombre","123456","Descripcion","sitio vejetariano");
         mProjection.add(p);
         mProjection.add(p);
         mProjection.add(p);

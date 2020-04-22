@@ -17,6 +17,10 @@
         android:roundIcon="@mipmap/ly"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Comentarios"></activity>
+        <activity android:name=".ProductoxRestaurante" />
+        <activity android:name=".RestaurantProfile" />
+        <activity android:name=".CalificarOpinion" />
         <activity android:name=".forgotPass"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

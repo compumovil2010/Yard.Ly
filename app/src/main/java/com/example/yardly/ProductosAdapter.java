@@ -12,11 +12,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ProductosAdapter extends ArrayAdapter<Producto> {
+public class ProductosAdapter extends ArrayAdapter<Product> {
     private int LayoutUso;
     private Context contex;
-    private Producto pro;
-    public ProductosAdapter (Context context, int resource, List<Producto> products){
+    private Product pro;
+    public ProductosAdapter (Context context, int resource, List<Product> products){
         super(context,resource,products);
         this.LayoutUso=resource;
         this.contex=context;
@@ -34,7 +34,7 @@ public class ProductosAdapter extends ArrayAdapter<Producto> {
             TextView Descrip = vie.findViewById(R.id.desProd);
             TextView precio = vie.findViewById(R.id.precProd);
             Button b= vie.findViewById(R.id.agregarProd);
-            nombre.setText(pro.getNombre());
+            nombre.setText(pro.getNomProducto());
             Descrip.setText(pro.getDescripcion());
             precio.setText(String.valueOf(pro.getPrecio()));
             b.setOnClickListener(new View.OnClickListener() {
