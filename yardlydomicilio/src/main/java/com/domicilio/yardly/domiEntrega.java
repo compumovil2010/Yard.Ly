@@ -45,9 +45,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 import java.io.IOException;
 import java.util.List;
+
+import Modelo.Domiciliario;
 
 public class domiEntrega extends FragmentActivity implements OnMapReadyCallback {
 
@@ -64,12 +72,15 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private Marker mipos=null;
     private Marker usupedido;
     private FirebaseUser user;
+    FirebaseDatabase database;
+    DatabaseReference lat,lo;
     private static final String PATH_PEDIDOS="pedido/";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        database= FirebaseDatabase.getInstance();
         setContentView(R.layout.activity_domi_entrega);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null){
@@ -118,9 +129,13 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     if(mipos!=null)
                         mipos.remove();
                     //actualizarRefEnBD
+                    lat=database.getReference(Domiciliario.PATH_DOM+user.getUid()+"/lat");
+                    lo=database.getReference(Domiciliario.PATH_DOM+user.getUid()+"/longi");
+                    lat.setValue(location.getLatitude());
+                    lo.setValue(location.getLongitude());
                     mipos=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
-                    mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+                    mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
                 }
             }
         };
@@ -160,6 +175,22 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         });
     }
 
+    public void obtenerPedido() {
+        DatabaseReference myRef = database.getReference(Domiciliario.PATH_DOM + user.getUid());
+        myRef.
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    MyUser myUser = singleSnapshot.getValue(MyUser.class);
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
     private String getNombre(LatLng latLng) throws IOException {
         List<Address> ad = geo.getFromLocation(latLng.latitude,latLng.longitude,1);
         return ad.get(0).getAddressLine(0);

@@ -148,21 +148,25 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
                     {
                         String addressString=r.getDireccion();
                         List<Address> addresses = null;
-                        try {
-                            addresses = geo.getFromLocationName(addressString, 2);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        if(addressString!=null)
+                        {
+                            try {
+                                addresses = geo.getFromLocationName(addressString, 2);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (addresses != null && !addresses.isEmpty()) {
+                                Address addressResult = addresses.get(0);
+                                LatLng position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
+                                if (mMap != null) {
+                                    MarkerOptions myMarkerOptions = new MarkerOptions();
+                                    myMarkerOptions.position(position);
+                                    myMarkerOptions.title(r.getNombreR());
+                                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                                    relacion.put(mMap.addMarker(myMarkerOptions),r);
+                                }
                         }
-                        if (addresses != null && !addresses.isEmpty()) {
-                            Address addressResult = addresses.get(0);
-                            LatLng position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
-                            if (mMap != null) {
-                                MarkerOptions myMarkerOptions = new MarkerOptions();
-                                myMarkerOptions.position(position);
-                                myMarkerOptions.title(r.getNombre());
-                                myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-                                relacion.put(mMap.addMarker(myMarkerOptions),r);
-                    }
+
 
                 }
             }
