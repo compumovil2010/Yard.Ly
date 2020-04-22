@@ -4,14 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <TextView
+        android:id="@+id/UsuarioComentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/fotoComentario"
+        android:text="USu" />
+    <TextView
+        android:id="@+id/CalificacionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/fotoComentario"
+        android:paddingTop="10dp"
+        android:layout_below="@id/UsuarioComentario"
+        android:text="@string/Calificacion" />
+
 
     <TextView
         android:id="@+id/asunto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/fotoComentario"
-        android:text="Asunto"
-        android:paddingTop="10dp"/>
+        android:paddingBottom="4dp"
+        android:paddingTop="10dp"
+        android:layout_toEndOf="@id/CalificacionText"
+        android:layout_below="@id/UsuarioComentario"
+/>
 
     <View
         android:layout_width="match_parent"
@@ -19,25 +37,36 @@
         android:layout_toEndOf="@id/fotoComentario"
         android:layout_marginBottom="28dp"
         android:background="@android:color/darker_gray"
-        android:layout_below="@id/asunto"/>
-
+        android:layout_below="@id/UsuarioComentario"/>
     <TextView
-        android:id="@+id/comentario"
+        android:id="@+id/Opinion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Opiniones"
-        android:layout_below="@id/asunto"
+        android:text="@string/Opinion"
+        android:layout_below="@id/CalificacionText"
         android:layout_toEndOf="@id/fotoComentario"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         />
+    <TextView
+        android:id="@+id/comentario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Opinion"
+        android:layout_toEndOf="@id/fotoComentario"
+        android:paddingTop="4dp"
+        android:paddingBottom="10dp"
+        />
+
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="66dp"
-        android:layout_height="69dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:id="@+id/fotoComentario"
         android:src="@drawable/camilo"
         app:civ_border_color="@color/clr_greenYardly"
         app:civ_border_width="2dp"
         android:layout_marginEnd="10dp"
         />
+
+
 </RelativeLayout>
