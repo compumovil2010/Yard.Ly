@@ -13,7 +13,7 @@ import java.util.List;
 public class CatalogoAdapter extends ArrayAdapter {
     private int LayoutUso;
     private Context contex;
-    public CatalogoAdapter (Context context, int resource, List<Producto> lugares){
+    public CatalogoAdapter (Context context, int resource, List<Product> lugares){
         super(context,resource,lugares);
         this.LayoutUso=resource;
         this.contex=context;
@@ -25,14 +25,12 @@ public class CatalogoAdapter extends ArrayAdapter {
             vie = LayoutInflater.from(getContex())
                     .inflate(getLayoutUso(), parent, false);
         }
-        Producto val = (Producto) getItem(position);
+        Product val = (Product) getItem(position);
         if (val!=null){
             TextView nimble = vie.findViewById(R.id.nombreProCatalogo);
             TextView descripcion = vie.findViewById(R.id.descripcionCatalogo);
-            nimble.setText(val.getNombre());
+            nimble.setText(val.getNomProducto());
             descripcion.setText(val.getDescripcion());
-
-
             //ImageButton img = vie.findViewById(R.id.elimdir);
         }
         return vie;

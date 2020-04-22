@@ -31,7 +31,7 @@ public class logActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_domi_entrega);
+        setContentView(R.layout.activity_log1);
         authentication = FirebaseAuth.getInstance();
         email = findViewById(R.id.et_user);
         password = findViewById(R.id.et_pword);

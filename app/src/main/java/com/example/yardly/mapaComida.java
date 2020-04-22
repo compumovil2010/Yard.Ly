@@ -1,4 +1,4 @@
-package com.domicilio.yardly;
+package com.example.yardly;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -44,23 +44,23 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
-import Modelo.Domiciliario;
-import Modelo.Pedido;
 import Modelo.Restaurante;
 
-public class domiEntrega extends FragmentActivity implements OnMapReadyCallback {
+
+public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private SensorManager manager;
@@ -72,34 +72,20 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private FusedLocationProviderClient mfusedLoc;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
-    private Marker mipos=null;
-    private Marker usupedido;
+    private Marker marker;
     private FirebaseUser user;
-    FirebaseDatabase database;
-    DatabaseReference lat,lo;
-    private static final String PATH_PEDIDOS="pedido/";
-    private String s;
-    private String direccion;
-    private String r;
-    private Restaurante direccionR;
-    private Domiciliario domi;
+    private Map<String, Restaurante> relacion;
+    private Location current;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        database= FirebaseDatabase.getInstance();
-        setContentView(R.layout.activity_domi_entrega);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null){
-            Intent inte = new Intent(this, logActivity.class);
-            inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(inte);
-        }
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        setContentView(R.layout.activity_mapa_comida);
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
         geo = new Geocoder(getBaseContext());
+        relacion=new HashMap<>();
         inicializarLoc();
 
         list= new SensorEventListener() {
@@ -108,9 +94,9 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                 if(mMap!=null && luz!=null)
                 {
                     if(event.values[0]<300)
-                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(domiEntrega.this, R.raw.dark_style_map));
+                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mapaComida.this, R.raw.dark_style_map));
                     else
-                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(domiEntrega.this, R.raw.light_style_map));
+                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mapaComida.this, R.raw.light_style_map));
 
                 }
             }
@@ -120,6 +106,8 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
 
             }
         };
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -131,27 +119,86 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
+
                 Location location = locationResult.getLastLocation();
+                current = location;
                 if (location != null) {
-                    if(mipos!=null)
-                        mipos.remove();
-                    //actualizarRefEnBD
-                    lat=database.getReference(Domiciliario.PATH_DOM+user.getUid()+"/lat");
-                    lo=database.getReference(Domiciliario.PATH_DOM+user.getUid()+"/longi");
-                    lat.setValue(location.getLatitude());
-                    lo.setValue(location.getLongitude());
-                    mipos=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
-                    mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+                    LatLng myLoc = new LatLng(location.getLatitude(), location.getLongitude());
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
+                    mMap.clear();
+                    marker =mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    loadRest();
                 }
             }
         };
     }
 
+    private void loadRest()
+    {
+        relacion.clear();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        Query myRef = database.getReference(Restaurante.PATH_REST);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    Restaurante r = singleSnapshot.getValue(Restaurante.class);
+
+                    if(true || (distance(current.getLatitude(),current.getLongitude(),0,0)>0))
+                    {
+                        String addressString=r.getDireccion();
+                        List<Address> addresses = null;
+                        if(addressString!=null)
+                        {
+                            try {
+                                addresses = geo.getFromLocationName(addressString, 2);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (addresses != null && !addresses.isEmpty()) {
+                                Address addressResult = addresses.get(0);
+                                LatLng position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
+                                if (mMap != null) {
+                                    MarkerOptions myMarkerOptions = new MarkerOptions();
+                                    myMarkerOptions.position(position);
+                                    myMarkerOptions.title(r.getNombreR());
+                                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                                    mMap.addMarker(myMarkerOptions);
+                                    Log.i("TAM"," "+relacion.size());
+                                }
+                        }
+
+
+                }
+            }
+           }
+
+         }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+    }
+
+    public double distance(double lat1, double long1, double lat2, double long2) {
+        double latDistance = Math.toRadians(lat1 - lat2);
+        double lngDistance = Math.toRadians(long1 - long2);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double result = RADIUS_OF_EARTH_KM * c;
+        return Math.round(result*100.0)/100.0;
+    }
     private LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000); //tasa de refresco en milisegundos
-        mLocationRequest.setFastestInterval(5000); //máxima tasa de refresco
+        mLocationRequest.setInterval(600000); //tasa de refresco en milisegundos
+        mLocationRequest.setFastestInterval(6000000); //máxima tasa de refresco
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return mLocationRequest;
     }
@@ -159,151 +206,48 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //Aqui va acceso a BD con usuario
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        obtenerDirCasa();
-    }
-
-    private void getDomi() {
-        DatabaseReference myRef = database.getReference(Domiciliario.PATH_DOM+user.getUid());
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                domi=dataSnapshot.getValue(Domiciliario.class);
-               llenarMapa();
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-    }
-
-    private LatLng obtenerLatLongR(String addressString) {
-        LatLng position = null;
-        List<Address> addresses = null;
-        if (addressString != null) {
-            try {
-                addresses = geo.getFromLocationName(addressString, 2);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (addresses != null && !addresses.isEmpty()) {
-                Address addressResult = addresses.get(0);
-                position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
-                if (mMap != null) {
-                    MarkerOptions myMarkerOptions = new MarkerOptions();
-                    myMarkerOptions.position(position);
-                    myMarkerOptions.title(direccionR.getNombreR());
-                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-                }
-            }
-        }
-        return  position;
-    }
-
-    private LatLng obtenerLatLong(String addressString) {
-        LatLng position = null;
-        List<Address> addresses = null;
-        if (addressString != null) {
-            try {
-                addresses = geo.getFromLocationName(addressString, 2);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (addresses != null && !addresses.isEmpty()) {
-                Address addressResult = addresses.get(0);
-                position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
-                if (mMap != null) {
-                    MarkerOptions myMarkerOptions = new MarkerOptions();
-                    myMarkerOptions.position(position);
-                    myMarkerOptions.title("Delivery");
-                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-                }
-            }
-        }
-        return  position;
-    }
-
-    public void obtenerDirCasa() {
-        if(user == null){
-            Intent inte = new Intent(this, logActivity.class);
-            inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(inte);
-        }
-
-        if(database==null)
-            database=FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Domiciliario.PATH_DOM + user.getUid());
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataSnapshot= dataSnapshot.child("pedidoActual");
-               s= dataSnapshot.getValue(String.class);
-               obtenerDirCasa2();
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-    }
-    private void obtenerDirCasa2()
-    {
-        DatabaseReference myRef2 = database.getReference(Pedido.PATH_PEDIDO + s);
-        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                direccion= dataSnapshot.child("DirUsu").getValue(String.class);
-                r=dataSnapshot.child("Empresa").getValue(String.class);
-                obtenerDirCasa3();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-
-    private void obtenerDirCasa3()
-    {
-        DatabaseReference myRef3 = database.getReference(Restaurante.PATH_REST+r);
-        myRef3.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                direccionR= dataSnapshot.getValue(Restaurante.class);
-                getDomi();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-    private void llenarMapa(){
-        LatLng position;
-
-        Log.i("AAAAA"," "+domi);
-        if(domi.getPedidoActual()!=null){
-            String addressString = direccionR.getDireccion();
-            position=obtenerLatLongR(addressString);
-            if(position==null)
-            {
-                Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
-            }
-
-            position=obtenerLatLong(direccion);
-            if(position==null)
-            {
-                Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
-            }}
-        else
+        LatLng myLoc = new LatLng(4.65, -74.05);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(13));
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
         {
-            Toast.makeText(this,"No tiene domicilios",Toast.LENGTH_LONG).show();
+            @Override
+            public boolean onMarkerClick(final Marker arg0) {
+                if(!arg0.equals(marker))
+                {
+                    Query myRef = FirebaseDatabase.getInstance().getReference(Restaurante.PATH_REST);
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                                Restaurante r = singleSnapshot.getValue(Restaurante.class);
 
-        }
+                                if(r.getNombreR().equalsIgnoreCase(arg0.getTitle()))
+                                {
+                                    Intent i= new Intent(getBaseContext(),RestaurantProfile.class);
+                                    Log.i("Pille", r.getNombreR());
+                                    i.putExtra("restaurante",r);
+                                    startActivity(i);
+                                }
+                            }
+
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+
+                    });
+
+                }
+                return true;
+            }
+
+        });
     }
+
     private String getNombre(LatLng latLng) throws IOException {
         List<Address> ad = geo.getFromLocation(latLng.latitude,latLng.longitude,1);
         return ad.get(0).getAddressLine(0);
@@ -342,7 +286,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     case CommonStatusCodes.RESOLUTION_REQUIRED:
                         try {
                             ResolvableApiException resolvable = (ResolvableApiException) e;
-                            resolvable.startResolutionForResult(domiEntrega.this,
+                            resolvable.startResolutionForResult(mapaComida.this,
                                     REQUEST_CHECK_SETTINGS);
                         } catch (IntentSender.SendIntentException sendEx) {
                         } break;
@@ -371,6 +315,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     }
 
     private void startSetLocation() {
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
             SettingsClient client = LocationServices.getSettingsClient(this);
@@ -389,7 +334,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                         case CommonStatusCodes.RESOLUTION_REQUIRED:
                             try {
                                 ResolvableApiException resolvable = (ResolvableApiException) e;
-                                resolvable.startResolutionForResult(domiEntrega.this,
+                                resolvable.startResolutionForResult(mapaComida.this,
                                         REQUEST_CHECK_SETTINGS);
                             } catch (IntentSender.SendIntentException sendEx) {
                             } break;
@@ -419,4 +364,5 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private void stopLocationS() {
         mfusedLoc.removeLocationUpdates(mLocationCallback);
     }
+
 }

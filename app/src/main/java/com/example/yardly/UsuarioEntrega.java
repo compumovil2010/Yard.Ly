@@ -203,7 +203,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         mMap = googleMap;
         LatLng myLoc = new LatLng(4.65, -74.05);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
