@@ -147,7 +147,6 @@ public class Producto extends AppCompatActivity {
                     }
                 }
                 fin = sacarPuntaje();
-                Toast.makeText(getBaseContext(), fin,Toast.LENGTH_LONG).show();
                 ratingValue.setText(fin);
             }
             @Override
