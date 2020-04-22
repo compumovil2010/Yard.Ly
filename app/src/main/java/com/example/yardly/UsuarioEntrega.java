@@ -137,7 +137,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
 
     private void buscarInfo(Pedido pedido) {
         domi = pedido.getDomi();
-
         mRootReference = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM+domi);
         mRootReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -177,7 +176,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                         currentM.remove();
                     currentM =mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
-                    mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
                 }
             }
         };
@@ -185,8 +183,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
 
     private LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000); //tasa de refresco en milisegundos
-        mLocationRequest.setFastestInterval(5000); //máxima tasa de refresco
+        mLocationRequest.setInterval(60000); //tasa de refresco en milisegundos
+        mLocationRequest.setFastestInterval(60000); //máxima tasa de refresco
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return mLocationRequest;
     }
@@ -197,6 +195,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         LatLng myLoc = new LatLng(4.65, -74.05);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
 
     }
 
