@@ -94,12 +94,14 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     String domi;
     String keyDomi;
     Domiciliario domiciliario;
+    private Marker currentM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_entrega);
         Log.i("saooooooooo", "sappooooo");
+        marker=null;
         nombreD = findViewById(R.id.nombreD);
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -107,7 +109,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         listPoints = new ArrayList<>();
         inicializarLoc();
 
-        pedido = (Pedido) getIntent().getSerializableExtra("Pedido");
+        pedido = (Pedido) getIntent().getSerializableExtra("pedido");
         buscarInfo(pedido);
 
         list = new SensorEventListener() {
@@ -135,35 +137,22 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
 
     private void buscarInfo(Pedido pedido) {
         domi = pedido.getDomi();
-        mRootReference = FirebaseDatabase.getInstance().getReference();
-        mRootReference.child(Pedido.PATH_PEDIDO).addValueEventListener(new ValueEventListener() {
+        mRootReference = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM+domi);
+        mRootReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String key = snapshot.getKey();
-                    if (domi.equals(key)) {
-                        keyDomi = key;
-                    }
+                Domiciliario d=dataSnapshot.getValue(Domiciliario.class);
+                if(mMap!=null)
+                {
+                    if(marker!=null)
+                        marker.remove();
+                    MarkerOptions myMarkerOptions = new MarkerOptions();
+                    myMarkerOptions.position(new LatLng(d.getLat(),d.getLongi()));
+                    myMarkerOptions.title("Domiciliario");
+                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    myMarkerOptions.visible(true);
+                   marker= mMap.addMarker(myMarkerOptions);
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        mRootReference.child(Domiciliario.PATH_USERS).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String key = snapshot.getKey();
-                    if (keyDomi.equals(key)) {
-                        domiciliario = snapshot.getValue(Domiciliario.class);
-                    }
-                }
-                nombreD.setText(domiciliario.getNombre() + " " + domiciliario.getApellido());
-                imageD.setImageURI(domiciliario.getFotoPerfil());
             }
 
             @Override
@@ -183,7 +172,9 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                 if (location != null) {
                     current = location;
                     listPoints.add(new LatLng(location.getLatitude(), location.getLongitude()));
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    if(currentM!=null)
+                        currentM.remove();
+                    currentM =mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
                     mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
                 }
@@ -205,30 +196,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         LatLng myLoc = new LatLng(4.65, -74.05);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-
-                if (listPoints.size() == 1) {
-                    //Save first point select
-                    listPoints.add(latLng);
-                    //Create marker
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(latLng);
-
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                    mMap.addMarker(markerOptions);
-                }
-
-                if (listPoints.size() == 2) {
-                    //Create the URL to get request from first marker to second marker
-                    String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
-                    TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
-                    taskRequestDirections.execute(url);
-                }
-            }
-        });
     }
 
     private String getNombre(LatLng latLng) throws IOException {

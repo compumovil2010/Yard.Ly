@@ -196,6 +196,7 @@ public class Carrito extends AppCompatActivity {
                     price = price + ( Float.parseFloat(products.get(i).getPrecio()) * cantp.get(i) );
                 }
                 Pedido p = new Pedido( "22/04/2020","Pedido 1", price, (ArrayList)pids, (ArrayList)cantp, uid, "", "Cra 4 # 8-27", "TopWay", "");
+                p.setDomi("MWyVqHxzWBPuAs6EAAA1xrvb3mX2");
                 myRef = database.getReference(PATH_PEDIDO);
                 String k = myRef.push().getKey();
 

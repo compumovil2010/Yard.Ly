@@ -19,6 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import Modelo.Domiciliario;
+
 public class Checkout extends AppCompatActivity {
 
     public  static  final String PATH_PEDIDO = "pedido/";
@@ -28,6 +30,7 @@ public class Checkout extends AppCompatActivity {
     TextView costoTotal;
     TextView costoEnvio;
     TextView subtotal;
+    String k;
     int cantidad = 0;
     Pedido pedido;
 
@@ -41,7 +44,7 @@ public class Checkout extends AppCompatActivity {
         costoEnvio = findViewById(R.id.costoEnvio);
         subtotal = findViewById(R.id.subtotal);
         comprar = findViewById(R.id.comprar);
-        final String k = getIntent().getStringExtra("pid");
+        k = getIntent().getStringExtra("pid");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(PATH_PEDIDO);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -78,7 +81,20 @@ public class Checkout extends AppCompatActivity {
             subtotal.setText("$ "+ pedido.getPrecio());
             costoEnvio.setText("$ "+ ((pedido.getPrecio()*1.1)-pedido.getPrecio()));
             costoTotal.setText("$ " + (pedido.getPrecio()+((pedido.getPrecio()*1.1)-pedido.getPrecio())));
-
+            String d="MWyVqHxzWBPuAs6EAAA1xrvb3mX2";
+            final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM + d);
+            DatabaseReference  myRef2 = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM + d);
+            myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Domiciliario dom= dataSnapshot.getValue(Domiciliario.class);
+                    dom.setPedidoActual(k);
+                    myRef.setValue(dom);
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
 
             comprar.setOnClickListener(new View.OnClickListener() {
                 @Override

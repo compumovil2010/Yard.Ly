@@ -141,7 +141,6 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     lo.setValue(location.getLongitude());
                     mipos=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
-                    mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
                 }
             }
         };
@@ -161,24 +160,9 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         //Aqui va acceso a BD con usuario
         user = FirebaseAuth.getInstance().getCurrentUser();
         obtenerDirCasa();
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
     }
 
-    private void getDomi() {
-        DatabaseReference myRef = database.getReference(Domiciliario.PATH_DOM+user.getUid());
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                domi=dataSnapshot.getValue(Domiciliario.class);
-               llenarMapa();
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-    }
 
     private LatLng obtenerLatLongR(String addressString) {
         LatLng position = null;
@@ -197,6 +181,8 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     myMarkerOptions.position(position);
                     myMarkerOptions.title(direccionR.getNombreR());
                     myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                    myMarkerOptions.visible(true);
+                    mMap.addMarker(myMarkerOptions);
                 }
             }
         }
@@ -207,19 +193,24 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         LatLng position = null;
         List<Address> addresses = null;
         if (addressString != null) {
+            Log.i("AKA","0");
             try {
                 addresses = geo.getFromLocationName(addressString, 2);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             if (addresses != null && !addresses.isEmpty()) {
+                    Log.i("AKA","1");
                 Address addressResult = addresses.get(0);
                 position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
                 if (mMap != null) {
+                    Log.i("AKA","2");
                     MarkerOptions myMarkerOptions = new MarkerOptions();
                     myMarkerOptions.position(position);
                     myMarkerOptions.title("Delivery");
-                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    myMarkerOptions.visible(true);
+                    mMap.addMarker(myMarkerOptions);
                 }
             }
         }
@@ -241,7 +232,26 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataSnapshot= dataSnapshot.child("pedidoActual");
                s= dataSnapshot.getValue(String.class);
-               obtenerDirCasa2();
+               if(s!=null || !s.isEmpty())
+               {
+                   DatabaseReference myRef2 = database.getReference(Pedido.PATH_PEDIDO + s);
+                   myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+                       @Override
+                       public void onDataChange(DataSnapshot dataSnapshot) {
+                           Pedido p= dataSnapshot.getValue(Pedido.class);
+
+                           obtenerDirCasa3(p.getDirUsu(),p.getEmpresa());
+                       }
+                       @Override
+                       public void onCancelled(DatabaseError databaseError) {
+                       }
+                   });
+               }
+               else
+               {
+                   Toast.makeText(getBaseContext(),"No tiene domicilios",Toast.LENGTH_LONG).show();
+
+               }
 
             }
             @Override
@@ -250,58 +260,42 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         });
 
     }
-    private void obtenerDirCasa2()
-    {
-        DatabaseReference myRef2 = database.getReference(Pedido.PATH_PEDIDO + s);
-        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                direccion= dataSnapshot.child("DirUsu").getValue(String.class);
-                r=dataSnapshot.child("Empresa").getValue(String.class);
-                obtenerDirCasa3();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
 
-    private void obtenerDirCasa3()
+    private void obtenerDirCasa3(final String direccione, final String re)
     {
-        DatabaseReference myRef3 = database.getReference(Restaurant.PATH_REST+r);
+        DatabaseReference myRef3 = database.getReference(Restaurant.PATH_REST);
         myRef3.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                direccionR= dataSnapshot.getValue(Restaurant.class);
-                getDomi();
-            }
+                LatLng position;
+                for(DataSnapshot s: dataSnapshot.getChildren())
+                {
+                    direccionR= s.getValue(Restaurant.class);
+                    if(direccionR.getNombreR().equalsIgnoreCase(re))
+                    {
+                        position=obtenerLatLongR(direccionR.getDireccion());
+                        if(position==null)
+                        {
+                            Toast.makeText(getBaseContext(),"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
+                        }
+
+                        position=obtenerLatLong(direccione);
+                        if(position==null)
+                        {
+                            Toast.makeText(getBaseContext(),"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    }
+                }
+
+
+                }
+
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-    }
-    private void llenarMapa(){
-        LatLng position;
-
-        Log.i("AAAAA"," "+domi);
-        if(domi.getPedidoActual()!=null){
-            String addressString = direccionR.getDireccion();
-            position=obtenerLatLongR(addressString);
-            if(position==null)
-            {
-                Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
-            }
-
-            position=obtenerLatLong(direccion);
-            if(position==null)
-            {
-                Toast.makeText(this,"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
-            }}
-        else
-        {
-            Toast.makeText(this,"No tiene domicilios",Toast.LENGTH_LONG).show();
-
-        }
     }
     private String getNombre(LatLng latLng) throws IOException {
         List<Address> ad = geo.getFromLocation(latLng.latitude,latLng.longitude,1);
