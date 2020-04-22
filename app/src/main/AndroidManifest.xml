@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yardly">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,7 +17,7 @@
         android:roundIcon="@mipmap/ly"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".forgotPass"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -33,9 +32,9 @@
 
         <activity
             android:name=".UsuarioEntrega"
-            android:label="@string/title_activity_usuario_entrega"></activity>
+            android:label="@string/title_activity_usuario_entrega" />
         <activity android:name=".Search_results" />
-        <activity android:name=".Principal" />
+        <activity android:name=".Checkout" />
         <activity android:name=".CatalogoEmpresa" />
         <activity android:name=".VerInformacionEstablecimiento" />
         <activity android:name=".infoPedido" />
@@ -56,7 +55,7 @@
         <activity android:name=".Registro" />
         <activity android:name=".logActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".Checkout">
+        <activity android:name=".Principal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,4 +63,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
