@@ -68,6 +68,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
     private Marker marker;
     private FirebaseUser user;
     private Map<Marker, Restaurante> relacion;
+    private Location current;
 
 
     @Override
@@ -113,8 +114,12 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
             public void onLocationResult(LocationResult locationResult) {
 
                 Location location = locationResult.getLastLocation();
+                current = location;
                 if (location != null) {
+                    LatLng myLoc = new LatLng(location.getLatitude(), location.getLongitude());
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
                     mMap.clear();
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     //Sacar restaurantescercanos y llenar map
 
                 }
@@ -135,7 +140,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
         LatLng myLoc = new LatLng(4.65, -74.05);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLoc));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(13));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
         {
 
