@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ProductosCarritoAdapter extends ArrayAdapter<Producto>{
+public class ProductosCarritoAdapter extends ArrayAdapter<Product>{
     private int LayoutUso;
     private Context contex;
-    public ProductosCarritoAdapter (Context context, int resource, List<Producto> producs){
+    public ProductosCarritoAdapter (Context context, int resource, List<Product> producs){
         super(context,resource,producs);
         this.LayoutUso=resource;
         this.contex=context;
@@ -24,12 +24,12 @@ public class ProductosCarritoAdapter extends ArrayAdapter<Producto>{
             vie = LayoutInflater.from(getContex())
                     .inflate(getLayoutUso(), parent, false);
         }
-        Producto pro = getItem(position);
+        Product pro = getItem(position);
         if (pro!=null){
             TextView nombre = vie.findViewById(R.id.nomprodCarr);
             TextView Descrip = vie.findViewById(R.id.DescripCarrito);
             TextView precio = vie.findViewById(R.id.precioCarrito);
-            nombre.setText(pro.getNombre());
+            nombre.setText(pro.getNomProducto());
             Descrip.setText(pro.getDescripcion());
             precio.setText(String.valueOf(pro.getPrecio()));
         }

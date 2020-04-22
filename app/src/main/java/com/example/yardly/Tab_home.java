@@ -6,24 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class Tab_home extends Fragment {
-
-    Button btn_comida, btn_ropa;
+    Button btn_comida,btn_ropa;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_home, container, false);
         btn_comida = v.findViewById( R.id.btn_comida );
-        btn_ropa = v.findViewById( R.id.btn_ropa );
+        btn_ropa = v.findViewById(R.id.btn_ropa);
         btn_comida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent registro = new Intent( v.getContext(),omgreen.class );
+                Intent registro = new Intent( v.getContext(),mapaComida.class );
                 startActivity( registro );
 
             }
@@ -31,10 +31,7 @@ public class Tab_home extends Fragment {
         btn_ropa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent registro = new Intent( v.getContext(),omgreen.class );
-                startActivity( registro );
-
+                Toast.makeText(v.getContext(),"EN DESARROLLO...",Toast.LENGTH_LONG).show();
             }
         });
 

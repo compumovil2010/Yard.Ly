@@ -24,10 +24,11 @@
             android:id="@+id/nomProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/imgProd"
-            android:layout_marginTop="6dp"
-            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:textSize="30sp"
             android:padding="5dp"
+            style="@style/yardlyTitle"
             android:text="@string/nomproy" />
 
         <TextView
@@ -53,9 +54,10 @@
             android:id="@+id/ratingValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="Rating"
             android:textSize="20sp"
             android:padding="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_toEndOf="@id/rating"
             android:layout_below="@id/descripProduc"/>
         <ImageView
@@ -70,11 +72,12 @@
             android:id="@+id/precioProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:text="@string/precioprodu"
+            android:layout_below="@id/ratingValue"
             android:layout_toEndOf="@id/cash"
-            android:layout_below="@id/ratingValue"/>
+            android:padding="10dp"
+
+            android:text="@string/precioprodu"
+            android:textSize="20sp" />
         <ImageView
             android:id="@+id/store"
             android:layout_width="47dp"
@@ -89,20 +92,9 @@
             android:layout_toEndOf="@id/store"
             android:textSize="20sp"
             android:padding="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_below="@id/precioProduct"
             android:text="TextView" />
-        <TextView
-            android:id="@+id/cantidad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cantidadpro"
-            android:layout_marginLeft="80dp"
-            android:paddingStart="5dp"
-            android:paddingTop="5dp"
-            android:textSize="20sp"
-            android:paddingBottom="5dp"
-            android:paddingEnd="50dp"
-            android:layout_below="@id/storeName"/>
 
         <Button
             android:id="@+id/menos"
@@ -110,8 +102,8 @@
             android:layout_height="48dp"
             android:layout_below="@id/storeName"
             android:background="@null"
+            android:layout_toStartOf="@id/cantProduct"
             android:textSize="40sp"
-            android:layout_toEndOf="@id/cantidad"
             android:text="-" />
         <TextView
             android:id="@+id/cantProduct"
@@ -122,7 +114,7 @@
             android:textSize="25sp"
             android:padding="5dp"
             android:layout_below="@id/storeName"
-            android:layout_toEndOf="@id/menos"
+            android:layout_centerHorizontal="true"
             />
 
         <Button
@@ -141,13 +133,15 @@
             android:layout_height="wrap_content"
             android:text="@string/tot"
             android:layout_marginStart="50dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:padding="5dp"
+            android:layout_marginTop="30dp"
             android:layout_below="@id/mas"
             android:layout_toEndOf="@id/cash2"/>
         <ImageView
             android:id="@+id/cash2"
             android:layout_width="47dp"
+            android:layout_marginTop="30dp"
             android:layout_height="33dp"
             android:layout_marginLeft="80dp"
             android:layout_below="@id/mas"
@@ -156,31 +150,26 @@
             android:id="@+id/aggCarrit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:textAppearance="@style/txt_kindaBig"
+            android:textColor="@color/clr_justWhite"
+            android:layout_marginTop="30dp"
             android:padding="5dp"
             android:text="@string/agregCarr"
-            android:layout_below="@id/cash2"
+            android:layout_below="@id/total"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/frm_reallyrouded"/>
 
-        <TextView
-            android:id="@+id/opinion"
+           />
+
+        <Button
+            android:id="@+id/comentariosProd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:textSize="20dp"
-            android:text="@string/opini"
-            android:layout_below="@id/aggCarrit"
-            />
-
-        <ListView
-            android:id="@+id/opiniones"
-            android:layout_width="match_parent"
-            android:layout_height="259dp"
-            android:layout_below="@id/opinion"
-            android:padding="15dp"/>
-
-
+            android:layout_toEndOf="@id/ratingValue"
+            android:layout_below="@id/descripProduc"
+            android:textColor="@color/clr_greenYardly"
+            android:background="@drawable/frm_reallyrouded"
+            android:layout_marginLeft="55dp"
+            android:text="@string/ComentariosProduct" />
 
 
     </RelativeLayout>

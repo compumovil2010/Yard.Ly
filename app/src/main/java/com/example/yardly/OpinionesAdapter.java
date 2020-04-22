@@ -11,10 +11,10 @@ import com.example.yardly.R;
 
 import java.util.List;
 
-public class OpinionesAdapter extends ArrayAdapter<String> {
+public class OpinionesAdapter extends ArrayAdapter<Resena> {
     private int LayoutUso;
     private Context contex;
-    public OpinionesAdapter (Context context, int resource, List<String> opinions){
+    public OpinionesAdapter (Context context, int resource, List<Resena> opinions){
         super(context,resource,opinions);
         this.LayoutUso=resource;
         this.contex=context;
@@ -26,15 +26,14 @@ public class OpinionesAdapter extends ArrayAdapter<String> {
             vie = LayoutInflater.from(getContex())
                     .inflate(getLayoutUso(), parent, false);
         }
-        String val = getItem(position);
+        Resena val = getItem(position);
         if (val!=null){
             TextView asunto = vie.findViewById(R.id.asunto);
-            asunto.setText("Asunto");
-        }
-        String val1 = getItem(position);
-        if (val!=null){
             TextView comentario = vie.findViewById(R.id.comentario);
-            comentario.setText("Comentarios");
+            TextView usuarioComentario = vie.findViewById(R.id.UsuarioComentario);
+            usuarioComentario.setText(val.getUsuario());
+            asunto.setText(val.getPuntaje());
+            comentario.setText(val.getOpinion());
         }
         return vie;
     }

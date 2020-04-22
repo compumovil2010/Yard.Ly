@@ -1,11 +1,19 @@
 package com.example.yardly;
 
-public class Product {
+import java.io.Serializable;
+import java.security.SecureRandom;
+
+public class Product implements Serializable {
 
     private String nomProducto;
     private String precio;
     private String descripcion;
     private String nomEstab;
+
+    public Product()
+    {
+
+    }
 
     public Product(String pnomProducto, String pprecio, String pdescripcion, String pnomEstab)
     {
