@@ -38,14 +38,14 @@
             android:background="@null"
             android:contentDescription="@string/fotperfil"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@id/checkBox"
+            app:layout_constraintBottom_toTopOf="@id/terminos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewFot"
             app:srcCompat="@drawable/perfi" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/terminos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -55,14 +55,14 @@
             app:layout_constraintTop_toBottomOf="@id/selecFotperf" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/politica"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/politicprivacy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+            app:layout_constraintTop_toBottomOf="@+id/terminos" />
 
         <Button
             android:id="@+id/botonRegistrarFoto"
@@ -75,7 +75,7 @@
             android:textColor="@color/clr_justWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox2"
+            app:layout_constraintTop_toBottomOf="@+id/politica"
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
@@ -88,7 +88,7 @@
             android:text="@string/cncel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox2"
+            app:layout_constraintTop_toBottomOf="@+id/politica"
             app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

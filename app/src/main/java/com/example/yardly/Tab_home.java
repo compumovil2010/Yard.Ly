@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class Tab_home extends Fragment {
-
     Button btn_comida,btn_ropa;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -23,7 +22,7 @@ public class Tab_home extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent registro = new Intent( v.getContext(),omgreen.class );
+                Intent registro = new Intent( v.getContext(),mapaComida.class );
                 startActivity( registro );
 
             }
@@ -35,7 +34,6 @@ public class Tab_home extends Fragment {
                 startActivity(ropa);
             }
         });
-
 
         return v;
     }

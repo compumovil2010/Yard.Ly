@@ -19,6 +19,16 @@
         app:tabIndicatorColor="@color/clr_justWhite"
         app:tabSelectedTextColor="@color/clr_greenYardly"
         app:tabTextColor="@color/clr_kindaGrey" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_actividad_baseu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
     <EditText
         android:id="@+id/et_buscador"
         android:layout_width="320dp"
@@ -38,8 +48,9 @@
         android:textColorHint="@color/clr_quiteGrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -54,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_results"
-        android:layout_width="0dp"
+        android:layout_width= "0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/tb_searchRes"
         app:layout_constraintEnd_toEndOf="parent"
