@@ -9,17 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VerInformacionEstablecimiento extends AppCompatActivity {
-    List<Producto> mProjection= new ArrayList<>();
+    List<Product> mProjection= new ArrayList<>();
     ListView mlista;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_informacion_establecimiento);
         mlista=findViewById(R.id.lisProduc);
-        Producto p = new Producto();
-        p.setNombre("Nombre");
-        p.setDescripcion("Descripcion");
-        p.setPrecio(123456);
+        Product p = new Product("Nombre","123456","Descripcion","sitio vejetariano");
         mProjection.add(p);
         mProjection.add(p);
         mProjection.add(p);

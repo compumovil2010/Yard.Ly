@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ly"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RestaurantProfile"></activity>
+        <activity android:name=".Comentarios"></activity>
+        <activity android:name=".ProductoxRestaurante" />
+        <activity android:name=".RestaurantProfile" />
         <activity android:name=".CalificarOpinion" />
         <activity android:name=".Search_results" />
         <activity android:name=".Principal" />
