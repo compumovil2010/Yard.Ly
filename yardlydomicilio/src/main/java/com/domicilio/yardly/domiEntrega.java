@@ -9,6 +9,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,6 +20,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -51,12 +58,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import Modelo.Domiciliario;
+import Modelo.Usuario;
 
 
 public class domiEntrega extends FragmentActivity implements OnMapReadyCallback {
@@ -82,8 +94,13 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private String r;
     private Restaurant direccionR;
     private Domiciliario domi;
-
-
+    private Button chat;
+    private TextView nomD, dirD;
+    private ImageView img;
+    public static final double lowerLeftLatitude = 1.396967;
+    public static final double lowerLeftLongitude= -78.903968;
+    public static final double upperRightLatitude= 11.983639;
+    public static final double upperRigthLongitude= -71.869905;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +112,17 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
             inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(inte);
         }
+        chat= findViewById(R.id.btChat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent Comida = new Intent(getBaseContext(),omgreen.class);
+                //startActivity(Comida);
+            }
+        });
+          nomD= findViewById(R.id.nombreD);
+          dirD= findViewById(R.id.direcD);
+          img= findViewById(R.id.fotoD);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -119,9 +147,37 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
 
             }
         };
+        try {
+            llenarGUI();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+    }
+
+    private void llenarGUI() throws IOException {
+        final File localFile = File.createTempFile("images", "jpg");
+        StorageReference imageRef = FirebaseStorage.getInstance().getReference().child(Usuario.PATH_PORFILE_PHOTO+"/"+user.getUid()+".png");
+
+        imageRef.getFile(localFile)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Bitmap myBitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                        img.setImageBitmap(myBitmap);
+                        Log.i("IMG", "succesfully downloaded");
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.i("IMG", "No hay Imagen");
+            }
+        });
+
     }
 
     private void inicializarLoc() {
@@ -139,7 +195,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     lo=database.getReference(Domiciliario.PATH_DOM+user.getUid()+"/longi");
                     lat.setValue(location.getLatitude());
                     lo.setValue(location.getLongitude());
-                    mipos=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    mipos=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("Su posicion"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
                 }
             }
@@ -169,7 +225,8 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         List<Address> addresses = null;
         if (addressString != null) {
             try {
-                addresses = geo.getFromLocationName(addressString, 2);
+                addresses = geo.getFromLocationName(addressString, 2,lowerLeftLatitude, lowerLeftLongitude,
+                        upperRightLatitude, upperRigthLongitude);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -195,7 +252,8 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         if (addressString != null) {
             Log.i("AKA","0");
             try {
-                addresses = geo.getFromLocationName(addressString, 2);
+                addresses = geo.getFromLocationName(addressString, 2,lowerLeftLatitude, lowerLeftLongitude,
+                        upperRightLatitude, upperRigthLongitude);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -230,6 +288,8 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                String aux=dataSnapshot.child("nombre").getValue(String.class)+" "+dataSnapshot.child("apellido").getValue(String.class);
+                nomD.setText(aux);
                 dataSnapshot= dataSnapshot.child("pedidoActual");
                s= dataSnapshot.getValue(String.class);
                if(s!=null || !s.isEmpty())
@@ -239,7 +299,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                        @Override
                        public void onDataChange(DataSnapshot dataSnapshot) {
                            Pedido p= dataSnapshot.getValue(Pedido.class);
-
+                           dirD.setText("Direccion: "+p.getDirUsu());
                            obtenerDirCasa3(p.getDirUsu(),p.getEmpresa());
                        }
                        @Override
@@ -276,6 +336,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                         position=obtenerLatLongR(direccionR.getDireccion());
                         if(position==null)
                         {
+                            Log.i("POSLOC","No sirvio");
                             Toast.makeText(getBaseContext(),"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
                         }
 
