@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../Yardly.iml" filepath="$PROJECT_DIR$/../Yardly.iml" />
       <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../proyecto compu movil-Yardly.iml" filepath="$PROJECT_DIR$/../proyecto compu movil-Yardly.iml" group="Yardly" />
+      <module fileurl="file://$PROJECT_DIR$/proyecto compu movil-app.iml" filepath="$PROJECT_DIR$/proyecto compu movil-app.iml" group="Yardly/app" />
+      <module fileurl="file://$PROJECT_DIR$/../yardlydomicilio/yardlydomicilio.iml" filepath="$PROJECT_DIR$/../yardlydomicilio/yardlydomicilio.iml" group="Yardly/yardlydomicilio" />
     </modules>
   </component>
 </project>
