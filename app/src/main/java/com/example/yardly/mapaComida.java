@@ -55,9 +55,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicMarkableReference;
-
-import Modelo.Restaurante;
 
 
 public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
@@ -74,7 +71,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
     private LocationCallback mLocationCallback;
     private Marker marker;
     private FirebaseUser user;
-    private Map<String, Restaurante> relacion;
+    private Map<String, Restaurant> relacion;
     private Location current;
 
 
@@ -137,12 +134,12 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
     {
         relacion.clear();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        Query myRef = database.getReference(Restaurante.PATH_REST);
+        Query myRef = database.getReference(Restaurant.PATH_REST);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    Restaurante r = singleSnapshot.getValue(Restaurante.class);
+                    Restaurant r = singleSnapshot.getValue(Restaurant.class);
 
                     if(true || (distance(current.getLatitude(),current.getLongitude(),0,0)>0))
                     {
@@ -215,12 +212,12 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
             public boolean onMarkerClick(final Marker arg0) {
                 if(!arg0.equals(marker))
                 {
-                    Query myRef = FirebaseDatabase.getInstance().getReference(Restaurante.PATH_REST);
+                    Query myRef = FirebaseDatabase.getInstance().getReference(Restaurant.PATH_REST);
                     myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                                Restaurante r = singleSnapshot.getValue(Restaurante.class);
+                                Restaurant r = singleSnapshot.getValue(Restaurant.class);
 
                                 if(r.getNombreR().equalsIgnoreCase(arg0.getTitle()))
                                 {

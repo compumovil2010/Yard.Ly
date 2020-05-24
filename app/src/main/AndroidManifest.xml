@@ -46,6 +46,7 @@
         <activity android:name=".infoPedido" />
         <activity android:name=".editarProducto" />
         <activity android:name=".CarritoCompras" />
+        <activity android:name=".Carrito" />
         <activity android:name=".Busqueda" />
         <activity android:name=".Calificar" />
         <activity android:name=".editarProductoRopa" />

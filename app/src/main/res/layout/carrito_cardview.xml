@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardCarrito"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/clr_justWhite"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_cardCarrito"
+        android:layout_width="360dp"
+        android:layout_height="100dp"
+        android:layout_marginVertical="10dp"
+        android:layout_gravity="center"
+        android:background="@color/clr_justWhite">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/iv_productImg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:civ_border_color="@color/clr_greenYardly"
+            app:civ_border_width="2dp"
+            android:src="@drawable/plato1"
+
+            />
+        <TextView
+            android:id="@+id/tv_nameProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre producto"
+            android:textAppearance="@style/txt_kindaBig"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_productImg"
+            android:textColor="@color/clr_quiteGrey"
+            android:layout_marginStart="10dp"
+            />
+        <TextView
+            android:id="@+id/tv_precio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="price"
+            android:textAppearance="@style/txt_kindaBig"
+            android:textColor="@color/clr_kindaGrey"
+            app:layout_constraintStart_toEndOf="@+id/iv_productImg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <Button
+            android:id="@+id/menos"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:background="@null"
+            android:text="-"
+
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cantProduct" />
+
+        <TextView
+            android:id="@+id/cantProduct"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toEndOf="@id/menos"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="1"
+
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mas" />
+
+        <Button
+            android:id="@+id/mas"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toEndOf="@id/cantProduct"
+            android:background="@null"
+            android:text="+"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

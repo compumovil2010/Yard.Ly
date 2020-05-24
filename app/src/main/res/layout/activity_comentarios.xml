@@ -13,7 +13,7 @@
         android:textSize="40sp"
         android:layout_centerHorizontal="true"
         style="@style/yardlyTitle"
-        android:text="TextView" />
+        android:text="Products" />
     <ListView
         android:id="@+id/opiniones"
         android:layout_width="match_parent"

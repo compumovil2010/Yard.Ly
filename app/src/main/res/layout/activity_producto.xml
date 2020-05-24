@@ -72,13 +72,12 @@
             android:id="@+id/precioProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:text="@string/precioprodu"
-
-            android:layout_marginBottom="10dp"
+            android:layout_below="@id/ratingValue"
             android:layout_toEndOf="@id/cash"
-            android:layout_below="@id/ratingValue"/>
+            android:padding="10dp"
+
+            android:text="@string/precioprodu"
+            android:textSize="20sp" />
         <ImageView
             android:id="@+id/store"
             android:layout_width="47dp"
@@ -134,7 +133,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tot"
             android:layout_marginStart="50dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:padding="5dp"
             android:layout_marginTop="30dp"
             android:layout_below="@id/mas"
@@ -153,13 +152,13 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/txt_kindaBig"
             android:textColor="@color/clr_justWhite"
-            style="@style/btn_Stl2"
             android:layout_marginTop="30dp"
             android:padding="5dp"
             android:text="@string/agregCarr"
             android:layout_below="@id/total"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/frm_reallyrouded"/>
+
+           />
 
         <Button
             android:id="@+id/comentariosProd"
@@ -170,7 +169,7 @@
             android:textColor="@color/clr_greenYardly"
             android:background="@drawable/frm_reallyrouded"
             android:layout_marginLeft="55dp"
-            android:text="comentarios" />
+            android:text="@string/ComentariosProduct" />
 
 
     </RelativeLayout>

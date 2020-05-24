@@ -15,22 +15,21 @@ public class CarritoCompras extends AppCompatActivity {
     List<Product> mProjection= new ArrayList<>();
     ListView mlista;
     Button b1;
+    Product p;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito_compras);
         mlista=findViewById(R.id.liscarrito);
         b1=findViewById(R.id.comfiCompra);
-        Product p = new Product("Nombre","123456","Descripcion","sitio vejetariano");
-        mProjection.add(p);
-        mProjection.add(p);
-        mProjection.add(p);
+        p = (Product) getIntent().getSerializableExtra("producto");
         mProjection.add(p);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registro = new Intent(v.getContext(),Calificar.class);
-                v.getContext().startActivity(registro);
+                registro.putExtra("producto",p);
+                startActivity(registro);
             }
         });
         ProductosCarritoAdapter caAdapter = new ProductosCarritoAdapter(this, R.layout.carrito_adapter,mProjection);

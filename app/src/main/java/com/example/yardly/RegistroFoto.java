@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import Modelo.CarritoCompras;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -43,6 +44,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import Modelo.Usuario;
 
@@ -56,8 +59,8 @@ public class RegistroFoto extends AppCompatActivity {
     private StorageReference storage;
     private ImageButton foto ;
     private Usuario newUser;
-    private TextView cancelar;
     private Bitmap fotoPerfil;
+    private TextView cancelar;
 
 
     @Override
@@ -107,7 +110,7 @@ public class RegistroFoto extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    registerUser(datosUs);
+                registerUser(datosUs);
 
             }
         });
@@ -221,24 +224,26 @@ public class RegistroFoto extends AppCompatActivity {
     }
 
     private void registerUser(Bundle datosUs){
-            authentication.createUserWithEmailAndPassword(datosUs.getString("mail"), datosUs.getString("contrasena")).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        FirebaseUser user = authentication.getCurrentUser();
-                        if(user!=null){ //Update user Info
+        authentication.createUserWithEmailAndPassword(datosUs.getString("mail"), datosUs.getString("contrasena")).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    FirebaseUser user = authentication.getCurrentUser();
+                    if(user!=null){ //Update user Info
+                        if(fotoPerfil!=null){
                             uploadImageandSaveUri(fotoPerfil);
-                            reference = database.getReference(Usuario.PATH_USERS+ user.getUid());
-                            reference.setValue(newUser);
-                            actualizarUI(user);
                         }
-                    }
-                    if (!task.isSuccessful()) {
-                        Toast.makeText(RegistroFoto.this, "Authenticación falló"+ task.getException().toString(),
-                                Toast.LENGTH_SHORT).show();
+                        reference = database.getReference(Usuario.PATH_USERS+ user.getUid());
+                        reference.setValue(newUser);
+                        actualizarUI(user);
                     }
                 }
-            });
+                if (!task.isSuccessful()) {
+                    Toast.makeText(RegistroFoto.this, "Authenticación falló"+ task.getException().toString(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -287,6 +292,18 @@ public class RegistroFoto extends AppCompatActivity {
     }
     private void actualizarUI(FirebaseUser usuario){
         if(usuario != null){
+
+            List < String > prods = new ArrayList<>();
+            List < Integer > cantp = new ArrayList<>();
+            FirebaseUser currentUsr = authentication.getInstance().getCurrentUser();
+            String uid = currentUsr.getUid();
+            prods.add("vacio");
+            cantp.add(-1);
+
+            Modelo.CarritoCompras ccmp = new CarritoCompras( (ArrayList)prods ,(ArrayList)cantp, uid);
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("carritos");
+            myRef.child(uid).setValue( ccmp );
+
             Intent ingreso = new Intent(getBaseContext(),Principal.class);
             ingreso.putExtra("user", usuario.getEmail());
             startActivity(ingreso);
