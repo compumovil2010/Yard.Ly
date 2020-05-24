@@ -95,12 +95,15 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private Restaurant direccionR;
     private Domiciliario domi;
     private Button chat;
-    private TextView nomD, dirD;
+    private TextView nomD, dirD,dist;
     private ImageView img;
     public static final double lowerLeftLatitude = 1.396967;
     public static final double lowerLeftLongitude= -78.903968;
     public static final double upperRightLatitude= 11.983639;
     public static final double upperRigthLongitude= -71.869905;
+    private boolean primeraVez= false;
+    private LatLng positionR;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +125,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         });
           nomD= findViewById(R.id.nombreD);
           dirD= findViewById(R.id.direcD);
+        dist= findViewById(R.id.tiempo);
           img= findViewById(R.id.fotoD);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -191,17 +195,40 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     if(mipos!=null)
                         mipos.remove();
                     //actualizarRefEnBD
+
                     lat=database.getReference(Domiciliario.PATH_DOM+user.getUid()+"/lat");
                     lo=database.getReference(Domiciliario.PATH_DOM+user.getUid()+"/longi");
                     lat.setValue(location.getLatitude());
                     lo.setValue(location.getLongitude());
+                    if(positionR!= null)
+                    {
+                        double distanc = distancia(positionR.latitude, positionR.longitude, location.getLatitude(), location.getLongitude());
+                        if(!primeraVez)
+                        {
+                            DatabaseReference dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/dist");
+                            dista.setValue(distanc);
+                            primeraVez=true;
+
+                        }
+                        String s="Distancia Estimada: "+distanc;
+                        dist.setText(s);
+                    }
                     mipos=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("Su posicion"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
                 }
             }
         };
     }
-
+    public double distancia(double lat1, double long1, double lat2, double long2) {
+        double latDistance = Math.toRadians(lat1 - lat2);
+        double lngDistance = Math.toRadians(long1 - long2);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double result = RADIUS_OF_EARTH_KM * c;
+        return Math.round(result*100.0)/100.0;
+    }
     private LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000); //tasa de refresco en milisegundos
@@ -333,8 +360,8 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     direccionR= s.getValue(Restaurant.class);
                     if(direccionR.getNombreR().equalsIgnoreCase(re))
                     {
-                        position=obtenerLatLongR(direccionR.getDireccion());
-                        if(position==null)
+                        positionR=obtenerLatLongR(direccionR.getDireccion());
+                        if(positionR==null)
                         {
                             Log.i("POSLOC","No sirvio");
                             Toast.makeText(getBaseContext(),"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
