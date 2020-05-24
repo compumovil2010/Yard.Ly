@@ -2,10 +2,15 @@ package com.example.yardly;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -18,6 +23,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -53,6 +59,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
@@ -79,7 +86,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private SensorEventListener list;
     public static final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 1;
     private static final int REQUEST_CHECK_SETTINGS = 5, RADIUS_OF_EARTH_KM = 6371;
-    ;
+    public static String CHANNEL_ID= "llegoDom";
+    public int notificacionLlegoDom = 0;
     private Geocoder geo;
     private FusedLocationProviderClient mfusedLoc;
     private LocationRequest mLocationRequest;
@@ -95,20 +103,20 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     String keyDomi;
     Domiciliario domiciliario;
     private Marker currentM;
-
+    double latDomiciliario=0, longDomiciliario=0, latUsuario=0, longUsuario= 0;
+    Boolean notificAlreadyShown = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_entrega);
-        Log.i("saooooooooo", "sappooooo");
         marker=null;
+        notificAlreadyShown = false;
         nombreD = findViewById(R.id.nombreD);
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
         geo = new Geocoder(getBaseContext());
         listPoints = new ArrayList<>();
         inicializarLoc();
-
         pedido = (Pedido) getIntent().getSerializableExtra("pedido");
         buscarInfo(pedido);
 
@@ -135,21 +143,44 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         mapFragment.getMapAsync(this);
     }
 
-    private void buscarInfo(Pedido pedido) {
+    private void buscarInfo(final Pedido pedido) {
         domi = pedido.getDomi();
         mRootReference = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM+domi);
         mRootReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Domiciliario d=dataSnapshot.getValue(Domiciliario.class);
-                if(mMap!=null)
-                {
-                    if(marker!=null)
-                        marker.remove();
-                    MarkerOptions myMarkerOptions = new MarkerOptions();
-                    myMarkerOptions.position(new LatLng(d.getLat(),d.getLongi()));
-                    myMarkerOptions.title("Domiciliario");
-                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    Domiciliario d=dataSnapshot.getValue(Domiciliario.class);
+                    if(mMap!=null)
+                    {
+                        if(marker!=null)
+                            marker.remove();
+                        MarkerOptions myMarkerOptions = new MarkerOptions();
+                        myMarkerOptions.position(new LatLng(d.getLat(),d.getLongi()));
+                        myMarkerOptions.title("Domiciliario");
+                        myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                        longDomiciliario = d.getLongi();
+                        latDomiciliario = d.getLat();
+                    if( latUsuario!=0 && latDomiciliario!=0 ){
+                        double distancia = distance(latUsuario,longUsuario,latDomiciliario,longDomiciliario);
+                        if (distancia <= 5 && !notificAlreadyShown){
+                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getBaseContext(),CHANNEL_ID);
+                            mBuilder.setSmallIcon(R.mipmap.ly);
+                            String title = getString(R.string.llegoDomicilioC);
+                            String content = getString(R.string.DescripcionDomicilioC);
+                            mBuilder.setContentTitle(title);
+                            mBuilder.setContentText(content);
+                            mBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getBaseContext());
+                            notificationManager.notify(notificacionLlegoDom, mBuilder.build());
+                            notificAlreadyShown = true;
+                            Intent intNotific = new Intent(getBaseContext(), UsuarioEntrega.class);
+                            intNotific.putExtra("pedido",pedido);
+                            intNotific.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intNotific,0);
+                            mBuilder.setContentIntent(pendingIntent);
+                            mBuilder.setAutoCancel(true);
+                        }
+                    }
                     myMarkerOptions.visible(true);
                    marker= mMap.addMarker(myMarkerOptions);
                 }
@@ -161,7 +192,33 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
             }
         });
     }
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.llegoDomicilioC);
+            String description = getString(R.string.DescripcionDomicilioC);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 
+    public double distance(double lat1, double long1, double lat2, double long2) {
+        double latDistance = Math.toRadians(lat1 - lat2);
+        double lngDistance = Math.toRadians(long1 - long2);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double result = RADIUS_OF_EARTH_KM * c;
+        return Math.round(result*100.0)/100.0;
+    }
     private void inicializarLoc() {
         mfusedLoc = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
@@ -175,6 +232,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                     if(currentM!=null)
                         currentM.remove();
                     currentM =mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    latUsuario = location.getLatitude();
+                    longUsuario = location.getLongitude();
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
                 }
             }
@@ -435,5 +494,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                 Toast.makeText(getApplicationContext(),"No se puede realizar la ruta", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 }
