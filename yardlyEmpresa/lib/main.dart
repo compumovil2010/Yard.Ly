@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yardlyEmpresa/agregarProducto.dart';
 
 void main() {
   runApp(MyApp());
@@ -108,7 +109,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AgregarProducto()),
+          );
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
