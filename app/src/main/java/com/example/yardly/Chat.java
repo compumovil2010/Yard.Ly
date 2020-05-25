@@ -2,6 +2,7 @@ package com.example.yardly;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +31,7 @@ import Modelo.Usuario;
 public class Chat extends AppCompatActivity {
     public static final String PATH_CHAT = "chat/";
     public static final String PATH_USERS = "users/";
-    DatabaseReference myRef;
+    DatabaseReference myRef , myRefMsj;
     DatabaseReference mRootReference;
     Button enviar;
     EditText mensaje;
@@ -38,6 +39,9 @@ public class Chat extends AppCompatActivity {
     ListView mensajesChatsList;
     String keyChat = new String();
     String userId;
+    List<MensajeChat> mensajes = new ArrayList<>();
+    Boolean nombreya=false;
+    String nombre = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,40 +50,38 @@ public class Chat extends AppCompatActivity {
         mensaje = findViewById(R.id.campoMensaje);
         mensajesChatsList = findViewById(R.id.listaMensajes);
         database = FirebaseDatabase.getInstance();
-        buscar();
-        Pedido pedido = (Pedido) getIntent().getSerializableExtra("pedido");
+        final Pedido pedido = (Pedido) getIntent().getSerializableExtra("pedido");
         if(pedido != null){
             userId = pedido.getUsuPedido();
             keyChat = pedido.getIdChat();
+            mostrarMsjs(pedido);
         }
-
-        mostrarMsjs(pedido);
-
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser currentUsr = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = currentUsr.getUid();
                 String msjtext = mensaje.getText().toString();
-                Toast.makeText(v.getContext(),"entroooo" + msjtext,Toast.LENGTH_LONG).show();
-
+                String fech = "";
                 if(!(msjtext.trim().equals(""))){
-                    myRef = database.getReference(PATH_CHAT);
-                    MensajeChat msjChat = null;
+                    MensajeChat msjChat = new MensajeChat();
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                        msjChat = new MensajeChat(msjtext,nombre, LocalDateTime.now().toString());
+                        fech = LocalDateTime.now().toString();
                     }
-                    myRef.child(keyChat).setValue(msjChat);
+                    msjChat = new MensajeChat();
+                    msjChat.setFechayhora(fech);
+                    msjChat.setTexto(msjtext);
+                    msjChat.setUsuario(nombre);
+                    myRef =database.getReference(PATH_CHAT+keyChat);
+                    String key = myRef.push().getKey();
+                    myRef.child(key).setValue(msjChat);
                     mensaje.setText("");
-                    Toast.makeText(v.getContext(),"entroooo",Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
-    List<MensajeChat> mensajes = new ArrayList<>();
+
 
     private void mostrarMsjs(Pedido pedido){
-        String idchat = pedido.getIdChat();
+        final String idchat = pedido.getIdChat();
         Toast.makeText(getBaseContext(),"entroooo"+idchat,Toast.LENGTH_LONG).show();
         mRootReference = FirebaseDatabase.getInstance().getReference(PATH_CHAT+idchat);
         mRootReference.addValueEventListener(new ValueEventListener() {
@@ -87,19 +89,19 @@ public class Chat extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if( dataSnapshot.exists() )
                 {
+                    mensajes = new ArrayList<>();
                     for( DataSnapshot singleSnap : dataSnapshot.getChildren() )
                     {
                         if( singleSnap.exists() )
                         {
-                            MensajeChat msj = dataSnapshot.getValue(MensajeChat.class);
-                            if(msj != null){
+                            MensajeChat msj = singleSnap.getValue(MensajeChat.class);
+                            if(msj != null) {
                                 mensajes.add(msj);
                             }
                         }
-
                     }
                 }
-                initializeAdapter();
+                buscar();
             }
 
             @Override
@@ -110,10 +112,13 @@ public class Chat extends AppCompatActivity {
     }
 
     private void initializeAdapter() {
-        ChatAdapter opAdapter = new ChatAdapter(this, R.layout.mensaje_chat_adapter,mensajes);
-        mensajesChatsList.setAdapter(opAdapter);
+        Log.i("mnioooooooo","taaaaaaaaaaam: " + mensajes.size());
+        if(mensajes.size()>0) {
+            ChatAdapter opAdapter = new ChatAdapter(getBaseContext(), R.layout.mensaje_chat_adapter, mensajes);
+            mensajesChatsList.setAdapter(opAdapter);
+        }
     }
-    String nombre = "";
+
     private void buscar() {
         myRef = database.getReference( PATH_USERS+userId );
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -126,6 +131,8 @@ public class Chat extends AppCompatActivity {
                         nombre = usu.getNombre();
                     }
                 }
+                Log.i("mnioooooooo","taaaaaaaaaaam: " + mensajes.size());
+                initializeAdapter();
             }
 
             @Override

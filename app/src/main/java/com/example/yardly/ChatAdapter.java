@@ -14,6 +14,7 @@ import java.util.List;
 public class ChatAdapter extends ArrayAdapter<MensajeChat> {
     private int LayoutUso;
     private Context contex;
+    private MensajeChat mensaje;
     public ChatAdapter(Context context, int resource, List<MensajeChat> msjs){
         super(context,resource,msjs);
         this.LayoutUso=resource;
@@ -26,8 +27,8 @@ public class ChatAdapter extends ArrayAdapter<MensajeChat> {
             vie = LayoutInflater.from(getContex())
                     .inflate(getLayoutUso(), parent, false);
         }
-        MensajeChat mensaje = getItem(position);
-        if (mensaje!=null){
+        mensaje = getItem(position);
+        if (mensaje!=null &&mensaje.getFechayhora()!=null){
             TextView texto = vie.findViewById(R.id.mensajeInd);
             TextView hora = vie.findViewById(R.id.horamsj);
             texto.setText(mensaje.getTexto());

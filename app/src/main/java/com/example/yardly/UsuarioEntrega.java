@@ -108,7 +108,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     DatabaseReference myRef;
     Button chat;
     FirebaseDatabase database;
-
     Domiciliario domiciliario;
     private Marker currentM;
     double latDomiciliario=0, longDomiciliario=0, latUsuario=0, longUsuario= 0;
@@ -182,8 +181,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                             createNotificationChannel();
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getBaseContext(),CHANNEL_ID);
                             mBuilder.setSmallIcon(R.mipmap.ly);
-                            String title = getString(R.string.llegoDomicilioC);
-                            String content = getString(R.string.DescripcionDomicilioC);
+                            String title = getString(R.string.llegoDomicilio);
+                            String content = getString(R.string.DescripcionDomicilio);
                             mBuilder.setContentTitle(title);
                             mBuilder.setContentText(content);
                             mBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);

@@ -8,12 +8,6 @@ public class MensajeChat implements Serializable {
     private String usuario;
     private String  fechayhora;
 
-    public MensajeChat(String texto, String usuario, String fechayhora) {
-        this.texto = texto;
-        this.usuario = usuario;
-        this.fechayhora = fechayhora;
-    }
-
     public MensajeChat() {
 
     }
