@@ -26,6 +26,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,6 +88,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private SensorEventListener list;
     public static final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 1;
     private static final int REQUEST_CHECK_SETTINGS = 5, RADIUS_OF_EARTH_KM = 6371;
+    public static final String PATH_CHAT = "chat/";
+
     public static String CHANNEL_ID= "llegoDom";
     public int notificacionLlegoDom = 0;
     private Geocoder geo;
@@ -101,6 +105,10 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     DatabaseReference mRootReference;
     String domi;
     String keyDomi;
+    DatabaseReference myRef;
+    Button chat;
+    FirebaseDatabase database;
+
     Domiciliario domiciliario;
     private Marker currentM;
     double latDomiciliario=0, longDomiciliario=0, latUsuario=0, longUsuario= 0;
@@ -125,7 +133,15 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
             startActivity(i);
         }
         buscarInfo(pedido);
-
+        chat = findViewById(R.id.btChat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inte= new Intent ( v.getContext(), Chat.class);
+                inte.putExtra("pedido",pedido);
+                startActivity(inte);
+            }
+        });
         list = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
@@ -169,6 +185,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                     if( latUsuario!=0 && latDomiciliario!=0 ){
                         double distancia = distance(latUsuario,longUsuario,latDomiciliario,longDomiciliario);
                         if (distancia <= 5 && !notificAlreadyShown){
+                            createNotificationChannel();
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getBaseContext(),CHANNEL_ID);
                             mBuilder.setSmallIcon(R.mipmap.ly);
                             String title = getString(R.string.llegoDomicilioC);

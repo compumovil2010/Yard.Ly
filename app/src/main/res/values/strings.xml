@@ -76,5 +76,5 @@
     <string name="title_activity_mapa_comida">Comida Cercana</string>
     <string name="Calificacion">Calificacion:</string>
     <string name="Opinion">Comentario:</string>
-
+    <string name="hintMsj">Escriba su mensaje</string>string>
 </resources>
