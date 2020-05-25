@@ -57,6 +57,7 @@
         <activity android:name=".dirFrec" />
         <activity android:name=".editarPerfilU" />
         <activity android:name=".Producto" />
+        <activity android:name=".Chat" />
         <activity android:name=".PedidoHistory" />
         <activity android:name=".RegistroFoto" />
         <activity android:name=".Registro" />
