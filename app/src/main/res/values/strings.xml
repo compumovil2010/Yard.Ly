@@ -50,8 +50,8 @@
     <string name="cancel">cancel</string>
     <string name="llegoDomicilioC">Llegada de pedidos</string>
     <string name="DescripcionDomicilioC">Notificacion de cuando llegan los pedidos</string>
-    <string name="llegoDomicilio">LLego tu pedido:</string>
-    <string name="DescripcionDomicilio">El domiciliario esta esperandote en tu puerta:</string>
+    <string name="llegoDomicilio">LLego tu pedido</string>
+    <string name="DescripcionDomicilio">El domiciliario esta esperandote en tu puerta.</string>
     <string name="CommentarioHint">Escriba aca su comentario</string>
     <string name="findUs">find Us</string>
     <string name="ComentariosProduct">Comentarios</string>

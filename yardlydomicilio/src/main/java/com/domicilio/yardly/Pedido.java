@@ -11,10 +11,19 @@ public class Pedido implements Serializable {
     private ArrayList<String> productos;
     private ArrayList<Integer> cantprod;
     private String UsuPedido;
+    private String idChat;
     private String domi;
     private String DirUsu;
     private String Empresa;
     private String Comentarios;
+
+    public String getIdChat() {
+        return idChat;
+    }
+
+    public void setIdChat(String idChat) {
+        this.idChat = idChat;
+    }
 
     public Pedido()
     {

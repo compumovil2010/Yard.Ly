@@ -55,5 +55,5 @@
     </string-array>
     <string name="title_activity_usuario_entrega">Map</string>
     <string name="title_activity_domi_entrega">Entrega</string>
-
+    <string name = "hintMsj">Escriba aca su mensaje</string>>
 </resources>

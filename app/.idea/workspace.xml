@@ -11,8 +11,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05d3b2e8-6a5a-4bc6-b96b-0542fb6523c3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/Chat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/ChatAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/MensajeChat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/res/layout/activity_chat.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/res/layout/mensaje_chat_adapter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/UsuarioEntrega.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/UsuarioEntrega.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/ChatAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/ChatAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/Comentarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/Comentarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yardlydomicilio/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../yardlydomicilio/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yardlydomicilio/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/Pedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/domiEntrega.java" beforeDir="false" afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/domiEntrega.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yardlydomicilio/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,8 +54,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -57,6 +71,14 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.domicilio.yardly" />
+    </key>
+    <key name="android.template.packageName">
+      <recent name="com.domicilio.yardly" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -69,7 +91,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Android App.proyecto compu movil-app">
+  <component name="RunManager" selected="Android App.yardlydomicilio">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />

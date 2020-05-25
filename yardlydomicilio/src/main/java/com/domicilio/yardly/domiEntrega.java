@@ -103,7 +103,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     public static final double upperRigthLongitude= -71.869905;
     private boolean primeraVez= false;
     private LatLng positionR;
-
+    private Pedido pedido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,8 +119,11 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent Comida = new Intent(getBaseContext(),omgreen.class);
-                //startActivity(Comida);
+                Intent chat = new Intent(getBaseContext(),Chat.class);
+                if (pedido != null){
+                    chat.putExtra("pedido",pedido);
+                    startActivity(chat);
+                }
             }
         });
           nomD= findViewById(R.id.nombreD);
@@ -326,6 +329,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                        @Override
                        public void onDataChange(DataSnapshot dataSnapshot) {
                            Pedido p= dataSnapshot.getValue(Pedido.class);
+                           pedido = p;
                            dirD.setText("Direccion: "+p.getDirUsu());
                            obtenerDirCasa3(p.getDirUsu(),p.getEmpresa());
                        }

@@ -1,6 +1,6 @@
-package com.example.yardly;
+package com.domicilio.yardly;
 
-import android.os.Build;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,11 +10,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,12 +22,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import Modelo.Domiciliario;
 import Modelo.Usuario;
+
 
 public class Chat extends AppCompatActivity {
     public static final String PATH_CHAT = "chat/";
     public static final String PATH_USERS = "users/";
+    public static final String PATH_DOMICILIARIOS = "domiciliario/";
     DatabaseReference myRef , myRefMsj;
     DatabaseReference mRootReference;
     Button enviar;
@@ -52,7 +50,7 @@ public class Chat extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         final Pedido pedido = (Pedido) getIntent().getSerializableExtra("pedido");
         if(pedido != null){
-            userId = pedido.getUsuPedido();
+            userId = pedido.getDomi();
             keyChat = pedido.getIdChat();
             mostrarMsjs(pedido);
         }
@@ -63,9 +61,7 @@ public class Chat extends AppCompatActivity {
                 String fech = "";
                 if(!(msjtext.trim().equals(""))){
                     MensajeChat msjChat = new MensajeChat();
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                        fech = LocalDateTime.now().toString();
-                    }
+                    fech = LocalDateTime.now().toString();
                     msjChat = new MensajeChat();
                     msjChat.setFechayhora(fech);
                     msjChat.setTexto(msjtext);
@@ -82,6 +78,7 @@ public class Chat extends AppCompatActivity {
 
     private void mostrarMsjs(Pedido pedido){
         final String idchat = pedido.getIdChat();
+        Toast.makeText(getBaseContext(),"entroooo"+idchat,Toast.LENGTH_LONG).show();
         mRootReference = FirebaseDatabase.getInstance().getReference(PATH_CHAT+idchat);
         mRootReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -119,7 +116,7 @@ public class Chat extends AppCompatActivity {
     }
 
     private void buscar() {
-        myRef = database.getReference( PATH_USERS+userId );
+        myRef = database.getReference( PATH_DOMICILIARIOS+userId );
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -127,10 +124,9 @@ public class Chat extends AppCompatActivity {
                 {
                     Usuario usu=dataSnapshot.getValue(Usuario.class);
                     if (usu != null){
-                        nombre = usu.getNombre();
+                        nombre = usu.getNombre() + usu.getApellido();
                     }
                 }
-                Log.i("mnioooooooo","taaaaaaaaaaam: " + mensajes.size());
                 initializeAdapter();
             }
 
