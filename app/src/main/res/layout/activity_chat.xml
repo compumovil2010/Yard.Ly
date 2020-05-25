@@ -17,14 +17,14 @@
         android:layout_weight="1">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/fotoDomiciliario"
             android:layout_width="35dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/usuario" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/nombreDomiciliario"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -39,6 +39,7 @@
         android:orientation="vertical">
 
         <ListView
+            android:id="@+id/listaMensajes"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
@@ -50,21 +51,21 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText10"
+            android:id="@+id/campoMensaje"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:hint="@string/hintMsj"
+            android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/enviarmsj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/frm_reallyrouded"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="enviar" />
 
     </LinearLayout>
 </LinearLayout>

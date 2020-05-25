@@ -41,7 +41,7 @@ public class Carrito extends AppCompatActivity {
     public  static  final String PATH_PEDIDO = "pedido/";
     public static final String PATH_PRODUCTS = "products/";
     public static final String PATH_CARRITO = "carritos/";
-
+    public static final String PATH_CHAT = "chat/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,15 +195,19 @@ public class Carrito extends AppCompatActivity {
                 {
                     price = price + ( Float.parseFloat(products.get(i).getPrecio()) * cantp.get(i) );
                 }
+                myRef = database.getReference(PATH_CHAT);
+                String key;
+                key = myRef.push().getKey();
+                myRef.child(key);
                 Pedido p = new Pedido( "22/04/2020","Pedido 1", price, (ArrayList)pids, (ArrayList)cantp, uid, "", "Cra 4 # 8-27", "TopWay", "");
+                p.setIdChat(key);
                 p.setDomi("MWyVqHxzWBPuAs6EAAA1xrvb3mX2");
                 p.setDirUsu("Cra. 11 #82-71");
                 myRef = database.getReference(PATH_PEDIDO);
                 String k = myRef.push().getKey();
-
                 myRef.child( k ).setValue(p);
-
                 int_cho.putExtra("pid", k);
+
                 //if(pro != null) {
                 //    int_cho.putExtra("producto", pro);
                 //    startActivity(int_cho);
