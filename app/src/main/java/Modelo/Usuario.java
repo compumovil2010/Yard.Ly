@@ -15,6 +15,15 @@ public class Usuario {
     private ArrayList<String > CarritoCompras;
     private Uri fotoPerfil;
     private float kmRecorridos;
+    private ArrayList<String> pedidos;
+
+    public ArrayList<String> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(ArrayList<String> pedidos) {
+        this.pedidos = pedidos;
+    }
 
     public Usuario() {
     }
