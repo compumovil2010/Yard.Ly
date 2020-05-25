@@ -1,13 +1,11 @@
+import 'Pedidos.dart';
 import 'Producto.dart';
 
 class Empresa{
-  String uid;
+  final String uid;
   String nombre;
   String direccion;
   List<Producto> productos;
-
-  Empresa(String usId ) 
-  {
-    uid = usId;
-  }
+  List<Pedidos> pedidos;
+  Empresa({this.uid});  
 }

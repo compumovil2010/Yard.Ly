@@ -19,7 +19,7 @@ class _SingInState extends State<SingIn> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[300],
         title: Text(
           'Yardly'
         ),
@@ -38,10 +38,10 @@ class _SingInState extends State<SingIn> {
                         fontSize: 17,
                       ),
                       focusedBorder: UnderlineInputBorder(      
-                        borderSide: BorderSide(color: Colors.green),   
+                        borderSide: BorderSide(color: Colors.green[300]),   
                       ),
                       enabledBorder: new UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, 
+                        borderSide: BorderSide(color: Colors.green[300], 
                           width: 1.0)
                       ),
                     ),
@@ -50,7 +50,6 @@ class _SingInState extends State<SingIn> {
                       fontSize: 17,
                       fontFamily: 'AvenirLight'
                     ),
-                    obscureText: true,
                     onChanged: (val){
                       setState(() => email = val);
                     },
@@ -67,7 +66,7 @@ class _SingInState extends State<SingIn> {
                         borderSide: BorderSide(color: Colors.purple),   
                       ),
                       enabledBorder: new UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, 
+                        borderSide: BorderSide(color: Colors.green[300], 
                           width: 1.0)
                       ),
                     ),
@@ -84,17 +83,17 @@ class _SingInState extends State<SingIn> {
               ),
               SizedBox(height: 20,),
               RaisedButton(
-                color: Colors.green[100],
+                color: Colors.green[300],
                 child: Text(
                   'Inicia Sesión',
                   style: TextStyle(color: Colors.white)
                 ),
                 onPressed: () async{
                   if(_formkey.currentState.validate()){
-                    //dynamic result = await _service.toString();
-                    //if (result == null){
-                      //setState(() => error = 'Por favor pon un correo válido');
-                    //}
+                    dynamic result = await _service.signInWithEmailAndPass(email, password);
+                    if (result == null){
+                      setState(() => error = 'No fue posible ingresar con esas credenciales');
+                    }
                   }
                 },
               ),
