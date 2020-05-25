@@ -17,18 +17,26 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.green[300],
         actions: <Widget>[
           FlatButton.icon(
-            icon: Icon(Icons.exit_to_app),
-            label: null,
+            onPressed: null, 
+            icon: Icon(
+              Icons.restaurant,
+              color: Colors.white
+            ), 
+            label: Text('')
+          ),
+          FlatButton.icon(
+            icon: Icon(
+              Icons.exit_to_app,
+              color: Colors.white
+            ),
+            label: Text(''),
             onPressed: ()async{
               await _auth.signOut();
             },
           ),
-          FlatButton.icon(
-            onPressed: null, 
-            icon: Icon(Icons.restaurant), 
-            label: null)
         ],
       ),
+    //body: DraggableScrollableSheet(builder: null),
     );
   }
 }
