@@ -11,11 +11,12 @@ public class Usuario {
     public static final String PATH_PORFILE_PHOTO = "users/porfile_photos";
     private String mail;
     private String nombre;
-    private String apellido;
     private ArrayList<String > CarritoCompras;
     private Uri fotoPerfil;
     private float kmRecorridos;
     private ArrayList<String> pedidos;
+    private ArrayList<String> direcciones;
+    private String direccionUso;
 
     public ArrayList<String> getPedidos() {
         return pedidos;
@@ -28,10 +29,9 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String mail, String nombre, String apellido, Uri fotoPerfil) {
+    public Usuario(String mail, String nombre, Uri fotoPerfil) {
         this.mail = mail;
         this.nombre = nombre;
-        this.apellido = apellido;
         this.fotoPerfil = fotoPerfil;
         kmRecorridos=0;
     }
@@ -44,8 +44,20 @@ public class Usuario {
         return nombre;
     }
 
-    public String getApellido() {
-        return apellido;
+    public ArrayList<String> getDirecciones() {
+        return direcciones;
+    }
+
+    public void setDirecciones(ArrayList<String> direcciones) {
+        this.direcciones = direcciones;
+    }
+
+    public String getDireccionUso() {
+        return direccionUso;
+    }
+
+    public void setDireccionUso(String direccionUso) {
+        this.direccionUso = direccionUso;
     }
 
     public Uri getFotoPerfil() {
@@ -60,9 +72,6 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
 
     public void setFotoPerfil(Uri fotoPerfil) {
         this.fotoPerfil = fotoPerfil;

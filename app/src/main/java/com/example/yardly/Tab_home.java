@@ -34,6 +34,11 @@ public class Tab_home extends Fragment {
         btn_ropa = v.findViewById(R.id.btn_ropa);
         km = v.findViewById(R.id.tv_kmsnum);
         arboles = v.findViewById(R.id.total_arboles);
+        if(FirebaseAuth.getInstance().getCurrentUser()==null)
+        {
+            Intent i=new Intent(getContext(), logActivity.class);
+            startActivity(i);
+        }
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(Usuario.PATH_USERS + FirebaseAuth.getInstance().getCurrentUser().getUid());
        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
@@ -44,7 +49,6 @@ public class Tab_home extends Fragment {
                km.setText(formatter.format(kmm));
                String s= "Arboles Sembrados: "+Math.floor(kmm/10);
                arboles.setText(s);
-
            }
 
            @Override

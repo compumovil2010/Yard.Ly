@@ -168,7 +168,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private void buscarInfo(final Pedido pedido) {
         domi = pedido.getDomi();
         mRootReference = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM+domi);
-        mRootReference.addValueEventListener(new ValueEventListener() {
+        mRootReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Domiciliario d=dataSnapshot.getValue(Domiciliario.class);
@@ -185,7 +185,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                     if( latUsuario!=0 && latDomiciliario!=0 ){
                         double distancia = distance(latUsuario,longUsuario,latDomiciliario,longDomiciliario);
                         if (distancia <= 5 && !notificAlreadyShown){
-                            createNotificationChannel();
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getBaseContext(),CHANNEL_ID);
                             mBuilder.setSmallIcon(R.mipmap.ly);
                             String title = getString(R.string.llegoDomicilioC);
