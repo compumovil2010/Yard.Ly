@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yardlyEmpresa/agregarProducto.dart';
+import 'package:yardlyEmpresa/Screens/editarProducto.dart';
+import 'package:yardlyEmpresa/Screens/agregarProducto.dart';
 import 'package:yardlyEmpresa/Screens/Authentication/signIn.dart';
 
 void main() {
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SingIn(),
+      home: AgregarProducto(),
     );
   }
 }
@@ -111,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AgregarProducto()),
+          Navigator.push(context, MaterialPageRoute(builder: (context) => EditarProducto()),
           );
         },
         tooltip: 'Increment',
