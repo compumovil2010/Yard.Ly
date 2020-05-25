@@ -126,6 +126,12 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         listPoints = new ArrayList<>();
         inicializarLoc();
         pedido = (Pedido) getIntent().getSerializableExtra("pedido");
+        if(pedido.getDomi()==null)
+        {
+            Toast.makeText(this,"Aun no se ha asignado Domiciliario",Toast.LENGTH_SHORT);
+            Intent i= new Intent(this,Tab_deliv.class);
+            startActivity(i);
+        }
         buscarInfo(pedido);
         chat = findViewById(R.id.btChat);
         chat.setOnClickListener(new View.OnClickListener() {
@@ -209,22 +215,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
             }
         });
     }
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.llegoDomicilioC);
-            String description = getString(R.string.DescripcionDomicilioC);
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            assert notificationManager != null;
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
+
 
     public double distance(double lat1, double long1, double lat2, double long2) {
         double latDistance = Math.toRadians(lat1 - lat2);

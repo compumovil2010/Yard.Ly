@@ -222,7 +222,6 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
                                 if(r.getNombreR().equalsIgnoreCase(arg0.getTitle()))
                                 {
                                     Intent i= new Intent(getBaseContext(),RestaurantProfile.class);
-                                    Log.i("Pille", r.getNombreR());
                                     i.putExtra("restaurante",r);
                                     startActivity(i);
                                 }
