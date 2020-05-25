@@ -11,13 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05d3b2e8-6a5a-4bc6-b96b-0542fb6523c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/ChatAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/ChatAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/MensajeChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/MensajeChat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/UsuarioEntrega.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/UsuarioEntrega.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/mensaje_chat_adapter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/mensaje_chat_adapter.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

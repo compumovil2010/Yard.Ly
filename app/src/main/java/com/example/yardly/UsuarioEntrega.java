@@ -184,7 +184,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                     if( latUsuario!=0 && latDomiciliario!=0 ){
                         double distancia = distance(latUsuario,longUsuario,latDomiciliario,longDomiciliario);
                         if (distancia <= 5 && !notificAlreadyShown){
-                            createNotificationChannel();
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getBaseContext(),CHANNEL_ID);
                             mBuilder.setSmallIcon(R.mipmap.ly);
                             String title = getString(R.string.llegoDomicilio);
@@ -207,7 +206,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                    marker= mMap.addMarker(myMarkerOptions);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
