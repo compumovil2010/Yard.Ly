@@ -1,4 +1,4 @@
-package com.example.yardly;
+package com.domicilio.yardly;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

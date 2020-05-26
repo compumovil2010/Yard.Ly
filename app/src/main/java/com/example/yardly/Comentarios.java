@@ -26,7 +26,7 @@ public class Comentarios extends AppCompatActivity {
     private FirebaseDatabase database;
     public static final String PATH_RESENA = "resena/";
     private DatabaseReference myRef;
-Product producto = null ;
+    Product producto = null ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
