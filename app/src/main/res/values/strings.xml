@@ -1,8 +1,9 @@
 <resources>
+    <string name ="mapsKey">Aoiqr6Fxs-LOizbIYg4KTZnYvOuZKbVQnZ5Pl3QuG0UC3aqBZWuODxU_x4ybWDjr</string>
     <string name="app_name">Yard.ly</string>
     <string name="nombreUsuario">Usuario</string>
     <string name="contrasena">Contraseña</string>
-    <string name="nombres">Nombres</string>
+    <string name="nombres">Nombre</string>
     <string name="apellidos">Apellidos</string>
     <string name="email">Email</string>
     <string name="direccion">Direccion</string>
@@ -55,7 +56,7 @@
     <string name="CommentarioHint">Escriba aca su comentario</string>
     <string name="findUs">find Us</string>
     <string name="ComentariosProduct">Comentarios</string>
-    <string name ="Comentarios">
+    <string name="Comentarios">
         <u>Cancelar</u>
     </string>
     <string name="Calificar">Calificar</string>

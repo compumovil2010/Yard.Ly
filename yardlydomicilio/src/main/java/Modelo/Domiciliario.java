@@ -44,12 +44,11 @@ public class Domiciliario extends Usuario {
         this.nombre = nombre;
     }
 
-    @Override
     public String getApellido() {
         return apellido;
     }
 
-    @Override
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }

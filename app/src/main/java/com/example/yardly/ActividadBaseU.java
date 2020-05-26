@@ -31,16 +31,17 @@ public class ActividadBaseU extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.editar_perfil:
-                //TODO editar perfil
+                Intent edPerf = new Intent( getApplicationContext(), editarPerfilPrev.class );
+                startActivity( edPerf );
                 return true;
             case R.id.report:
                 //TODO Reporte
                 return true;
             case R.id.adrs:
-                //TODO direcciones
+                Intent dirF = new Intent( getApplicationContext(), dirFrec.class );
+                startActivity( dirF );
                 return true;
             case R.id.salir:
-                //TODO Cerrar Sesión
                 authentication.signOut();
                 Intent int_logout = new Intent( getApplicationContext(), logActivity.class );
                 startActivity( int_logout );

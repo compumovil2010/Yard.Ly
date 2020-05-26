@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="15"
+                    android:text=" "
                     android:textAlignment="center"
                     android:textAppearance="@style/yardlyTitle"
                     android:textColor="@color/clr_greenYardly" />

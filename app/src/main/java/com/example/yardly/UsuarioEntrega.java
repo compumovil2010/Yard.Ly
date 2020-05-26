@@ -167,7 +167,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private void buscarInfo(final Pedido pedido) {
         domi = pedido.getDomi();
         mRootReference = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM+domi);
-        mRootReference.addValueEventListener(new ValueEventListener() {
+        mRootReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Domiciliario d=dataSnapshot.getValue(Domiciliario.class);
