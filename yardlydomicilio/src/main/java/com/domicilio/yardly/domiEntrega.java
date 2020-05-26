@@ -11,6 +11,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -27,6 +28,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -48,6 +55,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -62,6 +71,10 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,18 +116,44 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     public static final double upperRigthLongitude= -71.869905;
     private boolean primeraVez= false;
     private LatLng positionR;
+    private Marker marcador;
+    private Marker dejar;
+    private Marker restaurante;
+    private boolean yafue;
+    private TextView tiempo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        database= FirebaseDatabase.getInstance();
         setContentView(R.layout.activity_domi_entrega);
+        database= FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        yafue=false;
         if(user == null){
             Intent inte = new Intent(this, logActivity.class);
+            Log.i("FDS","ENTRA");
             inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(inte);
         }
+
+            DatabaseReference refAux = database.getReference(Domiciliario.PATH_DOM + user.getUid());
+        refAux.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    Toast.makeText(getBaseContext(),"Usted no es domiciliario",Toast.LENGTH_LONG);
+                    Intent i= new Intent(getBaseContext(),logActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+            Log.i("ERRORMIO","MIRE "+refAux);
         chat= findViewById(R.id.btChat);
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,12 +165,12 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
           nomD= findViewById(R.id.nombreD);
           dirD= findViewById(R.id.direcD);
         dist= findViewById(R.id.tiempo);
+        tiempo= findViewById(R.id.dist);
           img= findViewById(R.id.fotoD);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
         geo = new Geocoder(getBaseContext());
-        inicializarLoc();
 
         list= new SensorEventListener() {
             @Override
@@ -200,24 +239,19 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     lo=database.getReference(Domiciliario.PATH_DOM+user.getUid()+"/longi");
                     lat.setValue(location.getLatitude());
                     lo.setValue(location.getLongitude());
-                    if(positionR!= null)
-                    {
-                        double distanc = distancia(positionR.latitude, positionR.longitude, location.getLatitude(), location.getLongitude());
-                        if(!primeraVez)
-                        {
-                            DatabaseReference dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/dist");
-                            dista.setValue(distanc);
-                            primeraVez=true;
-
-                        }
-                        String s="Distancia Estimada: "+distanc;
-                        dist.setText(s);
-                    }
                     mipos=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("Su posicion"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
+
+                    if(!yafue)
+                    {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
+                        obtenerDirCasa();
+                        yafue=true;
+                    }
+
                 }
             }
         };
+
     }
     public double distancia(double lat1, double long1, double lat2, double long2) {
         double latDistance = Math.toRadians(lat1 - lat2);
@@ -242,8 +276,9 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         mMap = googleMap;
         //Aqui va acceso a BD con usuario
         user = FirebaseAuth.getInstance().getCurrentUser();
-        obtenerDirCasa();
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+        inicializarLoc();
+
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
     }
 
 
@@ -266,7 +301,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     myMarkerOptions.title(direccionR.getNombreR());
                     myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
                     myMarkerOptions.visible(true);
-                    mMap.addMarker(myMarkerOptions);
+                    restaurante=mMap.addMarker(myMarkerOptions);
                 }
             }
         }
@@ -295,7 +330,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                     myMarkerOptions.title("Delivery");
                     myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                     myMarkerOptions.visible(true);
-                    mMap.addMarker(myMarkerOptions);
+                    dejar = mMap.addMarker(myMarkerOptions);
                 }
             }
         }
@@ -319,7 +354,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                 nomD.setText(aux);
                 dataSnapshot= dataSnapshot.child("pedidoActual");
                s= dataSnapshot.getValue(String.class);
-               if(s!=null || !s.isEmpty())
+               if(s!=null && !s.isEmpty())
                {
                    DatabaseReference myRef2 = database.getReference(Pedido.PATH_PEDIDO + s);
                    myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -337,7 +372,10 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                else
                {
                    Toast.makeText(getBaseContext(),"No tiene domicilios",Toast.LENGTH_LONG).show();
-
+                   FirebaseAuth.getInstance().signOut();
+                   Intent i = new Intent(getBaseContext(),logActivity.class);
+                   i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                   startActivity(i);
                }
 
             }
@@ -363,7 +401,6 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                         positionR=obtenerLatLongR(direccionR.getDireccion());
                         if(positionR==null)
                         {
-                            Log.i("POSLOC","No sirvio");
                             Toast.makeText(getBaseContext(),"Direccion de Restaurante no Disp.",Toast.LENGTH_SHORT).show();
                         }
 
@@ -372,6 +409,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                         {
                             Toast.makeText(getBaseContext(),"Direccion de Usuario no Disp.",Toast.LENGTH_SHORT).show();
                         }
+                        pintarRuta();
                         break;
                     }
                 }
@@ -385,6 +423,83 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
             }
         });
     }
+
+    private void pintarRuta() {
+        LatLng domic=mipos.getPosition(), resta=restaurante.getPosition(), deja=dejar.getPosition();
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://dev.virtualearth.net/";
+        String path = "REST/v1/Routes";
+        String query = "?wayPoint.1={wayPoint1}&viaWaypoint.2={viaWaypoint2}&waypoint.3={waypoint3}&maxSolutions=1&routeAttributes=routePath,excludeItinerary";
+        query=query+"&key="+getString(R.string.mapsKey);
+        String s=""+domic.latitude+","+domic.longitude;
+        query=query.replace("{wayPoint1}",s );
+         s=""+resta.latitude+","+resta.longitude;
+        query=query.replace("{viaWaypoint2}",s );
+         s=""+deja.latitude+","+deja.longitude;
+        query=query.replace("{waypoint3}",s);
+        Log.i("COSOTA",query);
+        StringRequest req = new StringRequest(Request.Method.GET, url+path+query,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            JSONArray jsonA = json.getJSONArray("resourceSets");
+                            json=jsonA.getJSONObject(0);
+                            jsonA = json.getJSONArray("resources");
+                            json=jsonA.getJSONObject(0);
+                            double distanc =json.getDouble("travelDistance"),tt=Math.ceil(json.getDouble("travelDuration")/60);
+                            json=json.getJSONObject("routePath");
+                            json=json.getJSONObject("line");
+                            jsonA = json.getJSONArray("coordinates");
+                            if(positionR!= null)
+                            {
+                                if(!primeraVez)
+                                {
+                                    DatabaseReference dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/dist");
+                                    dista.setValue(distanc);
+                                    dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/tiempo");
+                                    dista.setValue(tt);
+                                    primeraVez=true;
+
+                                }
+                                String s="Distancia Estimada: "+distanc;
+                                dist.setText(s);
+                                s="Tiempo Estimado: "+tt+" minutos aprox.";
+                                tiempo.setText(s);
+                            }
+                            drawNow(jsonA);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("COSOTA", "Error handling rest invocation"+error.getCause());
+                    }
+                }
+        );
+        queue.add(req);
+
+    }
+
+    private void drawNow(JSONArray coord) throws JSONException {
+
+
+        for(int z = 0; z<coord.length()-1;z++){
+            JSONArray src = coord.getJSONArray(z);
+            JSONArray dest = coord.getJSONArray(z + 1);
+
+            Polyline line = mMap.addPolyline(new PolylineOptions()
+                    .add(new LatLng(src.getDouble(0), src.getDouble(1)), new LatLng(dest.getDouble(0), dest.getDouble(1)))
+                    .width(6)
+                    .color(Color.BLUE).geodesic(true));
+        }
+
+    }
+
     private String getNombre(LatLng latLng) throws IOException {
         List<Address> ad = geo.getFromLocation(latLng.latitude,latLng.longitude,1);
         return ad.get(0).getAddressLine(0);

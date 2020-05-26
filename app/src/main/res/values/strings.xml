@@ -1,4 +1,5 @@
 <resources>
+    <string name ="mapsKey">Aoiqr6Fxs-LOizbIYg4KTZnYvOuZKbVQnZ5Pl3QuG0UC3aqBZWuODxU_x4ybWDjr</string>
     <string name="app_name">Yard.ly</string>
     <string name="nombreUsuario">Usuario</string>
     <string name="contrasena">Contraseña</string>
