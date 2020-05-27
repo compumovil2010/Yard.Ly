@@ -125,10 +125,10 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         listPoints = new ArrayList<>();
         inicializarLoc();
         pedido = (Pedido) getIntent().getSerializableExtra("pedido");
-        if(pedido.getDomi()==null)
+        if(pedido.getDomi()==null || pedido.getDomi().isEmpty())
         {
-            Toast.makeText(this,"Aun no se ha asignado Domiciliario",Toast.LENGTH_SHORT);
-            Intent i= new Intent(this,Tab_deliv.class);
+            Toast.makeText(getApplicationContext(),"Aun no se ha asignado Domiciliario",Toast.LENGTH_SHORT);
+            Intent i= new Intent(this,Principal.class);
             startActivity(i);
         }
         buscarInfo(pedido);

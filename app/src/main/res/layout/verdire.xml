@@ -11,6 +11,14 @@
         android:layout_height="wrap_content"
         android:text="TextView" />
 
+    <Button
+        android:id="@+id/selecti"
+        style="@android:style/Widget.Material.ImageButton"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_weight="0.7"
+        android:scaleType="fitCenter"
+        android:text="Select"/>
     <ImageButton
         android:id="@+id/elimdir"
         style="@android:style/Widget.Material.ImageButton"

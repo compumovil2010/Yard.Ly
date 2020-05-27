@@ -78,6 +78,9 @@ public class ProductoxRestaurante extends AppCompatActivity {
                         if( singleSnap.exists() )
                         {
                             Product p = singleSnap.getValue( Product.class );
+                            Log.i("Prodit",""+p);
+                            Log.i("Prodit",""+p.getNomEstab());
+                            Log.i("Prodit",""+nombre);
                             if( p.getNomEstab().equalsIgnoreCase(nombre) )
                             {
                                 Log.i("Busqueda", "Encontré un producto" + p.getNomProducto());

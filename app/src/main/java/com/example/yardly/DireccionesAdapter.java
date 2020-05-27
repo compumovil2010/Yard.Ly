@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -42,8 +44,28 @@ public class DireccionesAdapter extends ArrayAdapter<String> {
         if (val!=null){
             TextView asunto = vie.findViewById(R.id.Direccion);
             asunto.setText(val);
-
+            Button selec = vie.findViewById(R.id.selecti);
             ImageButton img = vie.findViewById(R.id.elimdir);
+            selec.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(Usuario.PATH_USERS + FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Usuario u=dataSnapshot.getValue(Usuario.class);
+                            u.setDireccionUso(val);
+                            Toast.makeText(getContext(),"Direccion en Uso: "+val,Toast.LENGTH_LONG);
+                            dataSnapshot.getRef().setValue(u);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            });
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

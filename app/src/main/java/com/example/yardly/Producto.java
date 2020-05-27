@@ -161,7 +161,7 @@ public class Producto extends AppCompatActivity {
                         if( p.getNomProducto().equals(pro.getNomProducto() ) )
                         {
                             FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
-                            if(carrito.getProductos().get(0).equals("vacio"))
+                            if(carrito.getProductos()==null ||carrito.getProductos().get(0).equals("vacio"))
                             {
                                 prods.add(snap.getKey());
                                 cantp.add(Integer.parseInt(cantidad.getText().toString()));
