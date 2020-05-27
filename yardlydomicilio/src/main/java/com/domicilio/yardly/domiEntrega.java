@@ -78,7 +78,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -88,6 +93,7 @@ import Modelo.Usuario;
 
 public class domiEntrega extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final int WR_STORAGE = 4;
     private GoogleMap mMap;
     private SensorManager manager;
     private Sensor luz;
@@ -435,7 +441,11 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                         {
                             Toast.makeText(getBaseContext(),"Direccion de Usuario no Disp.",Toast.LENGTH_SHORT).show();
                         }
-                        pintarRuta();
+                        try {
+                            pintarRuta();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     }
                 }
@@ -448,64 +458,120 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         });
     }
 
-    private void pintarRuta() {
-        LatLng domic=mipos.getPosition(), resta=restaurante.getPosition(), deja=dejar.getPosition();
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://dev.virtualearth.net/";
-        String path = "REST/v1/Routes";
-        String query = "?wayPoint.1={wayPoint1}&viaWaypoint.2={viaWaypoint2}&waypoint.3={waypoint3}&maxSolutions=1&routeAttributes=routePath,excludeItinerary";
-        query=query+"&key="+getString(R.string.mapsKey);
-        String s=""+domic.latitude+","+domic.longitude;
-        query=query.replace("{wayPoint1}",s );
-         s=""+resta.latitude+","+resta.longitude;
-        query=query.replace("{viaWaypoint2}",s );
-         s=""+deja.latitude+","+deja.longitude;
-        query=query.replace("{waypoint3}",s);
-        Log.i("COSOTA",query);
-        StringRequest req = new StringRequest(Request.Method.GET, url+path+query,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject json = new JSONObject(response);
-                            JSONArray jsonA = json.getJSONArray("resourceSets");
-                            json=jsonA.getJSONObject(0);
-                            jsonA = json.getJSONArray("resources");
-                            json=jsonA.getJSONObject(0);
-                            double distanc =json.getDouble("travelDistance"),tt=Math.ceil(json.getDouble("travelDuration")/60);
-                            json=json.getJSONObject("routePath");
-                            json=json.getJSONObject("line");
-                            jsonA = json.getJSONArray("coordinates");
-                            if(positionR!= null)
-                            {
-                                if(!primeraVez)
-                                {
-                                    DatabaseReference dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/dist");
-                                    dista.setValue(distanc);
-                                    dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/tiempo");
-                                    dista.setValue(tt);
-                                    primeraVez=true;
+    private void pintarRuta() throws IOException {
+        final String nombreFile="Ruta"+s;
+        final File file = new File(getBaseContext().getExternalFilesDir(null),nombreFile);
+        if(!file.exists())
+        {
+            LatLng domic=mipos.getPosition(), resta=restaurante.getPosition(), deja=dejar.getPosition();
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "http://dev.virtualearth.net/";
+            String path = "REST/v1/Routes";
+            String query = "?wayPoint.1={wayPoint1}&viaWaypoint.2={viaWaypoint2}&waypoint.3={waypoint3}&maxSolutions=1&routeAttributes=routePath,excludeItinerary";
+            query=query+"&key="+getString(R.string.mapsKey);
+            String s=""+domic.latitude+","+domic.longitude;
+            query=query.replace("{wayPoint1}",s );
+            s=""+resta.latitude+","+resta.longitude;
+            query=query.replace("{viaWaypoint2}",s );
+            s=""+deja.latitude+","+deja.longitude;
+            query=query.replace("{waypoint3}",s);
+            Log.i("COSOTA",query);
+            StringRequest req = new StringRequest(Request.Method.GET, url+path+query,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                File file2 = new File(getBaseContext().getExternalFilesDir(null),nombreFile);
+                                JSONObject json = new JSONObject(response);
+                                BufferedWriter output = new BufferedWriter(new FileWriter(file2));
+                                output.write(json.toString());
+                                output.close();
 
+                                JSONArray jsonA = json.getJSONArray("resourceSets");
+                                json=jsonA.getJSONObject(0);
+                                jsonA = json.getJSONArray("resources");
+                                json=jsonA.getJSONObject(0);
+                                double distanc =json.getDouble("travelDistance"),tt=Math.ceil(json.getDouble("travelDuration")/60);
+                                json=json.getJSONObject("routePath");
+                                json=json.getJSONObject("line");
+                                jsonA = json.getJSONArray("coordinates");
+                                if(positionR!= null)
+                                {
+                                    if(!primeraVez)
+                                    {
+                                        DatabaseReference dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/dist");
+                                        dista.setValue(distanc);
+                                        dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/tiempo");
+                                        dista.setValue(tt);
+                                        primeraVez=true;
+
+                                    }
+                                    String s="Distancia Estimada: "+distanc;
+                                    dist.setText(s);
+                                    s="Tiempo Estimado: "+tt+" minutos aprox.";
+                                    tiempo.setText(s);
                                 }
-                                String s="Distancia Estimada: "+distanc;
-                                dist.setText(s);
-                                s="Tiempo Estimado: "+tt+" minutos aprox.";
-                                tiempo.setText(s);
+                                drawNow(jsonA);
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
                             }
-                            drawNow(jsonA);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("COSOTA", "Error handling rest invocation"+error.getCause());
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("COSOTA", "Error handling rest invocation"+error.getCause());
+            );
+            queue.add(req);
+        }else{
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = bufferedReader.readLine();
+            while (line != null){
+                stringBuilder.append(line).append("\n");
+                line = bufferedReader.readLine();
+            }
+            bufferedReader.close();
+            String response = stringBuilder.toString();
+
+            try {
+                JSONObject json = new JSONObject(response);
+                BufferedWriter output = new BufferedWriter(new FileWriter(file));
+                output.write(json.toString());
+                output.close();
+                JSONArray jsonA = json.getJSONArray("resourceSets");
+                json=jsonA.getJSONObject(0);
+                jsonA = json.getJSONArray("resources");
+                json=jsonA.getJSONObject(0);
+                double distanc =json.getDouble("travelDistance"),tt=Math.ceil(json.getDouble("travelDuration")/60);
+                json=json.getJSONObject("routePath");
+                json=json.getJSONObject("line");
+                jsonA = json.getJSONArray("coordinates");
+                if(positionR!= null)
+                {
+                    if(!primeraVez)
+                    {
+                        DatabaseReference dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/dist");
+                        dista.setValue(distanc);
+                        dista = database.getReference(Domiciliario.PATH_DOM + user.getUid() + "/tiempo");
+                        dista.setValue(tt);
+                        primeraVez=true;
+
                     }
+                    String s="Distancia Estimada: "+distanc;
+                    dist.setText(s);
+                    s="Tiempo Estimado: "+tt+" minutos aprox.";
+                    tiempo.setText(s);
                 }
-        );
-        queue.add(req);
+                drawNow(jsonA);
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
     }
 
@@ -639,4 +705,5 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private void stopLocationS() {
         mfusedLoc.removeLocationUpdates(mLocationCallback);
     }
+
 }
