@@ -97,7 +97,8 @@ public class Chat extends AppCompatActivity {
                     msjChat = new MensajeChat();
                     msjChat.setFechayhora(fech);
                     msjChat.setTexto(msjtext);
-                    msjChat.setUsuario(userId);
+                    msjChat.setUsuario(nombre);
+                    msjChat.setIdUsuario(userId);
                     myRef =database.getReference(PATH_CHAT+keyChat);
                     String key = myRef.push().getKey();
                     myRef.child(key).setValue(msjChat);
@@ -173,21 +174,7 @@ public class Chat extends AppCompatActivity {
             }
         });
     }
-    private void createNotificationChannels() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        //SECOND CHANNEL
-        CharSequence name2 = getString(R.string.DescripcionMensaje);
-        String description2 = getString(R.string.Mensajenuevo);
-        int importance2 = NotificationManager.IMPORTANCE_HIGH;
-        NotificationChannel channel2 = new NotificationChannel(CHANNEL_ID_MSJ, name2, importance2);
-        channel2.setDescription(description2);
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
-        NotificationManager notificationManager2 = getSystemService(NotificationManager.class);
-        assert notificationManager2 != null;
-        notificationManager2.createNotificationChannel(channel2);
-    }
+
         private void initializeAdapter() {
         Log.i("mnioooooooo","taaaaaaaaaaam: " + mensajes.size());
         Boolean noMas = false;
@@ -196,7 +183,6 @@ public class Chat extends AppCompatActivity {
             for (int i = mensajes.size() - 1; i >= 0 && !noMas; i--){
                 if(mensajes.get(i)!=null){
                     if(!(mensajes.get(i).getIdUsuario().equals(userId))){
-                        createNotificationChannels();
                         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getBaseContext(),CHANNEL_ID_MSJ);
                         mBuilder.setSmallIcon(R.mipmap.ly);
                         String title = getString(R.string.DescripcionMensajeNot);

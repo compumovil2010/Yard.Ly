@@ -11,10 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05d3b2e8-6a5a-4bc6-b96b-0542fb6523c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/Carrito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/Carrito.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yardly/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yardly/Chat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/domiEntrega.java" beforeDir="false" afterPath="$PROJECT_DIR$/../yardlydomicilio/src/main/java/com/domicilio/yardly/domiEntrega.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +83,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Android App.yardlydomicilio">
+  <component name="RunManager" selected="Android App.proyecto compu movil-app">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -218,5 +219,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/yardly/Carrito.java</url>
+          <line>210</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

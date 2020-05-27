@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -91,6 +93,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private Sensor luz;
     private SensorEventListener list;
     public static final int  MY_PERMISSIONS_ACCESS_FINE_LOCATION = 1;
+    public static final String CHANNEL_ID_MSJ = "llegoMsj";
     private static final int REQUEST_CHECK_SETTINGS=5,RADIUS_OF_EARTH_KM = 6371;;
     private Geocoder geo;
     private FusedLocationProviderClient mfusedLoc;
@@ -128,7 +131,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_domi_entrega);
         database= FirebaseDatabase.getInstance();
-
+        createNotificationChannels();
         user = FirebaseAuth.getInstance().getCurrentUser();
         yafue=false;
         if(user == null){
@@ -205,7 +208,21 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         mapFragment.getMapAsync(this);
 
     }
-
+    private void createNotificationChannels() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        //SECOND CHANNEL
+        CharSequence name2 = getString(R.string.DescripcionMensaje);
+        String description2 = getString(R.string.Mensajenuevo);
+        int importance2 = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel channel2 = new NotificationChannel(CHANNEL_ID_MSJ, name2, importance2);
+        channel2.setDescription(description2);
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManager notificationManager2 = getSystemService(NotificationManager.class);
+        assert notificationManager2 != null;
+        notificationManager2.createNotificationChannel(channel2);
+    }
     private void llenarGUI() throws IOException {
         final File localFile = File.createTempFile("images", "jpg");
         StorageReference imageRef = FirebaseStorage.getInstance().getReference().child(Usuario.PATH_PORFILE_PHOTO+"/"+user.getUid()+".png");
