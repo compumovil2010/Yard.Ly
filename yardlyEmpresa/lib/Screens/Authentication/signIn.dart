@@ -39,7 +39,7 @@ class _SingInState extends State<SingIn> {
                           fontSize: 20,
                         ),
                         focusedBorder: UnderlineInputBorder(      
-                          borderSide: BorderSide(color: Colors.green[300]),   
+                          borderSide: BorderSide(color: Colors.green),   
                         ),
                         enabledBorder: new UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.green[300], 
@@ -64,7 +64,7 @@ class _SingInState extends State<SingIn> {
                           fontSize: 17,
                         ),
                         focusedBorder: UnderlineInputBorder(      
-                          borderSide: BorderSide(color: Colors.purple),   
+                          borderSide: BorderSide(color: Colors.green),   
                         ),
                         enabledBorder: new UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.green[300], 
