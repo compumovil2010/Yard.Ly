@@ -14,6 +14,8 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -57,17 +59,22 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -78,6 +85,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import Modelo.Domiciliario;
+import Modelo.Usuario;
 
 
 public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallback {
@@ -97,8 +105,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
     private Location current;
-    private TextView nombreD;
-    private ImageView imageD;
+    private TextView nombreD,tiemp,dista;
+    private ImageView img;
     ArrayList<LatLng> listPoints;
     private Marker marker;
     Pedido pedido;
@@ -112,6 +120,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private Marker currentM;
     double latDomiciliario=0, longDomiciliario=0, latUsuario=0, longUsuario= 0;
     Boolean notificAlreadyShown = false;
+    private Button finalizar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +129,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         marker=null;
         notificAlreadyShown = false;
         nombreD = findViewById(R.id.nombreD);
+        img=findViewById(R.id.fotoD);
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
         geo = new Geocoder(getBaseContext());
@@ -131,7 +142,21 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
             Intent i= new Intent(this,Principal.class);
             startActivity(i);
         }
-        buscarInfo(pedido);
+        try {
+            buscarInfo(pedido);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        tiemp = findViewById(R.id.tiempo);
+        dista = findViewById(R.id.dist);
+        finalizar = findViewById(R.id.btfin);
+        finalizar.setEnabled(false);
+        finalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                acabarPedido();
+            }
+        });
         chat = findViewById(R.id.btChat);
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,13 +189,118 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         mapFragment.getMapAsync(this);
     }
 
-    private void buscarInfo(final Pedido pedido) {
+    private void acabarPedido() {
+        DatabaseReference mRootReference2 = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM + domi);
+        mRootReference2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                 Domiciliario d= dataSnapshot.getValue(Domiciliario.class);
+                final float km=d.getDist();
+                final String pedi=d.getPedidoActual();
+                d.setPedidoActual("");
+                d.setLat(0);
+                d.setLongi(0);
+                d.setDist(0);
+                d.setTiempo(0);
+                dataSnapshot.getRef().setValue(d);
+                DatabaseReference mRootReference3 = FirebaseDatabase.getInstance().getReference(Usuario.PATH_USERS+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+                mRootReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Usuario u= dataSnapshot.getValue(Usuario.class);
+                        u.setKmRecorridos(u.getKmRecorridos()+km);
+                        dataSnapshot.getRef().setValue(u);
+                        actuRest(pedi);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void actuRest(final String pedi) {
+        DatabaseReference mRootReference2 = FirebaseDatabase.getInstance().getReference(Pedido.PATH_PEDIDO+ pedi);
+        mRootReference2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                 Pedido p= dataSnapshot.getValue(Pedido.class);
+                 p.setDomi("");
+                 dataSnapshot.getRef().setValue(p);
+                final String pn=p.getEmpresa();
+                DatabaseReference mRootReference3 = FirebaseDatabase.getInstance().getReference(Restaurant.PATH_REST);
+                mRootReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot data: dataSnapshot.getChildren())
+                        {
+                            Restaurant r= data.getValue(Restaurant.class);
+                            if(r.getNombreR().equalsIgnoreCase(pn))
+                            {
+                                r.getPedidosSinD().remove(pedi);
+                                if(r.getPedidosConD()==null)
+                                    r.setPedidosSinD(new ArrayList<String>());
+                                r.getPedidosConD().add(pedi);
+                                data.getRef().setValue(r);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void llenarGUI() throws IOException {
+        final File localFile = File.createTempFile("images", "jpg");
+        StorageReference imageRef = FirebaseStorage.getInstance().getReference().child(Usuario.PATH_PORFILE_PHOTO+"/"+domi+".png");
+
+        imageRef.getFile(localFile)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Bitmap myBitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                        img.setImageBitmap(myBitmap);
+                        Log.i("IMG", "succesfully downloaded");
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.i("IMG", "No hay Imagen");
+            }
+        });
+
+    }
+    private void buscarInfo(final Pedido pedido) throws IOException {
         domi = pedido.getDomi();
+        llenarGUI();
         mRootReference = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM+domi);
-        mRootReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        mRootReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Domiciliario d=dataSnapshot.getValue(Domiciliario.class);
+                    nombreD.setText(d.getNombre());
+                    dista.setText("Distancia Aprox: "+d.getDist());
+                    tiemp.setText("Tiempo Aprox: "+d.getTiempo());
                     if(mMap!=null)
                     {
                         if(marker!=null)
@@ -182,11 +312,13 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                         longDomiciliario = d.getLongi();
                         latDomiciliario = d.getLat();
                     if( latUsuario!=0 && latDomiciliario!=0 ){
+                        finalizar.setEnabled(true);
                         double distancia = distance(latUsuario,longUsuario,latDomiciliario,longDomiciliario);
                         if (distancia <= 5 && !notificAlreadyShown){
+
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getBaseContext(),CHANNEL_ID);
                             mBuilder.setSmallIcon(R.mipmap.ly);
-                            String title = getString(R.string.llegoDomicilio);
+                            String title =getString(R.string.llegoDomicilio);
                             String content = getString(R.string.DescripcionDomicilio);
                             mBuilder.setContentTitle(title);
                             mBuilder.setContentText(content);

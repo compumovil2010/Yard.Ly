@@ -66,8 +66,21 @@ public class Checkout extends AppCompatActivity {
             for (int i=0; i<pedido.getProductos().size(); i++) {
                 cantidad += pedido.getCantprod().get(i);
             }
+            DatabaseReference myRef4 = FirebaseDatabase.getInstance().getReference(Usuario.PATH_USERS + user.getUid());
+            myRef4.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Usuario usu= dataSnapshot.getValue(Usuario.class);
+                    direccion.setText(usu.getDireccionUso());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             Log.i("Check", "Llenando datos");
-            direccion.setText(pedido.getDirUsu());
+
             tiempo.setText(cantidad*15 + " minutos");
             subtotal.setText("$ "+ pedido.getPrecio());
             costoEnvio.setText("$ "+ ((pedido.getPrecio()*1.1)-pedido.getPrecio()));
