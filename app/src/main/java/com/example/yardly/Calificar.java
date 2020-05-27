@@ -66,7 +66,7 @@ public class Calificar extends AppCompatActivity {
                 String key = myRef.push().getKey();
                 myRef = database.getReference(PATH_RESENA+key);
                 myRef.setValue(resena);
-                Intent registro = new Intent(getBaseContext(),Checkout.class);
+                Intent registro = new Intent(getBaseContext(),Principal.class);
                 startActivity(registro);
             }
         });

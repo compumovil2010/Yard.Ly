@@ -218,9 +218,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
 
                     }
                 });
-                Intent inte = new Intent(getBaseContext(),Calificar.class);
-                inte.putExtra("pedido", pedido);
-                startActivity(inte);
+
             }
 
             @Override
@@ -272,8 +270,10 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
             }
         });
         Toast.makeText(this,"Pedido Finalizado",Toast.LENGTH_LONG).show();
-        Intent i=new Intent(this,Principal.class);
-        startActivity(i);
+
+        Intent inte = new Intent(getBaseContext(),Calificar.class);
+        inte.putExtra("pedido", pedido);
+        startActivity(inte);
         finish();
 
     }
