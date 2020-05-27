@@ -108,7 +108,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private Restaurant direccionR;
     private Domiciliario domi;
     private Button chat;
-    private TextView nomD, dirD,dist;
+    private TextView nomD, dirD,dist ,nombreDomici;
     private ImageView img;
     public static final double lowerLeftLatitude = 1.396967;
     public static final double lowerLeftLongitude= -78.903968;
@@ -122,11 +122,13 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
     private Marker restaurante;
     private boolean yafue;
     private TextView tiempo;
+    private String nombre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_domi_entrega);
         database= FirebaseDatabase.getInstance();
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         yafue=false;
         if(user == null){
@@ -353,7 +355,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String aux=dataSnapshot.child("nombre").getValue(String.class)+" "+dataSnapshot.child("apellido").getValue(String.class);
+                String aux=dataSnapshot.child("nombre").getValue(String.class);
                 nomD.setText(aux);
                 dataSnapshot= dataSnapshot.child("pedidoActual");
                s= dataSnapshot.getValue(String.class);
@@ -365,8 +367,11 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                        public void onDataChange(DataSnapshot dataSnapshot) {
                            Pedido p= dataSnapshot.getValue(Pedido.class);
                            pedido = p;
-                           dirD.setText("Direccion: "+p.getDirUsu());
-                           obtenerDirCasa3(p.getDirUsu(),p.getEmpresa());
+                           if(p != null)
+                           {
+                               dirD.setText("Direccion: "+p.getDirUsu());
+                               obtenerDirCasa3(p.getDirUsu(),p.getEmpresa());
+                           }
                        }
                        @Override
                        public void onCancelled(DatabaseError databaseError) {
@@ -417,8 +422,6 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
                         break;
                     }
                 }
-
-
                 }
 
 

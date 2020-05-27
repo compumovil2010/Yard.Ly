@@ -19,5 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/mensajeInd"
-        android:layout_marginStart="250dp"/>
+        android:layout_marginStart="230dp"/>
+    <TextView
+        android:id="@+id/usuarioMsj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mensajeInd"
+        android:layout_marginStart="85dp"/>
 </RelativeLayout>

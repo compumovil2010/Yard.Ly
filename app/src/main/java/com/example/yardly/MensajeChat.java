@@ -7,7 +7,15 @@ public class MensajeChat implements Serializable {
     private String texto;
     private String usuario;
     private String  fechayhora;
+    private String IdUsuario;
 
+    public String getIdUsuario() {
+        return IdUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        IdUsuario = idUsuario;
+    }
     public MensajeChat() {
 
     }
