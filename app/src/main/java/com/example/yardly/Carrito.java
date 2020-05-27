@@ -234,6 +234,7 @@ public class Carrito extends AppCompatActivity {
                 //    startActivity(int_cho);
                 //}
                 startActivity(int_cho);
+                finish();
             }
         });
     }

@@ -164,6 +164,7 @@ public class Checkout extends AppCompatActivity {
                     intent.putExtra("pedido", pedido);
                     startActivity(intent);
 
+
                 }
             });
         }

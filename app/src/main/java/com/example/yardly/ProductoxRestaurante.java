@@ -62,6 +62,7 @@ public class ProductoxRestaurante extends AppCompatActivity {
             public void onClick(View v) {
                 Intent inte = new Intent(v.getContext(), Carrito.class);
                 startActivity(inte);
+                finish();
             }
         });
 

@@ -97,6 +97,7 @@ public class Producto extends AppCompatActivity {
                 bundle.putSerializable("producto", pro);
                 intent.putExtra("productoBundle",bundle);
                 startActivity(intent);
+                finish();
             }
         });
         if (pro!=null){
@@ -253,5 +254,6 @@ public class Producto extends AppCompatActivity {
         Intent registro = new Intent(getBaseContext(),Carrito.class);
         registro.putExtra("producto",pro);
         startActivity(registro);
+        finish();
     }
 }
