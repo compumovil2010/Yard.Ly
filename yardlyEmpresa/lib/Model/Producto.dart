@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 class Producto{
+  static final pathProducts = '/products/';
   String nombre;
   String descripcion;
   double precio;
