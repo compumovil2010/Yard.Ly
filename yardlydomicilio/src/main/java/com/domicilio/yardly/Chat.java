@@ -97,7 +97,7 @@ public class Chat extends AppCompatActivity {
                     msjChat = new MensajeChat();
                     msjChat.setFechayhora(fech);
                     msjChat.setTexto(msjtext);
-                    msjChat.setUsuario(nombre);
+                    msjChat.setUsuario(userId);
                     myRef =database.getReference(PATH_CHAT+keyChat);
                     String key = myRef.push().getKey();
                     myRef.child(key).setValue(msjChat);
