@@ -147,7 +147,7 @@ public class Chat extends AppCompatActivity {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String aux = dataSnapshot.child("nombre").getValue(String.class) + " " + dataSnapshot.child("apellido").getValue(String.class);
+                String aux = dataSnapshot.child("nombre").getValue(String.class);
                 nombreDomiciliario.setText(aux);
             }
 
