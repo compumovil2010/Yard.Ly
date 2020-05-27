@@ -1,8 +1,13 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:yardlyEmpresa/Model/Producto.dart';
 
+
+FirebaseDatabase database = new FirebaseDatabase();
+DatabaseReference databaseReference = database.reference().child('products');
 
 class EditarProducto extends StatefulWidget {
   @override
@@ -11,7 +16,7 @@ class EditarProducto extends StatefulWidget {
 
 class EditarProductoState extends State<EditarProducto> {
   var nombre="", descripcion ="", precio="";
-  var producto;
+  Producto producto;
 
   File _imageFile;
     Future getImage (bool isCamera) async {
@@ -30,14 +35,14 @@ class EditarProductoState extends State<EditarProducto> {
   Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Agregar Producto'),
+          title: Text('Editar Producto'),
         ),
         body: 
         Column( 
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-              child: _imageFile == null ? Image.asset('assets/images/person.png', height: 200, width: 200,) : Image.file(_imageFile, height: 200, width: 200),
+              child: _imageFile == null ? Image.asset('assets/images/person.png', height: 150, width: 150,) : Image.file(_imageFile, height: 150, width: 150),
             ),
             Container(
               child: Row(

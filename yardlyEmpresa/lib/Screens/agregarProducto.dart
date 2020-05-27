@@ -3,9 +3,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:path/path.dart';
 
  File _imageFile;
-
 
 class AgregarProducto extends StatefulWidget {
   @override
@@ -20,7 +20,6 @@ class DropdownTipo extends StatefulWidget {
 class DropdownTipoState extends State<DropdownTipo>{
   
   String currentValue;
-  
 
   Widget build(BuildContext context) {
     return DropdownButton <String>(
@@ -48,17 +47,17 @@ class AgregarProductoState extends State<AgregarProducto> {
   final precio = TextEditingController();
   final dbRef = FirebaseDatabase.instance.reference().child("products");
  
-    Future getImage (bool isCamera) async {
-      File image;
-      if(isCamera) {
-        image = await ImagePicker.pickImage(source: ImageSource.camera);
-      } else {
-        image = await ImagePicker.pickImage(source: ImageSource.gallery);
-      }
-      setState(() {
-        _imageFile = image;
-      });
+  Future getImage (bool isCamera) async {
+    File image;
+    if(isCamera) {
+      image = await ImagePicker.pickImage(source: ImageSource.camera);
+    } else {
+      image = await ImagePicker.pickImage(source: ImageSource.gallery);
     }
+    setState(() {
+      _imageFile = image;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,15 +111,23 @@ class RegisterProduct extends StatefulWidget {
 }
 
 class _RegisterProductState extends State<RegisterProduct> {
+
   final _formKey = GlobalKey<FormState>();
   final nombreController = TextEditingController();
   final precioController = TextEditingController();
   final descripcionController = TextEditingController();
-  final dbRef = FirebaseDatabase.instance.reference().child("products");
-  String uploadedFileURL;
+  final dbRef = FirebaseDatabase.instance.reference();
+  String key;
+
+  Future uploadImage(BuildContext context) async{
+     StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(key);
+     StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+     StorageTaskSnapshot taskSnapshot=await uploadTask.onComplete;
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
       body:
         Form(
@@ -186,7 +193,9 @@ class _RegisterProductState extends State<RegisterProduct> {
                     child: Text("Agregar Producto"), 
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        dbRef.push().set({
+                        uploadImage(context);
+                        key = dbRef.child('products').push().key;
+                        dbRef.child(key).set({
                           "nomProducto": nombreController.text,
                           "precio": precioController.text,
                           "descripcion": descripcionController.text,

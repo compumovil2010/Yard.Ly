@@ -3,10 +3,10 @@ import 'dart:ffi';
 class Producto{
   String nombre;
   String descripcion;
-  Double precio;
+  double precio;
   var foto; 
   
-  Producto(String nombre, String descripcion, Double precio, var foto) {
+  Producto(String nombre, String descripcion, double precio, var foto) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.precio = precio;
@@ -29,11 +29,11 @@ class Producto{
     this.descripcion = descripcion;
   }
 
-  Double get getPrecio {
+  double get getPrecio {
     return this.precio;
   }
 
-  set setPrecio (Double precio) {
+  set setPrecio (double precio) {
     this.precio = precio;
   }
 }
