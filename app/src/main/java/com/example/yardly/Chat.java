@@ -202,14 +202,14 @@ public class Chat extends AppCompatActivity {
                         mBuilder.setContentTitle(title);
                         mBuilder.setContentText(content);
                         mBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
-                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getBaseContext());
-                        notificationManager.notify(notificacionLlegoMjs, mBuilder.build());
                         Intent intNotific = new Intent(getBaseContext(), Chat.class);
                         intNotific.putExtra("pedido",pedidoaux);
                         intNotific.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intNotific,0);
                         mBuilder.setContentIntent(pendingIntent);
                         mBuilder.setAutoCancel(true);
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getBaseContext());
+                        notificationManager.notify(notificacionLlegoMjs, mBuilder.build());
                     }
                     else {
                         noMas = true;

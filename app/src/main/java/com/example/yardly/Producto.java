@@ -97,7 +97,6 @@ public class Producto extends AppCompatActivity {
                 bundle.putSerializable("producto", pro);
                 intent.putExtra("productoBundle",bundle);
                 startActivity(intent);
-                finish();
             }
         });
         if (pro!=null){
