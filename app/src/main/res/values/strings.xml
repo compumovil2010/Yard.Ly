@@ -78,4 +78,8 @@
     <string name="Calificacion">Calificacion:</string>
     <string name="Opinion">Comentario:</string>
     <string name="hintMsj">Escriba su mensaje</string>string>
+    <string name="DescripcionMensaje">Notificacion cuando llega un mensaje</string>
+    <string name="Mensajenuevo">Mensaje nuevo</string>
+    <string name="DescripcionMensajeNot">Tienes un mensaje nuevo</string>
+    <string name= "titlemensaje">Oprime para ver el mensaje</string>
 </resources>

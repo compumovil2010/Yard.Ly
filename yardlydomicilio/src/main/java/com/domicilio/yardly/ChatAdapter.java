@@ -29,8 +29,10 @@ public class ChatAdapter extends ArrayAdapter<MensajeChat> {
         if (mensaje!=null &&mensaje.getFechayhora()!=null){
             TextView texto = vie.findViewById(R.id.mensajeInd);
             TextView hora = vie.findViewById(R.id.horamsj);
+            TextView usuario= vie.findViewById(R.id.usuarioMsj);
             texto.setText(mensaje.getTexto());
             hora.setText(mensaje.getFechayhora().toString());
+            usuario.setText(mensaje.getUsuario());
         }
         return vie;
     }

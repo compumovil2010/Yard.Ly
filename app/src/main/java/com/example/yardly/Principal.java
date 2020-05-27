@@ -25,6 +25,7 @@ public class Principal extends ActividadBaseU {
     private ViewPager vp_home;
     private Toolbar tb_opciones;
     public static String CHANNEL_ID= "llegoDom";
+    public static String CHANNEL_ID_MSJ= "llegoMsj";
     @Override
     public void onBackPressed() {
     }
@@ -64,6 +65,17 @@ public class Principal extends ActividadBaseU {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             assert notificationManager != null;
             notificationManager.createNotificationChannel(channel);
+            //SECOND CHANNEL
+            CharSequence name2 = getString(R.string.DescripcionMensaje);
+            String description2 = getString(R.string.Mensajenuevo);
+            int importance2 = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel2 = new NotificationChannel(CHANNEL_ID_MSJ, name2, importance2);
+            channel2.setDescription(description2);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager2 = getSystemService(NotificationManager.class);
+            assert notificationManager2 != null;
+            notificationManager2.createNotificationChannel(channel2);
         }
     }
     private void setUpViewPager(ViewPager vp_home)
