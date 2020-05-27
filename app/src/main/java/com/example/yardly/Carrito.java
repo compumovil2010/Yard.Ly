@@ -221,7 +221,7 @@ public class Carrito extends AppCompatActivity {
                 key = myRef.push().getKey();
                 myRef.child(key);
                 Date c = Calendar.getInstance().getTime();
-                Pedido p = new Pedido(c.toString(),"Pedido", price, (ArrayList)pids, (ArrayList)cantp, uid, "", "Cra 4 # 8-27", "TopWay", "");
+                Pedido p = new Pedido(c.toString(),"Pedido", price, (ArrayList)pids, (ArrayList)cantp, uid, "", "", products.get(0).getNomEstab(), "");
                 p.setIdChat(key);
                 myRef = database.getReference(PATH_PEDIDO);
                 String k = myRef.push().getKey();
