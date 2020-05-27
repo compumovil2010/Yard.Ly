@@ -5,15 +5,14 @@ import 'package:yardlyEmpresa/Services/auth.dart';
 
 class PedidosService{
   final FirebaseDatabase _reference = FirebaseDatabase.instance;
-  final AuthService _auth = AuthService();
 
 
   Future getPedidos()async{
-    var dbRef = await _reference.reference().child(Empresa.pathEmpresas).orderByChild(_auth.getUid()).orderByChild("PedidosSinD").once(); 
-    Map<String,dynamic> lista = dbRef.value;
-    List<String> pedidos = List<String>();
-    lista.forEach((key, value) => pedidos.add(value));
-    return pedidos;
+    var uid = AuthService.uid;
+    var dbRef = await _reference.reference().child(Empresa.pathEmpresas).child(AuthService.uid).child("pedidosSinD").once(); 
+    var pedidosJson = dbRef.value;
+    List<String> lista = new List<String>.from(pedidosJson);
+    return lista;
   }
   Future listaPedidos()async{
     List<String> ped = await getPedidos() as List<String>;
@@ -21,7 +20,7 @@ class PedidosService{
     if(ped != null){
       for (var item in ped) {
         var dbRef = await _reference.reference().child(Pedido.pathPedidos).child(item).once();
-        Map<String,dynamic> pedido =dbRef.value;
+        Map<String,dynamic> pedido =Map<String,dynamic>.from(dbRef.value);
         Pedido pedidoFinal = Pedido.fromJson(pedido);
         pedidosFinal.add(pedidoFinal);
       }

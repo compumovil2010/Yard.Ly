@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Cantidad Productos: " + values[index].cantProd.length.toString()),
+                        Text("Cantidad Productos: " + values[index].cantProd.toString()),
                         Text("Precio: "+ values[index].precio.toString()),
                       ],
                     ),

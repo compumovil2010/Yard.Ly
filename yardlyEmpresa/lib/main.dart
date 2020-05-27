@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yardlyEmpresa/Model/Empresa.dart';
-import 'package:yardlyEmpresa/Screens/Authentication/signIn.dart';
 import 'package:yardlyEmpresa/Screens/wrapper.dart';
 import 'package:yardlyEmpresa/Services/auth.dart';
 

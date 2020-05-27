@@ -4,9 +4,9 @@ class Pedido{
   static final String pathPedidos = 'pedido/';
   String fecha;
   String nombreProducto;
-  Float precio;
+  int precio;
   List<String> productos;
-  List<Int32> cantProd;
+  int cantProd;
   String usuPedido;
   String domi;
   String idChat;
@@ -30,10 +30,8 @@ class Pedido{
   factory Pedido.fromJson(Map<String, dynamic> parsedJson) {
     var productosJson = parsedJson['productos'];
     List<String> productosList = new List<String>.from(productosJson);
-    var cantProdJson = parsedJson['cantProd'];
-    List<Int32> cantProdList = new List<Int32>.from(cantProdJson);
     var pedido = new Pedido(
-          cantProd: cantProdList,
+          cantProd: productosList.length,
           comentarios: parsedJson['comentarios'],
           dirUsu: parsedJson['dirUsu'],
           domi: parsedJson['domi'],
