@@ -143,7 +143,7 @@ public class domiEntrega extends FragmentActivity implements OnMapReadyCallback 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()){
-                    Toast.makeText(getBaseContext(),"Usted no es domiciliario",Toast.LENGTH_LONG);
+                    Toast.makeText(getBaseContext(),"Usted no es domiciliario",Toast.LENGTH_LONG).show();
                     Intent i= new Intent(getBaseContext(),logActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);

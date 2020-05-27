@@ -1,9 +1,13 @@
 package com.example.yardly;
 
+
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import android.content.Intent;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,12 +80,21 @@ public class Chat extends AppCompatActivity {
             pedidoaux = pedido;
             userId = pedido.getUsuPedido();
             keyChat = pedido.getIdChat();
+
             try {
                 llenarGUI(pedido.getDomi());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             getIdDomiciliario(pedido.getDomi());
+
+            if(pedido.getDomi()==null || pedido.getDomi().isEmpty())
+            {
+                Toast.makeText(getApplicationContext(),"Aun no se ha asignado Domiciliario",Toast.LENGTH_SHORT);
+                Intent i= new Intent(this,Principal.class);
+                startActivity(i);
+                finish();
+            }
             mostrarMsjs(pedido);
         }
         enviar.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 package com.example.yardly;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,9 +41,17 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     }
 
     @Override
-    public void onBindViewHolder(RestViewHolder holder, int position) {
+    public void onBindViewHolder(RestViewHolder holder, final int position) {
         final RestaurantAdapter.RestViewHolder h  = holder;
         Log.i("En view holder agrego " , rests.get( position ). getNombreR() );
+        holder.cardr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(v.getContext(),RestaurantProfile.class);
+                i.putExtra("restaurante",rests.get(position));
+                v.getContext().startActivity(i);
+            }
+        });
         holder.nombreRest.setText( rests.get( position ).getNombreR() );
 
     }

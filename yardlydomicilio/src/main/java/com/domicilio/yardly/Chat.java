@@ -231,7 +231,9 @@ public class Chat extends AppCompatActivity {
                 {
                     Usuario usu=dataSnapshot.getValue(Usuario.class);
                     if (usu != null){
+
                         nombre = usu.getNombre() ;
+
                     }
                 }
                 initializeAdapter();
