@@ -3,7 +3,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:path/path.dart';
 
  File _imageFile;
 
@@ -63,6 +62,7 @@ class AgregarProductoState extends State<AgregarProducto> {
   Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.green,
           title: Text('Agregar Producto'),
         ),
         body: 
@@ -70,7 +70,7 @@ class AgregarProductoState extends State<AgregarProducto> {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-              child: _imageFile == null ? Image.asset('assets/images/person.png', height: 150, width: 150,) : Image.file(_imageFile, height: 200, width: 200),
+              child: _imageFile == null ? Image.asset('assets/images/person.png', height: 150, width: 150,) : Image.file(_imageFile, height: 150, width: 150),
             ),
             Container(
               child: Row(
@@ -78,6 +78,8 @@ class AgregarProductoState extends State<AgregarProducto> {
                 children: <Widget>[
                   ButtonTheme(
                   child: RaisedButton(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17.0)),
+                  color: Colors.green,
                   child: Icon(Icons.add_a_photo),
                   onPressed: () {
                       getImage(true);
@@ -85,6 +87,8 @@ class AgregarProductoState extends State<AgregarProducto> {
                   )),
                   ButtonTheme(
                   child: RaisedButton(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17.0)),
+                  color: Colors.green,
                   child: Icon(Icons.add_photo_alternate),
                   onPressed: () {
                       getImage(false);
@@ -190,6 +194,8 @@ class _RegisterProductState extends State<RegisterProduct> {
                 children: <Widget>[
                   ButtonTheme(
                     child: RaisedButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17.0)),
+                    color: Colors.green,
                     child: Text("Agregar Producto"), 
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
@@ -205,6 +211,7 @@ class _RegisterProductState extends State<RegisterProduct> {
                           precioController.clear();
                           nombreController.clear();
                           descripcionController.clear();
+                          _imageFile = new File('assets/images/person.png');
                         }).catchError((onError) {
                           Scaffold.of(context)
                               .showSnackBar(SnackBar(content: Text(onError)));

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:yardlyEmpresa/Screens/editarProducto.dart';
 import 'package:yardlyEmpresa/Screens/agregarProducto.dart';
 import 'package:yardlyEmpresa/Screens/Authentication/signIn.dart';
+import 'package:yardlyEmpresa/Screens/Perfil.dart';
+import 'package:yardlyEmpresa/Screens/Home.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: AgregarProducto(),
+      home: Home(),
     );
   }
 }
