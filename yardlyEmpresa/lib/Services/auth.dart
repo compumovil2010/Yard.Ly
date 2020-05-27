@@ -1,11 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:yardlyEmpresa/Model/Empresa.dart';
 
 class AuthService{
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String uid;
 
   Empresa _empresaFromFirebaseUser(FirebaseUser user){
+    uid = user.uid;
     return user != null? Empresa(uid: user.uid): null;
+  }
+
+  String getUid (){
+    return uid;
   }
 
   Stream<Empresa> get user{

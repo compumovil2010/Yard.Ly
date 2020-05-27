@@ -1,11 +1,12 @@
-import 'Pedidos.dart';
+import 'Pedido.dart';
 import 'Producto.dart';
 
 class Empresa{
+  static final pathEmpresas = 'restaurants/';
   final String uid;
   String nombre;
   String direccion;
   List<Producto> productos;
-  List<Pedidos> pedidos;
+  List<Pedido> pedidos;
   Empresa({this.uid});  
 }
