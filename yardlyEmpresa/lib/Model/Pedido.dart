@@ -11,6 +11,7 @@ class Pedido{
   String dirUsu;
   String empresa;
   String comentarios;
+  String uid;
   
   Pedido({
     this.cantProd,
@@ -23,9 +24,10 @@ class Pedido{
     this.nombreProducto,
     this.precio,
     this.productos,
-    this.usuPedido});
+    this.usuPedido,
+    this.uid});
 
-  factory Pedido.fromJson(Map<String, dynamic> parsedJson) {
+  factory Pedido.fromJson(Map<String, dynamic> parsedJson, String uidd) {
     var productosJson = parsedJson['productos'];
     List<String> productosList = new List<String>.from(productosJson);
     var pedido = new Pedido(
@@ -40,6 +42,7 @@ class Pedido{
           precio: parsedJson['precio'],
           productos: productosList,
           usuPedido: parsedJson['usuPedido'],
+          uid: uidd
         );
    return pedido;
   }

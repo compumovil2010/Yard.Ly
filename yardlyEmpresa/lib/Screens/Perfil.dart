@@ -8,7 +8,7 @@ class Perfil extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   void inputData() async {
-    var dbRef = await _reference.reference().child(Empresa.pathEmpresas).orderByChild(_auth.getUid()).orderByChild("direccion").once(); 
+    var dbRef = await _reference.reference().child(Empresa.pathEmpresas).orderByChild(AuthService.uid).orderByChild("direccion").once(); 
     dbRef.value;
     print(dbRef.value);
   }
