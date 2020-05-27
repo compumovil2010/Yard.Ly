@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class Producto{
   static final pathProducts = '/products/';

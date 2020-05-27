@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Pedido{
   static final String pathPedidos = 'pedido/';
   String fecha;

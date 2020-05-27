@@ -8,7 +8,6 @@ class PedidosService{
 
 
   Future getPedidos()async{
-    var uid = AuthService.uid;
     var dbRef = await _reference.reference().child(Empresa.pathEmpresas).child(AuthService.uid).child("pedidosSinD").once(); 
     var pedidosJson = dbRef.value;
     List<String> lista = new List<String>.from(pedidosJson);
