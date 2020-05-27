@@ -1,16 +1,27 @@
 
 class Producto{
-  static final pathProducts = '/products/';
+  static final pathProducts = 'products/';
   String nombre;
   String descripcion;
   double precio;
+  String nomEstab;
   var foto; 
-  
-  Producto(String nombre, String descripcion, double precio, var foto) {
-    this.nombre = nombre;
-    this.descripcion = descripcion;
-    this.precio = precio;
-    this.foto = foto;
+
+  Producto({
+    this.nombre,
+    this.descripcion,
+    this.precio,
+    this.nomEstab,
+    this.foto});
+
+  factory Producto.fromJson(Map<String, dynamic> parsedJson) {
+    var producto = new Producto(
+          descripcion: parsedJson['descripcion'],
+          nombre: parsedJson['nomProducto'],
+          precio: parsedJson['precio'],
+          nomEstab: parsedJson['nomEstab'],
+        );
+   return producto;
   }
 
   String get getNombre {

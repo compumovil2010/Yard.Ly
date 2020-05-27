@@ -12,6 +12,7 @@ class PedidosService{
     var pedidosJson = dbRef.value;
     List<String> lista = new List<String>.from(pedidosJson);
     return lista;
+
   }
   Future listaPedidos()async{
     List<String> ped = await getPedidos() as List<String>;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yardlyEmpresa/Model/Empresa.dart';
 import 'package:yardlyEmpresa/Screens/Authentication/signIn.dart';
-import 'package:yardlyEmpresa/Screens/home.dart';
+import 'package:yardlyEmpresa/Screens/Home.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -13,6 +13,6 @@ class Wrapper extends StatelessWidget {
     }else{
       return Home();
     }
-    
+
   }
 }
