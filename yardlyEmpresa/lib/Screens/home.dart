@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:yardlyEmpresa/Model/Pedido.dart';
 import 'package:yardlyEmpresa/Services/auth.dart';
@@ -56,9 +54,10 @@ class _HomeState extends State<Home> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text("Cantidad Productos: " + values[index].cantProd.length.toString()),
+                        Text("Precio: "+ values[index].precio.toString()),
                       ],
                     ),
-                  )
+                  );
                 }
               );
             }

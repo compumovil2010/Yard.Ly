@@ -26,6 +26,7 @@ class PedidosService{
         pedidosFinal.add(pedidoFinal);
       }
     }
+    print(pedidosFinal.toString());
     return pedidosFinal;
   }
 
