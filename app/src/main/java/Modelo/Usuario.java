@@ -18,6 +18,7 @@ public class Usuario {
     private ArrayList<String> direcciones;
     private String direccionUso;
 
+
     public ArrayList<String> getPedidos() {
         return pedidos;
     }

@@ -1,6 +1,8 @@
 package com.example.yardly;
 
 import Modelo.CarritoCompras;
+import Modelo.Usuario;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -65,7 +71,22 @@ public class Carrito extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         //crearCarrito()
-        Log.i("DANDOLE A CARRITO", "DAAAAAANDOLEEEEEE");
+        DatabaseReference myRef3 = FirebaseDatabase.getInstance().getReference(Usuario.PATH_USERS + FirebaseAuth.getInstance().getCurrentUser().getUid()+"/direcciones");
+        myRef3.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists())
+                {
+                    Toast.makeText(getBaseContext(),"Debes Seleccionar una Direccion",Toast.LENGTH_LONG);
+                    btn_next.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         traerCarrito();
 
 
@@ -199,20 +220,21 @@ public class Carrito extends AppCompatActivity {
                 String key;
                 key = myRef.push().getKey();
                 myRef.child(key);
-                Pedido p = new Pedido( "22/04/2020","Pedido 1", price, (ArrayList)pids, (ArrayList)cantp, uid, "", "Cra 4 # 8-27", "TopWay", "");
+                Date c = Calendar.getInstance().getTime();
+                Pedido p = new Pedido(c.toString(),"Pedido", price, (ArrayList)pids, (ArrayList)cantp, uid, "", "Cra 4 # 8-27", "TopWay", "");
                 p.setIdChat(key);
-                p.setDomi("MWyVqHxzWBPuAs6EAAA1xrvb3mX2");
-                p.setDirUsu("Cra. 11 #82-71");
                 myRef = database.getReference(PATH_PEDIDO);
                 String k = myRef.push().getKey();
-                myRef.child( k ).setValue(p);
+                //myRef.child( k ).setValue(p);
                 int_cho.putExtra("pid", k);
+                int_cho.putExtra("pedido",p);
 
                 //if(pro != null) {
                 //    int_cho.putExtra("producto", pro);
                 //    startActivity(int_cho);
                 //}
                 startActivity(int_cho);
+                finish();
             }
         });
     }
