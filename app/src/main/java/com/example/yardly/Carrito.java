@@ -233,6 +233,7 @@ public class Carrito extends AppCompatActivity {
                 //    int_cho.putExtra("producto", pro);
                 //    startActivity(int_cho);
                 //}
+
                 startActivity(int_cho);
                 finish();
             }
