@@ -1,69 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:yardlyEmpresa/Model/Pedido.dart';
-import 'package:yardlyEmpresa/Services/auth.dart';
-import 'package:yardlyEmpresa/Services/perdidos.dart';
+import 'package:yardlyEmpresa/Screens/Perfil.dart';
 
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  final AuthService _auth  = AuthService();
-  final PedidosService _pedidosService = PedidosService();
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(     
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('Pedidos'),
-        backgroundColor: Colors.green[300],
-        actions: <Widget>[
-          FlatButton.icon(
-            onPressed: null, 
-            icon: Icon(
-              Icons.restaurant,
-              color: Colors.white
-            ), 
-            label: Text('')
-          ),
-          FlatButton.icon(
-            icon: Icon(
-              Icons.exit_to_app,
-              color: Colors.white
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.green,
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.check)),
+                Tab(icon: Icon(Icons.import_contacts)),
+                Tab(icon: Icon(Icons.account_circle)),
+              ],
             ),
-            label: Text(''),
-            onPressed: ()async{
-              await _auth.signOut();
-            },
+            title: Text('Yardly'),
           ),
-        ],
-      ),
-    body: SingleChildScrollView(
-        child: FutureBuilder(
-          future: _pedidosService.listaPedidos(),
-          builder: (context ,AsyncSnapshot<dynamic> snaopShot) {
-            if(snaopShot.hasData){
-              List<Pedido> values = snaopShot.data as List;
-              return new ListView.builder(
-                shrinkWrap: true,
-                itemCount: values.length,
-                itemBuilder: (BuildContext context, int index){
-                  return Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Cantidad Productos: " + values[index].cantProd.toString()),
-                        Text("Precio: "+ values[index].precio.toString()),
-                      ],
-                    ),
-                  );
-                }
-              );
-            }
-            return CircularProgressIndicator();
-          },
+          body: TabBarView(
+            children: [
+              Icon(Icons.sentiment_satisfied),
+              Icon(Icons.sentiment_neutral),
+              Perfil(),
+            ],
           ),
+        ),
       ),
     );
   }
