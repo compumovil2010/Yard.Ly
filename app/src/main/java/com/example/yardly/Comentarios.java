@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +37,7 @@ public class Comentarios extends AppCompatActivity {
         if (producto != null){
             productoComentario.setText(producto.getNomProducto());
         }
+
         mlista=findViewById(R.id.opiniones);
         database = FirebaseDatabase.getInstance();
         buscar();

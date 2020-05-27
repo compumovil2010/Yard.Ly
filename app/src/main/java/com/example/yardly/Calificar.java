@@ -43,11 +43,11 @@ public class Calificar extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         resena = new Resena();
         if(getIntent()!=null){
-            if(getIntent().getSerializableExtra("producto") != null){
-                Product pro= (Product)getIntent().getSerializableExtra("producto");
+            if(getIntent().getSerializableExtra("pedido") != null){
+                Pedido pedido = (Pedido) getIntent().getSerializableExtra("pedido");
                 resena.setUsuario(user.getEmail());
-                nombreProductCalificar.setText(pro.getNomProducto());
-                resena.setNomProduct(pro.getNomProducto());
+                nombreProductCalificar.setText(pedido.getNombreProducto());
+                resena.setNomProduct(pedido.getNombreProducto());
             }
             if(getIntent().getSerializableExtra("resena") != null){
                 resena = (Resena) getIntent().getSerializableExtra("resena");

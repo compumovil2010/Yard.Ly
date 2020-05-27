@@ -218,6 +218,9 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
 
                     }
                 });
+                Intent inte = new Intent(getBaseContext(),Calificar.class);
+                inte.putExtra("pedido", pedido);
+                startActivity(inte);
             }
 
             @Override
