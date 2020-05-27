@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
         ],
       ),
     body: SingleChildScrollView(
-        child: FutureBuilder(
+        /*child: FutureBuilder(
           future: _pedidosService.listaPedidos(),
           builder: (context ,AsyncSnapshot<dynamic> snaopShot) {
             if(snaopShot.hasData){
@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
             }
             return CircularProgressIndicator();
           },
-          ),
+          ),*/
       ),
     );
   }

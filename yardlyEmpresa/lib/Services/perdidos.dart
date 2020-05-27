@@ -9,7 +9,7 @@ class PedidosService{
 
 
   Future getPedidos()async{
-    var dbRef = await _reference.reference().child(Empresa.pathEmpresas).orderByChild(_auth.getUid()).orderByChild("PedidosSinD").once(); 
+    var dbRef = await _reference.reference().child(Empresa.pathEmpresas).orderByChild(_auth.getUid()).orderByChild("pedidosSinD").once(); 
     Map<String,dynamic> lista = dbRef.value;
     List<String> pedidos = List<String>();
     lista.forEach((key, value) => pedidos.add(value));
