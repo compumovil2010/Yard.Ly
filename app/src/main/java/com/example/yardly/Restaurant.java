@@ -1,10 +1,9 @@
 package com.example.yardly;
 
 import android.net.Uri;
-import android.util.Pair;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Restaurant implements Serializable {
 
@@ -14,6 +13,9 @@ public class Restaurant implements Serializable {
     private String horaclausura;
     private String descripR;
     private Uri foto;
+    private ArrayList<String> pedidosSinD;
+    private ArrayList<String> pedidosConD;
+    private ArrayList<String> domiciliarios;
     public Restaurant()
     {
 
@@ -56,7 +58,21 @@ public class Restaurant implements Serializable {
         this.foto = foto;
     }
 
+    public ArrayList<String> getPedidosSinD() {
+        return pedidosSinD;
+    }
 
+    public void setPedidosSinD(ArrayList<String> pedidosSinD) {
+        this.pedidosSinD = pedidosSinD;
+    }
+
+    public ArrayList<String> getPedidosConD() {
+        return pedidosConD;
+    }
+
+    public void setPedidosConD(ArrayList<String> pedidosConD) {
+        this.pedidosConD = pedidosConD;
+    }
 
     public static String getPathRest() {
         return PATH_REST;
@@ -77,5 +93,11 @@ public class Restaurant implements Serializable {
         this.descripR = descripR;
     }
 
+    public ArrayList<String> getDomiciliarios() {
+        return domiciliarios;
+    }
 
+    public void setDomiciliarios(ArrayList<String> domiciliarios) {
+        this.domiciliarios = domiciliarios;
+    }
 }

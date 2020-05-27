@@ -3,6 +3,7 @@ package com.domicilio.yardly;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +24,6 @@ public class logActivity extends AppCompatActivity {
     Button ingreso;
     EditText email;
     EditText password;
-
-    @Override
-    public void onBackPressed() {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +47,11 @@ public class logActivity extends AppCompatActivity {
         actualizarUI(currentUser);
     }
     private void actualizarUI(FirebaseUser usuario){
+
         if(usuario != null){
             Intent ingreso = new Intent(getBaseContext(),domiEntrega.class);
             ingreso.putExtra("user", usuario.getEmail());
+            ingreso.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(ingreso);
         }else{
             email.setText("");

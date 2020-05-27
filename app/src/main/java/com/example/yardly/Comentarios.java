@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +27,7 @@ public class Comentarios extends AppCompatActivity {
     private FirebaseDatabase database;
     public static final String PATH_RESENA = "resena/";
     private DatabaseReference myRef;
-Product producto = null ;
+    Product producto = null ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ Product producto = null ;
         if (producto != null){
             productoComentario.setText(producto.getNomProducto());
         }
+
         mlista=findViewById(R.id.opiniones);
         database = FirebaseDatabase.getInstance();
         buscar();

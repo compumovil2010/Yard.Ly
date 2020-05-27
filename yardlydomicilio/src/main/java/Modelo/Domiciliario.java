@@ -6,8 +6,25 @@ public class Domiciliario extends Usuario {
     public static final String PATH_PROFILE_PHOTO = "domiciliario/profile_photos";
     public double lat,longi;
     private String nombre;
-    private String apellido;
+
+    private float dist,tiempo;
     public Domiciliario() {
+    }
+
+    public float getDist() {
+        return dist;
+    }
+
+    public void setDist(float dist) {
+        this.dist = dist;
+    }
+
+    public float getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(float tiempo) {
+        this.tiempo = tiempo;
     }
 
     public String getPedidoActual() {
@@ -44,13 +61,4 @@ public class Domiciliario extends Usuario {
         this.nombre = nombre;
     }
 
-    @Override
-    public String getApellido() {
-        return apellido;
-    }
-
-    @Override
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
 }

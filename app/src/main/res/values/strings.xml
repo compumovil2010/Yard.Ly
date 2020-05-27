@@ -1,8 +1,9 @@
 <resources>
+    <string name ="mapsKey">Aoiqr6Fxs-LOizbIYg4KTZnYvOuZKbVQnZ5Pl3QuG0UC3aqBZWuODxU_x4ybWDjr</string>
     <string name="app_name">Yard.ly</string>
     <string name="nombreUsuario">Usuario</string>
     <string name="contrasena">Contraseña</string>
-    <string name="nombres">Nombres</string>
+    <string name="nombres">Nombre</string>
     <string name="apellidos">Apellidos</string>
     <string name="email">Email</string>
     <string name="direccion">Direccion</string>
@@ -24,7 +25,7 @@
     <string name="precioprodu">Precio</string>
     <string name="cantidadpro">Cantidad</string>
     <string name="tot">Total</string>
-    <string name="agregCarr">Agregar carrito</string>
+    <string name="agregCarr">Agregar al carrito</string>
     <string name="opini">Opiniones</string>
     <string name="imgproduct">Imagen de producto</string>
     <string name="agregar">Agregar</string>
@@ -48,10 +49,14 @@
     <string name="Comment">Comment</string>
     <string name="add">Add</string>
     <string name="cancel">cancel</string>
+    <string name="llegoDomicilioC">Llegada de pedidos</string>
+    <string name="DescripcionDomicilioC">Notificacion de cuando llegan los pedidos</string>
+    <string name="llegoDomicilio">Llego tu pedido</string>
+    <string name="DescripcionDomicilio">El domiciliario esta esperandote en tu puerta.</string>
     <string name="CommentarioHint">Escriba aca su comentario</string>
     <string name="findUs">find Us</string>
     <string name="ComentariosProduct">Comentarios</string>
-    <string name ="Comentarios">
+    <string name="Comentarios">
         <u>Cancelar</u>
     </string>
     <string name="Calificar">Calificar</string>
@@ -72,5 +77,9 @@
     <string name="title_activity_mapa_comida">Comida Cercana</string>
     <string name="Calificacion">Calificacion:</string>
     <string name="Opinion">Comentario:</string>
-
+    <string name="hintMsj">Escriba su mensaje</string>string>
+    <string name="DescripcionMensaje">Notificacion cuando llega un mensaje</string>
+    <string name="Mensajenuevo">Mensaje nuevo</string>
+    <string name="DescripcionMensajeNot">Tienes un mensaje nuevo</string>
+    <string name= "titlemensaje">Oprime para ver el mensaje</string>
 </resources>

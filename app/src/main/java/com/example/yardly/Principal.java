@@ -1,6 +1,9 @@
 package com.example.yardly;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 
@@ -21,7 +24,8 @@ public class Principal extends ActividadBaseU {
     private TabLayout tab_navhome;
     private ViewPager vp_home;
     private Toolbar tb_opciones;
-
+    public static String CHANNEL_ID= "llegoDom";
+    public static String CHANNEL_ID_MSJ= "llegoMsj";
     @Override
     public void onBackPressed() {
     }
@@ -38,6 +42,7 @@ public class Principal extends ActividadBaseU {
             inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(inte);
         }
+        createNotificationChannels();
         tb_opciones = findViewById( R.id.toolbar );
         tab_navhome = findViewById(R.id.tab_navhome);
         vp_home = findViewById(R.id.vp_home);
@@ -46,6 +51,33 @@ public class Principal extends ActividadBaseU {
         setUpViewPager( vp_home );
     }
 
+    private void createNotificationChannels() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.llegoDomicilioC);
+            String description = getString(R.string.DescripcionDomicilioC);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+            //SECOND CHANNEL
+            CharSequence name2 = getString(R.string.DescripcionMensaje);
+            String description2 = getString(R.string.Mensajenuevo);
+            int importance2 = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel2 = new NotificationChannel(CHANNEL_ID_MSJ, name2, importance2);
+            channel2.setDescription(description2);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager2 = getSystemService(NotificationManager.class);
+            assert notificationManager2 != null;
+            notificationManager2.createNotificationChannel(channel2);
+        }
+    }
     private void setUpViewPager(ViewPager vp_home)
     {
         TabViewPagerAdapter tvpa = new TabViewPagerAdapter( getSupportFragmentManager() );

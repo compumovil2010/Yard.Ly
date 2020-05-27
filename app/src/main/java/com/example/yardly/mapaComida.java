@@ -44,9 +44,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -55,6 +57,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import Modelo.Usuario;
 
 
 public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
@@ -73,7 +77,10 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
     private FirebaseUser user;
     private Map<String, Restaurant> relacion;
     private Location current;
-
+    public static final double lowerLeftLatitude = 1.396967;
+    public static final double lowerLeftLongitude= -78.903968;
+    public static final double upperRightLatitude= 11.983639;
+    public static final double upperRigthLongitude= -71.869905;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,9 +186,53 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
             }
 
         });
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference myRefDir = FirebaseDatabase.getInstance().getReference(Usuario.PATH_USERS + user.getUid());
+        myRefDir.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Usuario u = dataSnapshot.getValue(Usuario.class);
+                MarkerOptions myMarkerOptions = new MarkerOptions();
+                LatLng pos = obtenerLatLong(u.getDireccionUso());
+                if(pos!=null)
+                {
+                    myMarkerOptions.position(pos);
+                    myMarkerOptions.title(u.getDireccionUso());
+                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    mMap.addMarker(myMarkerOptions);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
+    private LatLng obtenerLatLong(String addressString) {
+        LatLng position = null;
+        List<Address> addresses = null;
+        if (addressString != null) {
+            try {
+                addresses = geo.getFromLocationName(addressString, 2,lowerLeftLatitude, lowerLeftLongitude,
+                        upperRightLatitude, upperRigthLongitude);
+                Log.i("MIRAR ACA","0");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (addresses != null && !addresses.isEmpty()) {
+                Log.i("MIRAR ACA","1");
+                Address addressResult = addresses.get(0);
+                position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
 
+                           }
+        }
+        return  position;
+    }
     public double distance(double lat1, double long1, double lat2, double long2) {
         double latDistance = Math.toRadians(lat1 - lat2);
         double lngDistance = Math.toRadians(long1 - long2);
@@ -222,7 +273,6 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
                                 if(r.getNombreR().equalsIgnoreCase(arg0.getTitle()))
                                 {
                                     Intent i= new Intent(getBaseContext(),RestaurantProfile.class);
-                                    Log.i("Pille", r.getNombreR());
                                     i.putExtra("restaurante",r);
                                     startActivity(i);
                                 }
@@ -243,6 +293,7 @@ public class mapaComida extends FragmentActivity implements OnMapReadyCallback {
             }
 
         });
+
     }
 
     private String getNombre(LatLng latLng) throws IOException {

@@ -5,18 +5,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class DireccionesAdapter extends ArrayAdapter<LugarEntrega> {
+import Modelo.Usuario;
+
+public class DireccionesAdapter extends ArrayAdapter<String> {
     private int LayoutUso;
     private Context contex;
-    public DireccionesAdapter (Context context, int resource, List<LugarEntrega> lugares){
+    public DireccionesAdapter (Context context, int resource, List<String> lugares){
         super(context,resource,lugares);
         this.LayoutUso=resource;
         this.contex=context;
+        setNotifyOnChange(true);
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -25,12 +40,59 @@ public class DireccionesAdapter extends ArrayAdapter<LugarEntrega> {
             vie = LayoutInflater.from(getContex())
                     .inflate(getLayoutUso(), parent, false);
         }
-        LugarEntrega val = getItem(position);
+        final String val = getItem(position);
         if (val!=null){
             TextView asunto = vie.findViewById(R.id.Direccion);
-            asunto.setText(val.getDireccion());
-
+            asunto.setText(val);
+            Button selec = vie.findViewById(R.id.selecti);
             ImageButton img = vie.findViewById(R.id.elimdir);
+            selec.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(Usuario.PATH_USERS + FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Usuario u=dataSnapshot.getValue(Usuario.class);
+                            u.setDireccionUso(val);
+                            Toast.makeText(getContext(),"Direccion en Uso: "+val,Toast.LENGTH_LONG).show();
+                            dataSnapshot.getRef().setValue(u);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            });
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(Usuario.PATH_USERS + FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Usuario u=dataSnapshot.getValue(Usuario.class);
+                            List<String> mProjection = u.getDirecciones();
+                            if(mProjection!=null && val!=null )
+                            {
+                                mProjection.remove(val);
+                            }
+                            u.setDirecciones((ArrayList<String>) mProjection);
+                            dataSnapshot.getRef().setValue(u);
+                            notifyDataSetChanged();
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            });
         }
         return vie;
     }

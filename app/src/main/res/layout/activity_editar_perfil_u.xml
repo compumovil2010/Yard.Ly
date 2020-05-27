@@ -37,7 +37,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selecFotperf">
+            app:layout_constraintTop_toBottomOf="@+id/selecFotperf"
+            android:layout_marginBottom="20dp">
 
             <EditText
                 android:id="@+id/nombreUsRe"
@@ -46,17 +47,6 @@
                 android:layout_margin="20sp"
                 android:ems="10"
                 android:hint="@string/nombres"
-                android:inputType="textPersonName"
-                android:textColor="@color/clr_justWhite"
-                android:textColorHint="@color/clr_justWhite" />
-
-            <EditText
-                android:id="@+id/apellidoUsRe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20sp"
-                android:ems="10"
-                android:hint="@string/apellidos"
                 android:inputType="textPersonName"
                 android:textColor="@color/clr_justWhite"
                 android:textColorHint="@color/clr_justWhite" />
@@ -74,44 +64,29 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/dirFrec"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:backgroundTint="@color/clr_greenYardly"
-            android:background="@drawable/frm_reallyrouded"
-            android:text="@string/dirfrec"
-            android:textColor="@color/clr_justWhite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layl" />
-
-        <Button
             android:id="@+id/btnGuardarP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="68dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/frm_reallyrouded"
             android:backgroundTint="@color/clr_greenYardly"
             android:text="@string/Guardar"
             android:textColor="@color/clr_justWhite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dirFrec" />
+            app:layout_constraintTop_toBottomOf="@+id/layl"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/btnCancP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/frm_reallyrouded"
             android:backgroundTint="@color/clr_greenYardly"
             android:text="@string/cncel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/frm_reallyrouded"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/layl"
             app:layout_constraintEnd_toStartOf="@+id/btnGuardarP"
             app:layout_constraintHorizontal_bias="0.358"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dirFrec"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

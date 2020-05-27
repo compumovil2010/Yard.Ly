@@ -12,9 +12,11 @@ public class Pedido implements Serializable {
     private ArrayList<Integer> cantprod;
     private String UsuPedido;
     private String domi;
+    private String idChat;
     private String DirUsu;
     private String Empresa;
     private String Comentarios;
+
 
     public Pedido()
     {
@@ -35,6 +37,13 @@ public class Pedido implements Serializable {
 
     }
 
+    public String getIdChat() {
+        return idChat;
+    }
+
+    public void setIdChat(String idChat) {
+        this.idChat = idChat;
+    }
 
     public String getFecha() {
         return Fecha;

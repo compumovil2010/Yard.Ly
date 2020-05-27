@@ -2,13 +2,20 @@ package com.example.yardly;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -18,8 +25,11 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,16 +59,22 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -69,6 +85,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import Modelo.Domiciliario;
+import Modelo.Usuario;
 
 
 public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallback {
@@ -79,39 +96,76 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
     private SensorEventListener list;
     public static final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 1;
     private static final int REQUEST_CHECK_SETTINGS = 5, RADIUS_OF_EARTH_KM = 6371;
-    ;
+    public static final String PATH_CHAT = "chat/";
+
+    public static String CHANNEL_ID= "llegoDom";
+    public int notificacionLlegoDom = 0;
     private Geocoder geo;
     private FusedLocationProviderClient mfusedLoc;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
     private Location current;
-    private TextView nombreD;
-    private ImageView imageD;
+    private TextView nombreD,tiemp,dista;
+    private ImageView img;
     ArrayList<LatLng> listPoints;
     private Marker marker;
     Pedido pedido;
     DatabaseReference mRootReference;
     String domi;
     String keyDomi;
+    DatabaseReference myRef;
+    Button chat;
+    FirebaseDatabase database;
     Domiciliario domiciliario;
     private Marker currentM;
+    double latDomiciliario=0, longDomiciliario=0, latUsuario=0, longUsuario= 0;
+    Boolean notificAlreadyShown = false;
+    private Button finalizar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_entrega);
-        Log.i("saooooooooo", "sappooooo");
         marker=null;
+        notificAlreadyShown = false;
         nombreD = findViewById(R.id.nombreD);
+        img=findViewById(R.id.fotoD);
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         luz = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
         geo = new Geocoder(getBaseContext());
         listPoints = new ArrayList<>();
         inicializarLoc();
-
         pedido = (Pedido) getIntent().getSerializableExtra("pedido");
-        buscarInfo(pedido);
-
+        if(pedido.getDomi()==null || pedido.getDomi().isEmpty())
+        {
+            Toast.makeText(getApplicationContext(),"Aun no se ha asignado Domiciliario",Toast.LENGTH_SHORT).show();
+            Intent i= new Intent(this,Principal.class);
+            startActivity(i);
+        }
+        try {
+            buscarInfo(pedido);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        tiemp = findViewById(R.id.tiempo);
+        dista = findViewById(R.id.dist);
+        finalizar = findViewById(R.id.btfin);
+        finalizar.setEnabled(false);
+        finalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                acabarPedido();
+            }
+        });
+        chat = findViewById(R.id.btChat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inte= new Intent ( v.getContext(), Chat.class);
+                inte.putExtra("pedido",pedido);
+                startActivity(inte);
+            }
+        });
         list = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
@@ -135,24 +189,36 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         mapFragment.getMapAsync(this);
     }
 
-    private void buscarInfo(Pedido pedido) {
-        domi = pedido.getDomi();
-        mRootReference = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM+domi);
-        mRootReference.addValueEventListener(new ValueEventListener() {
+    private void acabarPedido() {
+        DatabaseReference mRootReference2 = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM + domi);
+        mRootReference2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Domiciliario d=dataSnapshot.getValue(Domiciliario.class);
-                if(mMap!=null)
-                {
-                    if(marker!=null)
-                        marker.remove();
-                    MarkerOptions myMarkerOptions = new MarkerOptions();
-                    myMarkerOptions.position(new LatLng(d.getLat(),d.getLongi()));
-                    myMarkerOptions.title("Domiciliario");
-                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-                    myMarkerOptions.visible(true);
-                   marker= mMap.addMarker(myMarkerOptions);
-                }
+                 Domiciliario d= dataSnapshot.getValue(Domiciliario.class);
+                final float km=d.getDist();
+                final String pedi=d.getPedidoActual();
+                d.setPedidoActual("");
+                d.setLat(0);
+                d.setLongi(0);
+                d.setDist(0);
+                d.setTiempo(0);
+                dataSnapshot.getRef().setValue(d);
+                DatabaseReference mRootReference3 = FirebaseDatabase.getInstance().getReference(Usuario.PATH_USERS+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+                mRootReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Usuario u= dataSnapshot.getValue(Usuario.class);
+                        u.setKmRecorridos(u.getKmRecorridos()+km);
+                        dataSnapshot.getRef().setValue(u);
+                        actuRest(pedi);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -160,8 +226,145 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
 
             }
         });
+
     }
 
+    private void actuRest(final String pedi) {
+        DatabaseReference mRootReference2 = FirebaseDatabase.getInstance().getReference(Pedido.PATH_PEDIDO+ pedi);
+        mRootReference2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                 Pedido p= dataSnapshot.getValue(Pedido.class);
+                 p.setDomi("");
+                 dataSnapshot.getRef().setValue(p);
+                final String pn=p.getEmpresa();
+                DatabaseReference mRootReference3 = FirebaseDatabase.getInstance().getReference(Restaurant.PATH_REST);
+                mRootReference3.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot data: dataSnapshot.getChildren())
+                        {
+                            Restaurant r= data.getValue(Restaurant.class);
+                            if(r.getNombreR().equalsIgnoreCase(pn))
+                            {
+
+
+                                if(r.getPedidosConD()==null)
+                                    r.setPedidosConD(new ArrayList<String>());
+                                r.getPedidosConD().remove(pedi);
+                                data.getRef().setValue(r);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        Toast.makeText(this,"Pedido Finalizado",Toast.LENGTH_LONG).show();
+
+        Intent inte = new Intent(getBaseContext(),Calificar.class);
+        inte.putExtra("pedido", pedido);
+        startActivity(inte);
+        finish();
+
+    }
+
+    private void llenarGUI() throws IOException {
+        final File localFile = File.createTempFile("images", "jpg");
+        StorageReference imageRef = FirebaseStorage.getInstance().getReference().child(Usuario.PATH_PORFILE_PHOTO+"/"+domi+".png");
+
+        imageRef.getFile(localFile)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Bitmap myBitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                        img.setImageBitmap(myBitmap);
+                        Log.i("IMG", "succesfully downloaded");
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.i("IMG", "No hay Imagen");
+            }
+        });
+
+    }
+    private void buscarInfo(final Pedido pedido) throws IOException {
+        domi = pedido.getDomi();
+        llenarGUI();
+        mRootReference = FirebaseDatabase.getInstance().getReference(Domiciliario.PATH_DOM+domi);
+        mRootReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Domiciliario d=dataSnapshot.getValue(Domiciliario.class);
+                    nombreD.setText(d.getNombre());
+                    dista.setText("Distancia Aprox: "+d.getDist());
+                    tiemp.setText("Tiempo Aprox: "+d.getTiempo());
+                    if(mMap!=null)
+                    {
+                        if(marker!=null)
+                            marker.remove();
+                        MarkerOptions myMarkerOptions = new MarkerOptions();
+                        myMarkerOptions.position(new LatLng(d.getLat(),d.getLongi()));
+                        myMarkerOptions.title("Domiciliario");
+                        myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                        longDomiciliario = d.getLongi();
+                        latDomiciliario = d.getLat();
+                    if( latUsuario!=0 && latDomiciliario!=0 ){
+                        finalizar.setEnabled(true);
+                        double distancia = distance(latUsuario,longUsuario,latDomiciliario,longDomiciliario);
+                        if (distancia <= 5 && !notificAlreadyShown){
+
+                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getBaseContext(),CHANNEL_ID);
+                            mBuilder.setSmallIcon(R.mipmap.ly);
+                            String title =getString(R.string.llegoDomicilio);
+                            String content = getString(R.string.DescripcionDomicilio);
+                            mBuilder.setContentTitle(title);
+                            mBuilder.setContentText(content);
+                            mBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getBaseContext());
+                            notificationManager.notify(notificacionLlegoDom, mBuilder.build());
+                            notificAlreadyShown = true;
+                            Intent intNotific = new Intent(getBaseContext(), UsuarioEntrega.class);
+                            intNotific.putExtra("pedido",pedido);
+                            intNotific.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intNotific,0);
+                            mBuilder.setContentIntent(pendingIntent);
+                            mBuilder.setAutoCancel(true);
+                        }
+                    }
+                    myMarkerOptions.visible(true);
+                   marker= mMap.addMarker(myMarkerOptions);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    public double distance(double lat1, double long1, double lat2, double long2) {
+        double latDistance = Math.toRadians(lat1 - lat2);
+        double lngDistance = Math.toRadians(long1 - long2);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double result = RADIUS_OF_EARTH_KM * c;
+        return Math.round(result*100.0)/100.0;
+    }
     private void inicializarLoc() {
         mfusedLoc = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
@@ -175,6 +378,8 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                     if(currentM!=null)
                         currentM.remove();
                     currentM =mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Mi posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    latUsuario = location.getLatitude();
+                    longUsuario = location.getLongitude();
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
                 }
             }
@@ -435,5 +640,6 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                 Toast.makeText(getApplicationContext(),"No se puede realizar la ruta", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 }
