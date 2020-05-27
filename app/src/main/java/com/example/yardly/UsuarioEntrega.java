@@ -138,7 +138,7 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
         pedido = (Pedido) getIntent().getSerializableExtra("pedido");
         if(pedido.getDomi()==null || pedido.getDomi().isEmpty())
         {
-            Toast.makeText(getApplicationContext(),"Aun no se ha asignado Domiciliario",Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(),"Aun no se ha asignado Domiciliario",Toast.LENGTH_SHORT).show();
             Intent i= new Intent(this,Principal.class);
             startActivity(i);
         }
@@ -246,10 +246,11 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
                             Restaurant r= data.getValue(Restaurant.class);
                             if(r.getNombreR().equalsIgnoreCase(pn))
                             {
-                                r.getPedidosSinD().remove(pedi);
+
+
                                 if(r.getPedidosConD()==null)
-                                    r.setPedidosSinD(new ArrayList<String>());
-                                r.getPedidosConD().add(pedi);
+                                    r.setPedidosConD(new ArrayList<String>());
+                                r.getPedidosConD().remove(pedi);
                                 data.getRef().setValue(r);
                             }
                         }
@@ -267,6 +268,11 @@ public class UsuarioEntrega extends FragmentActivity implements OnMapReadyCallba
 
             }
         });
+        Toast.makeText(this,"Pedido Finalizado",Toast.LENGTH_LONG).show();
+        Intent i=new Intent(this,Principal.class);
+        startActivity(i);
+        finish();
+
     }
 
     private void llenarGUI() throws IOException {

@@ -55,7 +55,7 @@ public class DireccionesAdapter extends ArrayAdapter<String> {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Usuario u=dataSnapshot.getValue(Usuario.class);
                             u.setDireccionUso(val);
-                            Toast.makeText(getContext(),"Direccion en Uso: "+val,Toast.LENGTH_LONG);
+                            Toast.makeText(getContext(),"Direccion en Uso: "+val,Toast.LENGTH_LONG).show();
                             dataSnapshot.getRef().setValue(u);
                         }
 
