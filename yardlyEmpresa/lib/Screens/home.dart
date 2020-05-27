@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yardlyEmpresa/Model/Empresa.dart';
 import 'package:yardlyEmpresa/Model/Pedido.dart';
 import 'package:yardlyEmpresa/Services/auth.dart';
 import 'package:yardlyEmpresa/Services/perdidos.dart';
@@ -11,6 +12,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final AuthService _auth  = AuthService();
   final PedidosService _pedidosService = PedidosService();
+  Empresa domEscogido;
+  String nombreEscogido;
   @override
   Widget build(BuildContext context) {
     return Scaffold(     
@@ -55,6 +58,46 @@ class _HomeState extends State<Home> {
                       children: <Widget>[
                         Text("Cantidad Productos: " + values[index].cantProd.toString()),
                         Text("Precio: "+ values[index].precio.toString()),
+                        FutureBuilder(
+                          future: _pedidosService.listaDom(),
+                          builder: (context, AsyncSnapshot<dynamic> snapShot){
+                            if(snapShot.hasData){
+                              List<Empresa> vals = snapShot.data;
+                              return new DropdownButton(
+                                items: vals.map((e) => DropdownMenuItem(
+                                  value: e.nombre,
+                                  child: Text(
+                                    e.nombre,
+                                    style: TextStyle(color: Colors.green[300]),
+                                    ),
+                                  )
+                                ).toList(),
+                                value: null,
+                                hint: Text('Seleccione un domiciliario'),
+                                onChanged: (selectedDom){
+                                  setState((){
+                                    nombreEscogido = selectedDom;
+                                    for (var item in vals) {
+                                      if(item.nombre == nombreEscogido)
+                                      {
+                                        item.descripcion = values[index].uid;
+                                        domEscogido = item;
+                                      }
+                                    }
+                                  });
+                                },
+                              );
+                            }
+                            else{
+                              return LinearProgressIndicator();
+                            }
+                          }),
+                          RaisedButton(
+                            child: Text('Asignar'),
+                            onPressed: (){
+                              _pedidosService.asignar(domEscogido);
+                            },
+                          )
                       ],
                     ),
                   );
